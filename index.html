@@ -134,3 +134,80 @@
       .lab-card { flex-direction: column; align-items: flex-start; }
       .start-btn { width: 100%; text-align: center; }
     }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>⚛️ High School Physics — Interactive Virtual Labs</h1>
+      <p>Grades 9 – 12 • Instructor: Assem Alatrash</p>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-grade="ALL">All Grades</button>
+      <button class="filter-btn" data-grade="G9">Grade 9</button>
+      <button class="filter-btn" data-grade="G10">Grade 10</button>
+      <button class="filter-btn" data-grade="G11">Grade 11</button>
+      <button class="filter-btn" data-grade="G12">Grade 12</button>
+    </div>
+
+    <div class="lab-grid" id="labsContainer"></div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // أضف مختبراتك الأسبوعية هنا (سطر واحد لكل مختبر جديد)
+    // =========================================================================
+    const LABS = [
+      {
+        grade: "G9",
+        code: "Q2-G9-L1",
+        title: "Constant Acceleration — Virtual Lab",
+        file: "Q2-G9-L1-Constant_acceleration.html"
+      },
+      // أمثلة جاهزة للإضافة الأسبوعية (أزل علامتي // عند رفع الملف):
+      // { grade: "G10", code: "G10-L1", title: "Rotational Motion Interactive Lab", file: "G10-L1-Rotational_motion.html" },
+      // { grade: "G11", code: "G11-L1", title: "Projectile Motion Lab", file: "G11-L1-Projectile_motion.html" },
+      // { grade: "G12", code: "G12-L1", title: "Electric Fields & Forces Lab", file: "G12-L1-Electric_fields.html" },
+    ];
+
+    let selectedGrade = "ALL";
+    const container = document.getElementById("labsContainer");
+
+    function renderLabs() {
+      const filtered = selectedGrade === "ALL"
+        ? LABS
+        : LABS.filter(lab => lab.grade === selectedGrade);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-msg">No labs published for this grade yet. Check back soon!</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(lab => `
+        <a class="lab-card" href="${lab.file}">
+          <div>
+            <div class="badges">
+              <span class="grade-badge">${lab.grade}</span>
+              <span class="lab-badge">${lab.code}</span>
+            </div>
+            <h2 class="lab-title">${lab.title}</h2>
+          </div>
+          <span class="start-btn">Launch Lab →</span>
+        </a>
+      `).join("");
+    }
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        selectedGrade = btn.dataset.grade;
+        renderLabs();
+      });
+    });
+
+    renderLabs();
+  </script>
+</body>
+</html>

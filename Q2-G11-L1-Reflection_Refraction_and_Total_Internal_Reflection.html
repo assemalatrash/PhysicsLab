@@ -1743,6 +1743,9 @@
 
         <div class="action-row no-print" style="justify-content: space-between;">
           <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+            <button id="submit-teacher-btn" class="btn btn-amber" type="button" onclick="submitToTeacher()">
+              🚀 Submit Score to Teacher
+            </button>
             <button class="btn btn-cyan" onclick="copyReportForTeacher()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <rect x="9" y="9" width="13" height="13" rx="2"/>
@@ -2436,6 +2439,13 @@
       return { m1, m2, m3, m4, m5, total };
     }
 
+    function getMasteryLabel(total) {
+      if (total >= 90) return 'Master of Optics';
+      if (total >= 75) return 'Optics Engineer';
+      if (total >= 50) return 'Optics Specialist';
+      return 'Optics Apprentice';
+    }
+
     // Awards points and triggers either Grand Fanfare (if completing a 20/20 mission or 100/100) or Success chime
     function awardScoreWithSFX(scoreKey, pts, missionKey) {
       const before = getMissionTotals();
@@ -2493,10 +2503,7 @@
       document.getElementById('rep-date').textContent = today;
       document.getElementById('rep-total-score').textContent = `${t.total} / 100`;
 
-      let badge = 'Optics Apprentice';
-      if (t.total >= 90) badge = 'Master of Optics';
-      else if (t.total >= 75) badge = 'Optics Engineer';
-      else if (t.total >= 50) badge = 'Optics Specialist';
+      const badge = getMasteryLabel(t.total);
       document.getElementById('report-mastery-badge').textContent = `★ ${badge}`;
 
       // Deterministic lightweight verification code
@@ -4061,6 +4068,54 @@
     }
 
     /* ========================================================================
+       DIRECT GOOGLE SHEETS SCORE SUBMISSION
+       ======================================================================== */
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsoVYIuvk6RL_JiLCTtqGWcDfWH46uDeqRSnOPe7trrM3nOHhDfiwPH4i7XQReNAgUiA/exec";
+
+    async function submitToTeacher() {
+      const name = (state.studentName || '').trim();
+      if (!name || name.toLowerCase() === 'student') {
+        OpticsSFX.playError();
+        showToast('Please enter your full name in the top bar first!');
+        document.getElementById('header-student-name').focus();
+        return;
+      }
+
+      OpticsSFX.playClick();
+      const btn = document.getElementById('submit-teacher-btn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Sending...';
+
+      const t = getMissionTotals();
+      const breakdown = `M1:${t.m1} | M2:${t.m2} | M3:${t.m3} | M4:${t.m4} | M5:${t.m5}`;
+      const tier = getMasteryLabel(t.total);
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            studentName: name,
+            labCode: 'Q2-G11-L1',
+            totalScore: `${t.total} / 100`,
+            breakdown: breakdown,
+            tier: tier
+          })
+        });
+        OpticsSFX.playGrandFanfare();
+        btn.textContent = '✅ Submitted to Teacher!';
+        btn.className = 'btn btn-emerald';
+        showToast('Score submitted to your teacher!');
+      } catch (err) {
+        OpticsSFX.playError();
+        showToast('Connection error. Check your internet and try again.');
+        btn.disabled = false;
+        btn.textContent = '🚀 Submit Score to Teacher';
+      }
+    }
+
+    /* ========================================================================
        REPORT CARD ACTIONS (COPY TO CLIPBOARD & RESET MODAL)
        ======================================================================== */
     function copyReportForTeacher() {
@@ -4123,6 +4178,12 @@
       document.getElementById('m4a-step2-btn').disabled = true;
       document.querySelectorAll('.feedback-box').forEach(f => f.classList.remove('show'));
       document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('correct', 'wrong', 'selected'));
+      const subBtn = document.getElementById('submit-teacher-btn');
+      if (subBtn) {
+        subBtn.disabled = false;
+        subBtn.className = 'btn btn-amber';
+        subBtn.textContent = '🚀 Submit Score to Teacher';
+      }
       selectM1Sub('A', false);
       selectM2Q(1, false);
       selectM3Sub('A', false);

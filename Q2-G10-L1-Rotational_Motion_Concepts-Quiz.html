@@ -1,0 +1,2883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Rotational Motion Concepts — Grade 10 Physics (Q2-G10-L1)</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-subtle: #f8fafc;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --border: #cbd5e1;
+    --border-light: #e2e8f0;
+    --primary: #1d4ed8;
+    --primary-dark: #1e40af;
+    --primary-tint: #eff6ff;
+    --accent-amber: #d97706;
+    --accent-amber-hover: #b45309;
+    --success: #059669;
+    --success-bg: #ecfdf5;
+    --success-border: #10b981;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --danger-border: #ef4444;
+    --warning-bg: #fffbeb;
+    --warning-border: #f59e0b;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.09);
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  /* ==================== STICKY TOP NAV ==================== */
+  .sticky-bar {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--border-light);
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+    padding: 10px 14px;
+  }
+
+  .sticky-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sticky-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .sticky-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: var(--text);
+    min-width: 0;
+  }
+
+  .quiz-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+
+  .sticky-title-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tracker-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface-subtle);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 5px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .tracker-pill.graded {
+    background: var(--primary-tint);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+  }
+
+  .sticky-row-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .name-input-wrap {
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+
+  .name-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    background: #ffffff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .name-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+  }
+
+  .name-input::placeholder {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .nav-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px 13px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: #ffffff;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover {
+    background: var(--surface-subtle);
+    border-color: #94a3b8;
+  }
+
+  .nav-btn.hints-btn {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #78350f;
+  }
+
+  .nav-btn.hints-btn:hover {
+    background: #fde68a;
+  }
+
+  .nav-btn.sound-off {
+    color: var(--text-muted);
+    background: var(--surface-subtle);
+  }
+
+  /* ==================== MAIN CONTAINER & HERO ==================== */
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 20px 14px 60px;
+  }
+
+  .hero-card {
+    background: #ffffff;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 22px 18px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border-light);
+    background: var(--surface-subtle);
+    color: var(--text-muted);
+  }
+
+  .meta-badge.code {
+    background: var(--primary-tint);
+    border-color: #bfdbfe;
+    color: var(--primary-dark);
+  }
+
+  .hero-title {
+    margin: 0 0 8px;
+    font-size: clamp(1.45rem, 4.5vw, 2.05rem);
+    line-height: 1.25;
+    font-weight: 900;
+    color: var(--text);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-title .quiz-prefix {
+    background: var(--primary);
+    color: #ffffff;
+    padding: 3px 12px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-subtitle {
+    margin: 0 0 14px;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+  }
+
+  .hero-rules {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1.5px solid var(--border-light);
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  @media (min-width: 640px) {
+    .hero-rules {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .rule-chip {
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+
+  .rule-chip span {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ==================== SECTION HEADERS ==================== */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 30px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2.5px solid var(--text);
+  }
+
+  .section-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .section-pts {
+    font-size: 0.85rem;
+    font-weight: 800;
+    background: var(--text);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  /* ==================== MATH TYPOGRAPHY ==================== */
+  .math {
+    font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+    font-size: 1.08em;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .math-eq {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .frac-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px 2px;
+    border-bottom: 2px solid var(--text);
+    min-width: 1.4em;
+  }
+
+  .frac-den {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 5px 0;
+    min-width: 1.4em;
+  }
+
+  .unit {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.92em;
+    font-weight: 700;
+    color: #334155;
+  }
+
+  /* ==================== QUESTION CARDS ==================== */
+  .q-card {
+    background: #ffffff;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .q-card.missing-alert {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.14);
+  }
+
+  .q-card.graded-correct {
+    border-color: var(--success-border);
+  }
+
+  .q-card.graded-wrong {
+    border-color: var(--danger-border);
+  }
+
+  .q-card.graded-partial {
+    border-color: var(--warning-border);
+  }
+
+  .q-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .q-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 0.88rem;
+    color: var(--primary-dark);
+    background: var(--primary-tint);
+    border: 1px solid #bfdbfe;
+    padding: 4px 11px;
+    border-radius: 999px;
+  }
+
+  .q-status-badge {
+    display: none;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .q-status-badge.show {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .q-status-badge.correct {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+  }
+
+  .q-status-badge.wrong {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+  }
+
+  .q-status-badge.partial {
+    background: var(--warning-bg);
+    color: #b45309;
+    border: 1px solid var(--warning-border);
+  }
+
+  .q-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+
+  /* ==================== SVG DIAGRAMS ==================== */
+  .diagram-box {
+    background: #ffffff;
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    margin: 0 0 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .diagram-box svg {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    display: block;
+  }
+
+  /* ==================== MCQ OPTIONS ==================== */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  @media (min-width: 600px) {
+    .options-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .opt-btn {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px 14px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.16s ease;
+  }
+
+  .opt-btn:hover:not(:disabled) {
+    border-color: #64748b;
+    background: var(--surface-subtle);
+  }
+
+  .opt-letter {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--surface-subtle);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .opt-btn.selected {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.15);
+  }
+
+  .opt-btn.selected .opt-letter {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+  }
+
+  .opt-btn:disabled {
+    cursor: default;
+  }
+
+  .opt-btn.correct-reveal {
+    border-color: var(--success-border) !important;
+    background: var(--success-bg) !important;
+    color: #064e3b !important;
+  }
+
+  .opt-btn.correct-reveal .opt-letter {
+    background: var(--success) !important;
+    border-color: var(--success) !important;
+    color: #ffffff !important;
+  }
+
+  .opt-btn.wrong-reveal {
+    border-color: var(--danger-border) !important;
+    background: var(--danger-bg) !important;
+    color: #7f1d1d !important;
+  }
+
+  .opt-btn.wrong-reveal .opt-letter {
+    background: var(--danger) !important;
+    border-color: var(--danger) !important;
+    color: #ffffff !important;
+  }
+
+  .explanation-box {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.94rem;
+    line-height: 1.5;
+    border-left: 4px solid var(--primary);
+    background: var(--surface-subtle);
+    color: var(--text);
+  }
+
+  .explanation-box.show {
+    display: block;
+  }
+
+  .explanation-box.exp-correct {
+    border-left-color: var(--success);
+    background: var(--success-bg);
+  }
+
+  .explanation-box.exp-wrong {
+    border-left-color: var(--danger);
+    background: var(--danger-bg);
+  }
+
+  /* ==================== PART 2: 3-LINE MATH RULE ==================== */
+  .three-line-box {
+    background: var(--surface-subtle);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 14px 12px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .math-line {
+    background: #ffffff;
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .line-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .line-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* Drop / Tap Slot for Symbolic Blanks */
+  .sym-slot {
+    min-width: 72px;
+    min-height: 44px;
+    padding: 4px 12px;
+    border: 2px dashed var(--primary);
+    border-radius: 10px;
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+    font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.16s ease;
+    user-select: none;
+  }
+
+  .sym-slot.active-slot {
+    border-style: solid;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.25);
+    transform: scale(1.03);
+  }
+
+  .sym-slot.filled {
+    border-style: solid;
+    background: #dbeafe;
+    color: #1e3a8a;
+  }
+
+  .sym-slot.drag-over {
+    background: #bfdbfe;
+    transform: scale(1.05);
+  }
+
+  .sym-slot.slot-correct {
+    border-color: var(--success-border) !important;
+    background: var(--success-bg) !important;
+    color: #065f46 !important;
+  }
+
+  .sym-slot.slot-wrong {
+    border-color: var(--danger-border) !important;
+    background: var(--danger-bg) !important;
+    color: #991b1b !important;
+  }
+
+  .sym-slot.locked {
+    cursor: default;
+  }
+
+  /* Numeric Stepper Control */
+  .num-stepper {
+    display: inline-flex;
+    align-items: stretch;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff;
+    vertical-align: middle;
+  }
+
+  .num-stepper:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+  }
+
+  .num-stepper.stepper-correct {
+    border-color: var(--success-border) !important;
+    background: var(--success-bg) !important;
+  }
+
+  .num-stepper.stepper-wrong {
+    border-color: var(--danger-border) !important;
+    background: var(--danger-bg) !important;
+  }
+
+  .step-btn {
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background: var(--surface-subtle);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 900;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .step-btn:hover:not(:disabled) {
+    background: #e2e8f0;
+  }
+
+  .step-btn:active:not(:disabled) {
+    background: #cbd5e1;
+  }
+
+  .step-btn:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .num-input {
+    width: 72px;
+    min-height: 44px;
+    border: none;
+    border-left: 1.5px solid var(--border-light);
+    border-right: 1.5px solid var(--border-light);
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    background: transparent;
+    -moz-appearance: textfield;
+  }
+
+  .num-input::-webkit-outer-spin-button,
+  .num-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .num-input:focus {
+    outline: none;
+  }
+
+  /* Tile Bank */
+  .tile-bank-wrap {
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    background: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  .tile-bank-title {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tile-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tile-btn {
+    min-width: 54px;
+    min-height: 44px;
+    padding: 6px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--text);
+    font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    cursor: grab;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+
+  .tile-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .tile-btn.used {
+    opacity: 0.35;
+    border-style: dashed;
+    background: var(--surface-subtle);
+  }
+
+  .tile-btn:disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  .prob-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .reset-prob-btn {
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .reset-prob-btn:hover:not(:disabled) {
+    background: var(--surface-subtle);
+    color: var(--text);
+    border-color: #94a3b8;
+  }
+
+  .reset-prob-btn:disabled {
+    display: none;
+  }
+
+  .blank-feedback {
+    display: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    margin-top: 4px;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  .blank-feedback.show {
+    display: inline-block;
+  }
+
+  .blank-feedback.fb-ok {
+    background: var(--success-bg);
+    color: var(--success);
+  }
+
+  .blank-feedback.fb-err {
+    background: var(--danger-bg);
+    color: var(--danger);
+  }
+
+  /* ==================== MASTER FINISH BUTTON ==================== */
+  .finish-section {
+    margin: 32px 0 24px;
+    text-align: center;
+  }
+
+  .missing-banner {
+    display: none;
+    background: var(--danger-bg);
+    border: 2px solid var(--danger-border);
+    color: #991b1b;
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 0.96rem;
+    text-align: left;
+  }
+
+  .missing-banner.show {
+    display: block;
+  }
+
+  .finish-btn {
+    width: 100%;
+    max-width: 480px;
+    min-height: 58px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.28);
+    transition: all 0.2s ease;
+  }
+
+  .finish-btn:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .finish-btn:disabled {
+    background: #94a3b8;
+    box-shadow: none;
+    cursor: default;
+  }
+
+  /* ==================== FINAL LAB REPORT / CERTIFICATE ==================== */
+  .report-card {
+    display: none;
+    background: #ffffff;
+    border: 3px solid var(--primary);
+    border-radius: 18px;
+    padding: 24px 18px;
+    margin-top: 28px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .report-card.show {
+    display: block;
+  }
+
+  .report-header {
+    text-align: center;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--border-light);
+    margin-bottom: 18px;
+  }
+
+  .report-kicker {
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+
+  .report-title {
+    margin: 0 0 6px;
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .report-meta {
+    font-size: 0.94rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .score-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 22px;
+  }
+
+  .score-big {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary-dark);
+    line-height: 1;
+  }
+
+  .tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    color: #78350f;
+  }
+
+  .breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .bd-item {
+    background: var(--surface-subtle);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .bd-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .bd-val {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .report-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  @media (min-width: 600px) {
+    .report-actions {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .action-btn {
+    min-height: 52px;
+    padding: 12px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.18s ease;
+    border: 2px solid transparent;
+  }
+
+  .btn-submit-teacher {
+    background: var(--accent-amber);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.28);
+  }
+
+  .btn-submit-teacher:hover:not(:disabled) {
+    background: var(--accent-amber-hover);
+  }
+
+  .btn-submit-teacher.submitted {
+    background: var(--success) !important;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+  }
+
+  .btn-share-parent {
+    background: var(--primary);
+    color: #ffffff;
+  }
+
+  .btn-share-parent:hover {
+    background: var(--primary-dark);
+  }
+
+  .btn-print {
+    background: #ffffff;
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .btn-print:hover {
+    background: var(--surface-subtle);
+  }
+
+  .btn-retake {
+    background: #ffffff;
+    color: var(--danger);
+    border-color: #fca5a5;
+  }
+
+  .btn-retake:hover {
+    background: var(--danger-bg);
+  }
+
+  /* ==================== MODALS ==================== */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(3px);
+    padding: 14px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-backdrop.open {
+    display: flex;
+  }
+
+  .modal-box {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+    overflow: hidden;
+  }
+
+  .modal-header {
+    padding: 16px 18px;
+    border-bottom: 1.5px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #ffffff;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.18rem;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .modal-close {
+    min-width: 44px;
+    min-height: 44px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .modal-body {
+    padding: 18px;
+    overflow-y: auto;
+    font-size: 0.96rem;
+    color: var(--text);
+  }
+
+  .hint-block {
+    background: var(--surface-subtle);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+
+  .hint-block h4 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+  }
+
+  .hint-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    margin-top: 6px;
+  }
+
+  .hint-table th,
+  .hint-table td {
+    border: 1px solid var(--border);
+    padding: 8px;
+    text-align: left;
+    background: #ffffff;
+  }
+
+  .hint-table th {
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+    font-weight: 800;
+  }
+
+  .formula-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .formula-list li {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Share Modal */
+  .cert-preview-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .share-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  @media (min-width: 520px) {
+    .share-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .share-btn {
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: #ffffff;
+    color: var(--text);
+    font-weight: 800;
+    font-size: 0.94rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.16s;
+  }
+
+  .share-btn.primary {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+  }
+
+  .share-btn.whatsapp {
+    background: #16a34a;
+    color: #ffffff;
+    border-color: #16a34a;
+  }
+
+  .share-btn.email {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #0284c7;
+  }
+
+  .share-btn:hover {
+    filter: brightness(0.95);
+  }
+
+  .footer-credit {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--border-light);
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  /* ==================== PRINT STYLESHEET ==================== */
+  @media print {
+    .sticky-bar,
+    .nav-btn,
+    .tile-bank-wrap,
+    .prob-actions,
+    .finish-section,
+    .report-actions,
+    .modal-backdrop {
+      display: none !important;
+    }
+    body {
+      background: #ffffff !important;
+      color: #000000 !important;
+      font-size: 11pt;
+    }
+    .container {
+      max-width: 100%;
+      padding: 0;
+    }
+    .q-card,
+    .hero-card,
+    .report-card {
+      box-shadow: none !important;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      border-color: #94a3b8 !important;
+    }
+    .step-btn {
+      display: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== STICKY TOP BAR ==================== -->
+<header class="sticky-bar" aria-label="Quiz Navigation Bar">
+  <div class="sticky-inner">
+    <div class="sticky-row-top">
+      <div class="sticky-brand">
+        <span class="quiz-badge">Quiz</span>
+        <span class="sticky-title-text">Rotational Motion Concepts</span>
+      </div>
+      <div id="trackerPill" class="tracker-pill" aria-live="polite">Answered: 0 / 14</div>
+    </div>
+    <div class="sticky-row-controls">
+      <div class="name-input-wrap">
+        <input id="studentNameInput" class="name-input" type="text" placeholder="Enter Student Full Name..." autocomplete="name" aria-label="Student Full Name">
+      </div>
+      <button id="hintsBtn" class="nav-btn hints-btn" type="button">💡 Lesson Hints &amp; Formulas</button>
+      <button id="soundToggleBtn" class="nav-btn" type="button" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">🔊 Sound On</button>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<main class="container">
+  <!-- Hero Header -->
+  <section class="hero-card">
+    <div class="hero-badges">
+      <span class="meta-badge code">Lab Code: Q2-G10-L1</span>
+      <span class="meta-badge">Grade 10 Physics</span>
+      <span class="meta-badge">Teacher Assem Alatrash</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="quiz-prefix">Quiz:</span>
+      <span>Rotational Motion Concepts</span>
+    </h1>
+    <p class="hero-subtitle">Angular Displacement (<span class="math">&theta;</span>), Angular Velocity (<span class="math">&omega;</span>), Tangential Speed (<span class="math">v</span>), and Angular Acceleration (<span class="math">&alpha;</span>)</p>
+    <div class="hero-rules">
+      <div class="rule-chip">📝 14 Total Questions<span>10 MCQs (60 pts) + 4 Math Problems (40 pts)</span></div>
+      <div class="rule-chip">🔒 Deferred Grading<span>Edit freely; answers check all at once at the end</span></div>
+      <div class="rule-chip">💡 Need a Reminder?<span>Use Lesson Hints &amp; Formulas anytime in the top bar</span></div>
+    </div>
+  </section>
+
+  <!-- PART 1: MULTIPLE CHOICE -->
+  <div class="section-header">
+    <h2>Part 1: Multiple Choice Questions</h2>
+    <span class="section-pts">60 Points (6 pts each)</span>
+  </div>
+  <div id="mcqContainer"></div>
+
+  <!-- PART 2: 3-LINE MATH RULE PROBLEMS -->
+  <div class="section-header">
+    <h2>Part 2: 3-Line Math Rule Challenges</h2>
+    <span class="section-pts">40 Points (10 pts each)</span>
+  </div>
+  <div id="problemsContainer"></div>
+
+  <!-- MASTER FINISH BUTTON -->
+  <section class="finish-section">
+    <div id="missingBanner" class="missing-banner" role="alert"></div>
+    <button id="finishBtn" class="finish-btn" type="button">✅ Finish &amp; Check All Answers</button>
+  </section>
+
+  <!-- FINAL LAB REPORT / CERTIFICATE -->
+  <section id="reportCard" class="report-card" aria-live="polite">
+    <div class="report-header">
+      <div class="report-kicker">Official Physics Lab Report &amp; Certificate</div>
+      <h2 class="report-title">Quiz: Rotational Motion Concepts</h2>
+      <div id="reportStudentMeta" class="report-meta">Student: — • Grade 10 Physics • Lab Code: Q2-G10-L1 • Teacher Assem Alatrash</div>
+    </div>
+    <div class="score-hero">
+      <div id="reportScoreBig" class="score-big">0 / 100</div>
+      <div id="reportTierBadge" class="tier-badge">🏅 Rank</div>
+    </div>
+    <div id="breakdownGrid" class="breakdown-grid"></div>
+    <div class="report-actions">
+      <button id="submitTeacherBtn" class="action-btn btn-submit-teacher" type="button">🚀 Submit Score to Teacher</button>
+      <button id="shareParentBtn" class="action-btn btn-share-parent" type="button">📤 Share Result with Parent</button>
+      <button id="printBtn" class="action-btn btn-print" type="button">🖨️ Print / Save PDF</button>
+      <button id="retakeBtn" class="action-btn btn-retake" type="button">🔄 Retake Full Quiz</button>
+    </div>
+  </section>
+
+  <footer class="footer-credit">
+    Grade 10 Physics • Lab Code: Q2-G10-L1 • Prepared by Teacher Assem Alatrash
+  </footer>
+</main>
+
+<!-- ==================== LESSON HINTS & FORMULAS MODAL ==================== -->
+<div id="hintsModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="hintsModalTitle">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="hintsModalTitle">💡 Lesson Hints &amp; Formulas</h3>
+      <button class="modal-close" type="button" data-close-modal="hintsModal" aria-label="Close Hints">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="hint-block">
+        <h4>1. Linear vs. Rotational Motion Twins</h4>
+        <table class="hint-table">
+          <thead>
+            <tr>
+              <th>Linear Motion</th>
+              <th>Rotational Twin</th>
+              <th>SI Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Displacement (<span class="math">d</span>)</td>
+              <td>Angular Displacement (<span class="math">&theta;</span>)</td>
+              <td><span class="unit">rad</span></td>
+            </tr>
+            <tr>
+              <td>Velocity (<span class="math">v</span>)</td>
+              <td>Angular Velocity (<span class="math">&omega;</span>)</td>
+              <td><span class="unit">rad/s</span></td>
+            </tr>
+            <tr>
+              <td>Acceleration (<span class="math">a</span>)</td>
+              <td>Angular Acceleration (<span class="math">&alpha;</span>)</td>
+              <td><span class="unit">rad/s<sup>2</sup></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="hint-block">
+        <h4>2. Core Rotational Formulas</h4>
+        <ul class="formula-list">
+          <li>
+            <strong>Arc Length:</strong>
+            <span class="math-eq">s = r &middot; &theta;</span>
+          </li>
+          <li>
+            <strong>Average Angular Velocity:</strong>
+            <span class="math-eq">&omega; = <span class="frac"><span class="frac-num">&theta;</span><span class="frac-den">t</span></span></span>
+          </li>
+          <li>
+            <strong>Linear (Tangential) Speed:</strong>
+            <span class="math-eq">v = r &middot; &omega;</span>
+          </li>
+          <li>
+            <strong>Angular Acceleration:</strong>
+            <span class="math-eq">&alpha; = <span class="frac"><span class="frac-num">&omega;<sub>f</sub> &minus; &omega;<sub>i</sub></span><span class="frac-den">t</span></span></span>
+          </li>
+          <li>
+            <strong>Final Angular Velocity:</strong>
+            <span class="math-eq">&omega;<sub>f</sub> = &omega;<sub>i</sub> + &alpha; &middot; t</span>
+          </li>
+          <li>
+            <strong>Angular Displacement from Rest (<span class="math">&omega;<sub>i</sub> = 0</span>):</strong>
+            <span class="math-eq">&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; &alpha; &middot; t<sup>2</sup></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hint-block">
+        <h4>3. Key Concepts &amp; Golden Rules</h4>
+        <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px;">
+          <li><strong>Golden Rule:</strong> Every point on a rigid spinning wheel or carousel has the <strong>exact same angular velocity (<span class="math">&omega;</span>)</strong>.</li>
+          <li><strong>Radius Effect:</strong> Points farther from the center travel a bigger circle in the same time, so linear speed increases proportionally with radius (<span class="math">v = r &middot; &omega;</span>).</li>
+          <li><strong>Steady Spin:</strong> If an object spins at a steady, unchanging angular velocity, its angular acceleration is <span class="math">&alpha; = 0</span> <span class="unit">(rad/s<sup>2</sup>)</span>.</li>
+          <li><strong>Slowing Down:</strong> When a spinning wheel slows down (<span class="math">&omega;<sub>f</sub> &lt; &omega;<sub>i</sub></span>), its angular acceleration (<span class="math">&alpha;</span>) is <strong>negative</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="hint-block">
+        <h4>4. The 3-Line Math Rule Example</h4>
+        <p style="margin:0 0 8px;">Finding <span class="math">&theta;</span> from rest when <span class="math">&alpha; = 4 rad/s<sup>2</sup></span> and <span class="math">t = 3 s</span>:</p>
+        <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:10px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div><strong>Line 1 (Formula):</strong> <span class="math-eq">&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; &alpha; &middot; t<sup>2</sup></span></div>
+          <div><strong>Line 2 (Substitution):</strong> <span class="math-eq">&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; 4 &middot; 3<sup>2</sup></span></div>
+          <div><strong>Line 3 (Answer):</strong> <span class="math-eq">&theta; = 18 <span class="unit">(rad)</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SHARE WITH PARENT MODAL ==================== -->
+<div id="shareModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="shareModalTitle">📤 Share Official Certificate with Parent</h3>
+      <button class="modal-close" type="button" data-close-modal="shareModal" aria-label="Close Share Modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <img id="certPreviewImg" class="cert-preview-img" alt="Official Physics Quiz Certificate Preview">
+      <div class="share-grid">
+        <button id="nativeShareBtn" class="share-btn primary" type="button" style="display:none;">📱 Share Certificate &amp; Summary</button>
+        <a id="whatsappShareLink" class="share-btn whatsapp" href="#" target="_blank" rel="noopener noreferrer">💬 Send via WhatsApp</a>
+        <a id="emailShareLink" class="share-btn email" href="#">✉️ Send via Email</a>
+        <button id="downloadCertBtn" class="share-btn" type="button">⬇️ Download Certificate (PNG)</button>
+        <button id="copySummaryBtn" class="share-btn" type="button">📋 Copy Result Summary</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="certCanvas" width="1200" height="675" style="display:none;"></canvas>
+
+<script>
+(() => {
+  /* ==================== CONFIG & METADATA ==================== */
+  const LAB_CODE = "Q2-G10-L1";
+  const QUIZ_TITLE = "Quiz: Rotational Motion Concepts";
+  const TEACHER_NAME = "Teacher Assem Alatrash";
+  const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbwsoVYIuvk6RL_JiLCTtqGWcDfWH46uDeqRSnOPe7trrM3nOHhDfiwPH4i7XQReNAgUiA/exec";
+
+  /* ==================== WEB AUDIO SYNTHESIZER ==================== */
+  let soundEnabled = true;
+  let audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) audioCtx = new AudioContextClass();
+    }
+    if (audioCtx && audioCtx.state === "suspended") {
+      audioCtx.resume().catch(() => {});
+    }
+    return audioCtx;
+  }
+
+  function playTone(freq, duration, type = "sine", vol = 0.08, delay = 0) {
+    if (!soundEnabled) return;
+    const ctx = getAudioCtx();
+    if (!ctx) return;
+    const now = ctx.currentTime + delay;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, now);
+    gain.gain.setValueAtTime(vol, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + duration);
+  }
+
+  const sfx = {
+    tap: () => playTone(520, 0.06, "sine", 0.05),
+    place: () => { playTone(440, 0.06, "triangle", 0.06); playTone(620, 0.08, "triangle", 0.06, 0.05); },
+    remove: () => playTone(320, 0.07, "sine", 0.05),
+    error: () => { playTone(210, 0.14, "sawtooth", 0.07); playTone(170, 0.18, "sawtooth", 0.07, 0.12); },
+    fanfare: () => {
+      playTone(523.25, 0.14, "triangle", 0.09, 0);
+      playTone(659.25, 0.14, "triangle", 0.09, 0.11);
+      playTone(783.99, 0.16, "triangle", 0.09, 0.22);
+      playTone(1046.5, 0.36, "triangle", 0.11, 0.34);
+    }
+  };
+
+  /* ==================== INLINE SVG DIAGRAMS ==================== */
+  const SVGS = {
+    mcq1: `<svg viewBox="0 0 360 120" aria-label="Linear vs Rotational Motion Twins">
+      <rect x="10" y="16" width="140" height="88" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="80" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Linear Motion</text>
+      <line x1="35" y1="68" x2="118" y2="68" stroke="#1d4ed8" stroke-width="3"/>
+      <polygon points="125,68 113,61 113,75" fill="#1d4ed8"/>
+      <text x="80" y="92" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">v (m/s)</text>
+      <text x="180" y="66" text-anchor="middle" font-size="22" font-weight="900" fill="#1d4ed8">↔</text>
+      <rect x="210" y="16" width="140" height="88" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+      <text x="280" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#1e40af">Rotational Twin</text>
+      <circle cx="280" cy="68" r="20" fill="none" stroke="#1d4ed8" stroke-width="2.5" stroke-dasharray="95 30"/>
+      <polygon points="299,59 293,48 304,50" fill="#1d4ed8"/>
+      <text x="280" y="74" text-anchor="middle" font-size="17" font-weight="900" fill="#0f172a">?</text>
+    </svg>`,
+
+    mcq2: `<svg viewBox="0 0 360 120" aria-label="Linear vs Rotational Acceleration">
+      <rect x="10" y="16" width="140" height="88" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="80" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Linear Speed-Up</text>
+      <line x1="35" y1="66" x2="80" y2="66" stroke="#0f172a" stroke-width="2.5"/>
+      <line x1="80" y1="66" x2="122" y2="66" stroke="#d97706" stroke-width="4"/>
+      <polygon points="128,66 116,59 116,73" fill="#d97706"/>
+      <text x="80" y="92" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">a (m/s²)</text>
+      <text x="180" y="66" text-anchor="middle" font-size="22" font-weight="900" fill="#d97706">↔</text>
+      <rect x="210" y="16" width="140" height="88" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="2"/>
+      <text x="280" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">Rotational Twin</text>
+      <circle cx="280" cy="68" r="20" fill="none" stroke="#d97706" stroke-width="3" stroke-dasharray="88 38"/>
+      <polygon points="299,59 293,48 304,50" fill="#d97706"/>
+      <text x="280" y="74" text-anchor="middle" font-size="17" font-weight="900" fill="#0f172a">?</text>
+    </svg>`,
+
+    mcq3: `<svg viewBox="0 0 340 140" aria-label="Wheel Arc Length Diagram">
+      <circle cx="115" cy="72" r="52" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M 167 72 A 52 52 0 0 0 130 22" fill="none" stroke="#1d4ed8" stroke-width="4.5"/>
+      <line x1="115" y1="72" x2="167" y2="72" stroke="#0f172a" stroke-width="2"/>
+      <line x1="115" y1="72" x2="130" y2="22" stroke="#0f172a" stroke-width="2" stroke-dasharray="4 3"/>
+      <circle cx="115" cy="72" r="4" fill="#0f172a"/>
+      <text x="140" y="88" font-size="13" font-weight="800" fill="#0f172a">r = 2 m</text>
+      <text x="132" y="55" font-size="12" font-weight="800" fill="#1d4ed8">θ = 5 rad</text>
+      <rect x="200" y="30" width="128" height="82" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="264" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">Arc Length (s)</text>
+      <text x="264" y="80" text-anchor="middle" font-size="16" font-weight="900" fill="#0f172a">s = r · θ</text>
+      <text x="264" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">s = ? m</text>
+    </svg>`,
+
+    mcq4: `<svg viewBox="0 0 340 135" aria-label="Steady Ferris Wheel">
+      <circle cx="105" cy="68" r="48" fill="#f8fafc" stroke="#334155" stroke-width="2.5"/>
+      <line x1="105" y1="20" x2="105" y2="116" stroke="#cbd5e1" stroke-width="1.5"/>
+      <line x1="57" y1="68" x2="153" y2="68" stroke="#cbd5e1" stroke-width="1.5"/>
+      <circle cx="105" cy="20" r="6" fill="#1d4ed8"/>
+      <circle cx="153" cy="68" r="6" fill="#1d4ed8"/>
+      <circle cx="105" cy="116" r="6" fill="#1d4ed8"/>
+      <circle cx="57" cy="68" r="6" fill="#1d4ed8"/>
+      <circle cx="105" cy="68" r="5" fill="#0f172a"/>
+      <rect x="180" y="24" width="146" height="88" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="253" y="48" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">Steady Spin</text>
+      <text x="253" y="72" text-anchor="middle" font-size="14" font-weight="700" fill="#1d4ed8">ω = 2 rad/s (constant)</text>
+      <text x="253" y="96" text-anchor="middle" font-size="13" font-weight="800" fill="#475569">α = ? rad/s²</text>
+    </svg>`,
+
+    mcq5: `<svg viewBox="0 0 360 135" aria-label="Carousel Inner vs Outer Seat">
+      <circle cx="120" cy="68" r="54" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+      <circle cx="120" cy="68" r="18" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <line x1="120" y1="68" x2="174" y2="68" stroke="#0f172a" stroke-width="2"/>
+      <circle cx="120" cy="68" r="4" fill="#0f172a"/>
+      <circle cx="138" cy="68" r="6" fill="#0284c7"/>
+      <circle cx="174" cy="68" r="7" fill="#d97706"/>
+      <text x="138" y="54" text-anchor="middle" font-size="11" font-weight="800" fill="#0284c7">r</text>
+      <text x="174" y="54" text-anchor="middle" font-size="11" font-weight="800" fill="#b45309">3r</text>
+      <rect x="200" y="24" width="148" height="88" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="274" y="48" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">Same Rigid Carousel</text>
+      <text x="274" y="72" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">v = r · ω</text>
+      <text x="274" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Radius tripled (3r)</text>
+    </svg>`,
+
+    mcq6: `<svg viewBox="0 0 340 130" aria-label="Rotating Gear">
+      <circle cx="100" cy="65" r="42" fill="#f8fafc" stroke="#334155" stroke-width="3" stroke-dasharray="10 6"/>
+      <circle cx="100" cy="65" r="28" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+      <circle cx="100" cy="65" r="6" fill="#0f172a"/>
+      <path d="M 100 37 A 28 28 0 0 1 128 65" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+      <polygon points="128,68 122,57 133,58" fill="#1d4ed8"/>
+      <rect x="172" y="22" width="152" height="86" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="248" y="46" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">θ = 45 rad</text>
+      <text x="248" y="68" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">t = 9 s</text>
+      <text x="248" y="92" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">Find ω (rad/s)</text>
+    </svg>`,
+
+    mcq7: `<svg viewBox="0 0 340 130" aria-label="Spinning Blade Tangential Speed">
+      <circle cx="100" cy="65" r="46" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5 4"/>
+      <line x1="100" y1="65" x2="146" y2="65" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="100" cy="65" r="5" fill="#0f172a"/>
+      <circle cx="146" cy="65" r="5" fill="#d97706"/>
+      <line x1="146" y1="65" x2="146" y2="26" stroke="#d97706" stroke-width="3"/>
+      <polygon points="146,19 140,30 152,30" fill="#d97706"/>
+      <text x="157" y="42" font-size="13" font-weight="800" fill="#b45309">v = ?</text>
+      <text x="122" y="82" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">r = 2 m</text>
+      <rect x="192" y="24" width="136" height="82" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="260" y="50" text-anchor="middle" font-size="13" font-weight="800" fill="#1e40af">ω = 10 rad/s</text>
+      <text x="260" y="72" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">r = 2 m</text>
+      <text x="260" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Find v (m/s)</text>
+    </svg>`,
+
+    mcq8: `<svg viewBox="0 0 360 125" aria-label="Wheel Slowing to a Stop">
+      <rect x="12" y="18" width="110" height="88" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="67" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">Start (t = 0)</text>
+      <text x="67" y="72" text-anchor="middle" font-size="14" font-weight="900" fill="#0f172a">ωᵢ = 15 rad/s</text>
+      <text x="67" y="94" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">Spinning fast</text>
+      <line x1="130" y1="62" x2="218" y2="62" stroke="#dc2626" stroke-width="3"/>
+      <polygon points="226,62 214,55 214,69" fill="#dc2626"/>
+      <text x="176" y="50" text-anchor="middle" font-size="12" font-weight="800" fill="#dc2626">t = 5 s</text>
+      <text x="176" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">Slows down</text>
+      <rect x="234" y="18" width="114" height="88" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="291" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#991b1b">Stop</text>
+      <text x="291" y="72" text-anchor="middle" font-size="14" font-weight="900" fill="#0f172a">ωf = 0 rad/s</text>
+      <text x="291" y="94" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">Find α (rad/s²)</text>
+    </svg>`,
+
+    mcq9: `<svg viewBox="0 0 360 125" aria-label="Rotor Speeding Up from Rest">
+      <rect x="12" y="18" width="110" height="88" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="67" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#475569">From Rest</text>
+      <text x="67" y="74" text-anchor="middle" font-size="14" font-weight="900" fill="#0f172a">ωᵢ = 0 rad/s</text>
+      <line x1="130" y1="62" x2="218" y2="62" stroke="#059669" stroke-width="3"/>
+      <polygon points="226,62 214,55 214,69" fill="#059669"/>
+      <text x="176" y="48" text-anchor="middle" font-size="12" font-weight="800" fill="#059669">α = 5 rad/s²</text>
+      <text x="176" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">t = 4 s</text>
+      <rect x="234" y="18" width="114" height="88" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+      <text x="291" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#065f46">Final Speed</text>
+      <text x="291" y="74" text-anchor="middle" font-size="15" font-weight="900" fill="#0f172a">ωf = ? rad/s</text>
+    </svg>`,
+
+    mcq10: `<svg viewBox="0 0 360 128" aria-label="Wheel Accelerating Through Angle">
+      <circle cx="95" cy="64" r="44" fill="#f8fafc" stroke="#334155" stroke-width="2.5"/>
+      <path d="M 95 20 A 44 44 0 0 1 139 64" fill="none" stroke="#1d4ed8" stroke-width="4.5"/>
+      <polygon points="139,69 132,57 144,58" fill="#1d4ed8"/>
+      <circle cx="95" cy="64" r="4" fill="#0f172a"/>
+      <text x="95" y="70" dy="16" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">θ = ? rad</text>
+      <rect x="172" y="18" width="174" height="92" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="259" y="42" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">Starts from Rest (ωᵢ = 0)</text>
+      <text x="259" y="66" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">α = 4 rad/s²  |  t = 4 s</text>
+      <text x="259" y="92" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">θ = ½ · α · t²</text>
+    </svg>`,
+
+    p1: `<svg viewBox="0 0 360 135" aria-label="Wind Turbine Blade Rotation">
+      <line x1="100" y1="62" x2="100" y2="128" stroke="#64748b" stroke-width="5"/>
+      <line x1="100" y1="62" x2="100" y2="16" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
+      <line x1="100" y1="62" x2="140" y2="85" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
+      <line x1="100" y1="62" x2="60" y2="85" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="100" cy="62" r="7" fill="#0f172a"/>
+      <path d="M 116 24 A 40 40 0 0 1 138 52" fill="none" stroke="#d97706" stroke-width="2.5"/>
+      <polygon points="140,56 132,48 142,45" fill="#d97706"/>
+      <rect x="180" y="20" width="166" height="94" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="263" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#475569">Wind Turbine Blade</text>
+      <text x="263" y="68" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">θ = 36 rad   |   t = 9 s</text>
+      <text x="263" y="94" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">Find ω (rad/s)</text>
+    </svg>`,
+
+    p2: `<svg viewBox="0 0 360 135" aria-label="Carousel Horse Linear Speed">
+      <circle cx="105" cy="68" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="105" y1="68" x2="155" y2="68" stroke="#0f172a" stroke-width="2.5"/>
+      <circle cx="105" cy="68" r="5" fill="#0f172a"/>
+      <circle cx="155" cy="68" r="7" fill="#d97706"/>
+      <line x1="155" y1="68" x2="155" y2="28" stroke="#d97706" stroke-width="3"/>
+      <polygon points="155,21 149,32 161,32" fill="#d97706"/>
+      <text x="130" y="84" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">r = 4 m</text>
+      <text x="166" y="42" font-size="12" font-weight="800" fill="#b45309">v = ?</text>
+      <rect x="194" y="20" width="154" height="94" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+      <text x="271" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#92400e">Carousel Horse</text>
+      <text x="271" y="68" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">r = 4 m  |  ω = 3 rad/s</text>
+      <text x="271" y="94" text-anchor="middle" font-size="13" font-weight="800" fill="#b45309">Find v (m/s)</text>
+    </svg>`,
+
+    p3: `<svg viewBox="0 0 360 130" aria-label="Grinding Wheel Angular Acceleration">
+      <circle cx="95" cy="65" r="44" fill="#e2e8f0" stroke="#334155" stroke-width="3"/>
+      <circle cx="95" cy="65" r="14" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+      <path d="M 95 28 A 37 37 0 0 1 132 65" fill="none" stroke="#1d4ed8" stroke-width="3.5"/>
+      <polygon points="132,70 125,58 137,59" fill="#1d4ed8"/>
+      <rect x="166" y="16" width="182" height="98" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="257" y="40" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">Grinding Wheel</text>
+      <text x="257" y="62" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">ωᵢ = 0 → ωf = 28 rad/s</text>
+      <text x="257" y="84" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">t = 7 s</text>
+      <text x="257" y="104" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">Find α (rad/s²)</text>
+    </svg>`,
+
+    p4: `<svg viewBox="0 0 360 130" aria-label="Turbine Angular Displacement">
+      <circle cx="95" cy="65" r="44" fill="#f8fafc" stroke="#0f172a" stroke-width="2"/>
+      <line x1="95" y1="21" x2="95" y2="109" stroke="#1d4ed8" stroke-width="3"/>
+      <line x1="51" y1="65" x2="139" y2="65" stroke="#1d4ed8" stroke-width="3"/>
+      <line x1="64" y1="34" x2="126" y2="96" stroke="#93c5fd" stroke-width="2.5"/>
+      <line x1="126" y1="34" x2="64" y2="96" stroke="#93c5fd" stroke-width="2.5"/>
+      <circle cx="95" cy="65" r="8" fill="#0f172a"/>
+      <rect x="166" y="16" width="182" height="98" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+      <text x="257" y="40" text-anchor="middle" font-size="12" font-weight="800" fill="#065f46">Spinning Turbine</text>
+      <text x="257" y="62" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">ωᵢ = 0 rad/s  |  t = 5 s</text>
+      <text x="257" y="84" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">α = 2 rad/s²</text>
+      <text x="257" y="104" text-anchor="middle" font-size="12" font-weight="800" fill="#059669">Find θ (rad)</text>
+    </svg>`
+  };
+
+  /* ==================== PART 1 DATA (10 MCQs — STRICT FIDELITY) ==================== */
+  const MCQS = [
+    {
+      id: "mcq1",
+      num: 1,
+      text: 'Which rotational symbol corresponds to linear velocity (<span class="math">v</span>)?',
+      svg: SVGS.mcq1,
+      options: [
+        { key: "a", html: '<span class="math">&theta;</span>' },
+        { key: "b", html: '<span class="math">&omega;</span>' },
+        { key: "c", html: '<span class="math">&alpha;</span>' },
+        { key: "d", html: '<span class="math">r</span>' }
+      ],
+      answer: "b",
+      explanation: 'Angular velocity (<span class="math">&omega;</span>) is the rotational twin of linear velocity (<span class="math">v</span>), measuring how fast an angle changes over time in <span class="unit">(rad/s)</span>.'
+    },
+    {
+      id: "mcq2",
+      num: 2,
+      text: 'Which rotational symbol corresponds to linear acceleration (<span class="math">a</span>)?',
+      svg: SVGS.mcq2,
+      options: [
+        { key: "a", html: '<span class="math">&theta;</span>' },
+        { key: "b", html: '<span class="math">&omega;</span>' },
+        { key: "c", html: '<span class="math">&alpha;</span>' },
+        { key: "d", html: '<span class="math">s</span>' }
+      ],
+      answer: "c",
+      explanation: 'Angular acceleration (<span class="math">&alpha;</span>) is the rotational twin of linear acceleration (<span class="math">a</span>), representing the rate of change of angular velocity in <span class="unit">(rad/s<sup>2</sup>)</span>.'
+    },
+    {
+      id: "mcq3",
+      num: 3,
+      text: 'A wheel of radius <span class="math">r = 2 m</span> rotates through an angle of <span class="math">&theta; = 5 rad</span>. Using <span class="math">s = r &middot; &theta;</span>, what linear arc length (<span class="math">s</span>) does a point on the rim travel?',
+      svg: SVGS.mcq3,
+      options: [
+        { key: "a", html: '2.5 <span class="unit">(m)</span>' },
+        { key: "b", html: '7 <span class="unit">(m)</span>' },
+        { key: "c", html: '10 <span class="unit">(m)</span>' },
+        { key: "d", html: '20 <span class="unit">(m)</span>' }
+      ],
+      answer: "c",
+      explanation: 'Using <span class="math">s = r &middot; &theta;</span>, we substitute <span class="math">r = 2</span> and <span class="math">&theta; = 5</span> to get <span class="math">s = 2 &middot; 5 = 10</span> <span class="unit">(m)</span>.'
+    },
+    {
+      id: "mcq4",
+      num: 4,
+      text: 'A Ferris wheel spins at a steady, unchanging angular velocity of <span class="math">2 rad/s</span>. What is its angular acceleration (<span class="math">&alpha;</span>)?',
+      svg: SVGS.mcq4,
+      options: [
+        { key: "a", html: '0 <span class="unit">(rad/s<sup>2</sup>)</span>' },
+        { key: "b", html: '2 <span class="unit">(rad/s<sup>2</sup>)</span>' },
+        { key: "c", html: '4 <span class="unit">(rad/s<sup>2</sup>)</span>' },
+        { key: "d", html: '10 <span class="unit">(rad/s<sup>2</sup>)</span>' }
+      ],
+      answer: "a",
+      explanation: 'Because the angular velocity is constant and unchanging (<span class="math">&omega;<sub>f</sub> = &omega;<sub>i</sub></span>), the rate of change of angular velocity is <span class="math">&alpha; = 0</span> <span class="unit">(rad/s<sup>2</sup>)</span>.'
+    },
+    {
+      id: "mcq5",
+      num: 5,
+      text: 'If you move to a seat on a carousel that is 3 times farther from the center (tripling <span class="math">r</span>), what happens to your linear tangential speed (<span class="math">v = r &middot; &omega;</span>)?',
+      svg: SVGS.mcq5,
+      options: [
+        { key: "a", html: 'Your linear speed stays the same' },
+        { key: "b", html: 'Your linear speed becomes 3 times larger' },
+        { key: "c", html: 'Your linear speed is cut to <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>' },
+        { key: "d", html: 'Your linear speed becomes zero' }
+      ],
+      answer: "b",
+      explanation: 'Every seat on the same rigid carousel shares the exact same angular velocity (<span class="math">&omega;</span>). Since <span class="math">v = r &middot; &omega;</span>, tripling <span class="math">r</span> makes your linear speed 3 times larger.'
+    },
+    {
+      id: "mcq6",
+      num: 6,
+      text: 'A gear rotates through <span class="math">45 rad</span> in <span class="math">9 seconds</span>. What is its average angular velocity (<span class="math">&omega;</span>)?',
+      svg: SVGS.mcq6,
+      options: [
+        { key: "a", html: '5 <span class="unit">(rad/s)</span>' },
+        { key: "b", html: '9 <span class="unit">(rad/s)</span>' },
+        { key: "c", html: '36 <span class="unit">(rad/s)</span>' },
+        { key: "d", html: '54 <span class="unit">(rad/s)</span>' }
+      ],
+      answer: "a",
+      explanation: 'Using <span class="math">&omega; = <span class="frac"><span class="frac-num">&theta;</span><span class="frac-den">t</span></span></span>, dividing <span class="math">45 rad</span> by <span class="math">9 s</span> gives <span class="math">&omega; = 5</span> <span class="unit">(rad/s)</span>.'
+    },
+    {
+      id: "mcq7",
+      num: 7,
+      text: 'A spinning blade has an angular velocity of <span class="math">&omega; = 10 rad/s</span>. What is the linear speed (<span class="math">v</span>) of a point located at <span class="math">r = 2 m</span> from the center?',
+      svg: SVGS.mcq7,
+      options: [
+        { key: "a", html: '5 <span class="unit">(m/s)</span>' },
+        { key: "b", html: '12 <span class="unit">(m/s)</span>' },
+        { key: "c", html: '20 <span class="unit">(m/s)</span>' },
+        { key: "d", html: '40 <span class="unit">(m/s)</span>' }
+      ],
+      answer: "c",
+      explanation: 'Applying <span class="math">v = r &middot; &omega;</span> with <span class="math">r = 2 m</span> and <span class="math">&omega; = 10 rad/s</span> gives <span class="math">v = 2 &middot; 10 = 20</span> <span class="unit">(m/s)</span>.'
+    },
+    {
+      id: "mcq8",
+      num: 8,
+      text: 'A wheel spinning at <span class="math">&omega;<sub>i</sub> = 15 rad/s</span> slows down to a complete stop (<span class="math">&omega;<sub>f</sub> = 0 rad/s</span>) in <span class="math">5 seconds</span>. What is its angular acceleration (<span class="math">&alpha;</span>)?',
+      svg: SVGS.mcq8,
+      options: [
+        { key: "a", html: '3 <span class="unit">(rad/s<sup>2</sup>)</span>' },
+        { key: "b", html: '&minus;3 <span class="unit">(rad/s<sup>2</sup>)</span>' },
+        { key: "c", html: '&minus;15 <span class="unit">(rad/s<sup>2</sup>)</span>' },
+        { key: "d", html: '&minus;75 <span class="unit">(rad/s<sup>2</sup>)</span>' }
+      ],
+      answer: "b",
+      explanation: 'Using <span class="math">&alpha; = <span class="frac"><span class="frac-num">&omega;<sub>f</sub> &minus; &omega;<sub>i</sub></span><span class="frac-den">t</span></span> = <span class="frac"><span class="frac-num">0 &minus; 15</span><span class="frac-den">5</span></span> = &minus;3</span> <span class="unit">(rad/s<sup>2</sup>)</span>. The negative sign shows the wheel is decelerating.'
+    },
+    {
+      id: "mcq9",
+      num: 9,
+      text: 'A rotor starts from rest (<span class="math">&omega;<sub>i</sub> = 0 rad/s</span>) and accelerates at <span class="math">&alpha; = 5 rad/s<sup>2</sup></span> for <span class="math">4 seconds</span>. What is its final angular velocity (<span class="math">&omega;<sub>f</sub> = &omega;<sub>i</sub> + &alpha; &middot; t</span>)?',
+      svg: SVGS.mcq9,
+      options: [
+        { key: "a", html: '9 <span class="unit">(rad/s)</span>' },
+        { key: "b", html: '15 <span class="unit">(rad/s)</span>' },
+        { key: "c", html: '20 <span class="unit">(rad/s)</span>' },
+        { key: "d", html: '40 <span class="unit">(rad/s)</span>' }
+      ],
+      answer: "c",
+      explanation: 'Substituting into <span class="math">&omega;<sub>f</sub> = &omega;<sub>i</sub> + &alpha; &middot; t</span> gives <span class="math">&omega;<sub>f</sub> = 0 + 5 &middot; 4 = 20</span> <span class="unit">(rad/s)</span>.'
+    },
+    {
+      id: "mcq10",
+      num: 10,
+      text: 'A wheel starts from rest and accelerates at <span class="math">&alpha; = 4 rad/s<sup>2</sup></span> for <span class="math">4 seconds</span>. Using <span class="math">&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; &alpha; &middot; t<sup>2</sup></span>, what angle (<span class="math">&theta;</span>) does it turn through?',
+      svg: SVGS.mcq10,
+      options: [
+        { key: "a", html: '8 <span class="unit">(rad)</span>' },
+        { key: "b", html: '16 <span class="unit">(rad)</span>' },
+        { key: "c", html: '32 <span class="unit">(rad)</span>' },
+        { key: "d", html: '64 <span class="unit">(rad)</span>' }
+      ],
+      answer: "c",
+      explanation: 'Evaluating <span class="math">&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; 4 &middot; 4<sup>2</sup> = 2 &middot; 16 = 32</span> <span class="unit">(rad)</span>.'
+    }
+  ];
+
+  /* ==================== PART 2 DATA (4 PROBLEMS — STRICT FIDELITY) ==================== */
+  // Scoring per problem: Line 1 = 3 pts, Line 2 = 3 pts, Line 3 = 4 pts (Total = 10 pts)
+  const PROBLEMS = [
+    {
+      id: "p1",
+      num: 1,
+      title: "Problem 1: Wind Turbine Angular Velocity",
+      text: 'A wind turbine blade rotates through an angular displacement (<span class="math">&theta;</span>) of <span class="math">36 rad</span> in <span class="math">9 seconds</span>. Calculate the angular velocity (<span class="math">&omega;</span>) of the blade.',
+      svg: SVGS.p1,
+      symCorrect: "θ",
+      symDisplay: "&theta;",
+      num2Correct: 9,
+      num3Correct: 4,
+      step2: 1,
+      step3: 1,
+      unit: "(rad/s)",
+      tiles: [
+        { val: "θ", html: "&theta;" },
+        { val: "α", html: "&alpha;" },
+        { val: "ω", html: "&omega;" },
+        { val: "r", html: "r" },
+        { val: "v", html: "v" },
+        { val: "s", html: "s" },
+        { val: "t", html: "t" },
+        { val: "θ²", html: "&theta;<sup>2</sup>" },
+        { val: "ωf", html: "&omega;<sub>f</sub>" },
+        { val: "ωi", html: "&omega;<sub>i</sub>" },
+        { val: "r·θ", html: "r &middot; &theta;" },
+        { val: "2·θ", html: "2 &middot; &theta;" },
+        { val: "v·r", html: "v &middot; r" },
+        { val: "a", html: "a" }
+      ],
+      renderLine1: (slotHtml) => `&omega; = <span class="frac"><span class="frac-num">${slotHtml}</span><span class="frac-den">t</span></span>`,
+      renderLine2: (inputHtml) => `&omega; = <span class="frac"><span class="frac-num">36</span><span class="frac-den">${inputHtml}</span></span>`,
+      renderLine3: (inputHtml) => `&omega; = ${inputHtml} <span class="unit">(rad/s)</span>`
+    },
+    {
+      id: "p2",
+      num: 2,
+      title: "Problem 2: Carousel Horse Linear Speed",
+      text: 'A horse on a carousel is located at a radius (<span class="math">r</span>) of <span class="math">4 m</span> from the center while the carousel spins at an angular velocity (<span class="math">&omega;</span>) of <span class="math">3 rad/s</span>. Calculate the horse\'s linear speed (<span class="math">v</span>).',
+      svg: SVGS.p2,
+      symCorrect: "ω",
+      symDisplay: "&omega;",
+      num2Correct: 3,
+      num3Correct: 12,
+      step2: 1,
+      step3: 1,
+      unit: "(m/s)",
+      tiles: [
+        { val: "ω", html: "&omega;" },
+        { val: "θ", html: "&theta;" },
+        { val: "α", html: "&alpha;" },
+        { val: "t", html: "t" },
+        { val: "s", html: "s" },
+        { val: "r", html: "r" },
+        { val: "v", html: "v" },
+        { val: "ω²", html: "&omega;<sup>2</sup>" },
+        { val: "t²", html: "t<sup>2</sup>" },
+        { val: "ω/t", html: "&omega; / t" },
+        { val: "1/ω", html: "1 / &omega;" },
+        { val: "α·t", html: "&alpha; &middot; t" },
+        { val: "ωi", html: "&omega;<sub>i</sub>" },
+        { val: "d", html: "d" }
+      ],
+      renderLine1: (slotHtml) => `v = r &middot; ${slotHtml}`,
+      renderLine2: (inputHtml) => `v = 4 &middot; ${inputHtml}`,
+      renderLine3: (inputHtml) => `v = ${inputHtml} <span class="unit">(m/s)</span>`
+    },
+    {
+      id: "p3",
+      num: 3,
+      title: "Problem 3: Grinding Wheel Angular Acceleration",
+      text: 'A grinding wheel starts from rest (<span class="math">0 rad/s</span>) and reaches a final angular velocity (<span class="math">&omega;<sub>f</sub></span>) of <span class="math">28 rad/s</span> in <span class="math">7 seconds</span>. Calculate the angular acceleration (<span class="math">&alpha;</span>) of the wheel.',
+      svg: SVGS.p3,
+      symCorrect: "ωi",
+      symDisplay: "&omega;<sub>i</sub>",
+      num2Correct: 7,
+      num3Correct: 4,
+      step2: 1,
+      step3: 1,
+      unit: "(rad/s²)",
+      tiles: [
+        { val: "ωi", html: "&omega;<sub>i</sub>" },
+        { val: "ωf", html: "&omega;<sub>f</sub>" },
+        { val: "θ", html: "&theta;" },
+        { val: "α", html: "&alpha;" },
+        { val: "vi", html: "v<sub>i</sub>" },
+        { val: "vf", html: "v<sub>f</sub>" },
+        { val: "r", html: "r" },
+        { val: "t", html: "t" },
+        { val: "s", html: "s" },
+        { val: "t²", html: "t<sup>2</sup>" },
+        { val: "ω", html: "&omega;" },
+        { val: "a", html: "a" },
+        { val: "d", html: "d" },
+        { val: "2·ω", html: "2 &middot; &omega;" }
+      ],
+      renderLine1: (slotHtml) => `&alpha; = <span class="frac"><span class="frac-num">&omega;<sub>f</sub> &minus; ${slotHtml}</span><span class="frac-den">t</span></span>`,
+      renderLine2: (inputHtml) => `&alpha; = <span class="frac"><span class="frac-num">28 &minus; 0</span><span class="frac-den">${inputHtml}</span></span>`,
+      renderLine3: (inputHtml) => `&alpha; = ${inputHtml} <span class="unit">(rad/s<sup>2</sup>)</span>`
+    },
+    {
+      id: "p4",
+      num: 4,
+      title: "Problem 4: Turbine Angular Displacement",
+      text: 'A turbine starts from rest (<span class="math">0 rad/s</span>) and experiences a constant angular acceleration (<span class="math">&alpha;</span>) of <span class="math">2 rad/s<sup>2</sup></span> for <span class="math">5 seconds</span>. Calculate its angular displacement (<span class="math">&theta;</span>).',
+      svg: SVGS.p4,
+      symCorrect: "t²",
+      symDisplay: "t<sup>2</sup>",
+      num2Correct: 2,
+      num3Correct: 25,
+      step2: 1,
+      step3: 1,
+      unit: "(rad)",
+      tiles: [
+        { val: "t²", html: "t<sup>2</sup>" },
+        { val: "t", html: "t" },
+        { val: "ω", html: "&omega;" },
+        { val: "ω²", html: "&omega;<sup>2</sup>" },
+        { val: "r", html: "r" },
+        { val: "r²", html: "r<sup>2</sup>" },
+        { val: "α", html: "&alpha;" },
+        { val: "v", html: "v" },
+        { val: "v²", html: "v<sup>2</sup>" },
+        { val: "θ", html: "&theta;" },
+        { val: "2·t", html: "2 &middot; t" },
+        { val: "ωi", html: "&omega;<sub>i</sub>" },
+        { val: "ωf", html: "&omega;<sub>f</sub>" },
+        { val: "s", html: "s" }
+      ],
+      renderLine1: (slotHtml) => `&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; &alpha; &middot; ${slotHtml}`,
+      renderLine2: (inputHtml) => `&theta; = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &middot; ${inputHtml} &middot; 5<sup>2</sup>`,
+      renderLine3: (inputHtml) => `&theta; = ${inputHtml} <span class="unit">(rad)</span>`
+    }
+  ];
+
+  /* ==================== QUIZ STATE ==================== */
+  let state = {
+    graded: false,
+    mcqAnswers: {}, // { mcq1: "b", ... }
+    probAnswers: {}, // { p1: { sym: "", symHtml: "", num2: "", num3: "" }, ... }
+    activeSlotProbId: null,
+    results: {
+      totalScore: 0,
+      mcqScore: 0,
+      pScores: [0, 0, 0, 0],
+      tier: "",
+      breakdown: ""
+    }
+  };
+
+  function shuffleArray(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function initProbState() {
+    PROBLEMS.forEach(p => {
+      state.probAnswers[p.id] = { sym: "", symHtml: "", num2: "", num3: "" };
+    });
+  }
+  initProbState();
+
+  /* ==================== RENDER MCQs ==================== */
+  const mcqContainer = document.getElementById("mcqContainer");
+
+  function renderMCQs() {
+    mcqContainer.innerHTML = MCQS.map(q => `
+      <article class="q-card" id="card-${q.id}">
+        <div class="q-top">
+          <span class="q-num">Question ${q.num} of 10 • 6 pts</span>
+          <span class="q-status-badge" id="status-${q.id}"></span>
+        </div>
+        <p class="q-text">${q.text}</p>
+        <div class="diagram-box">${q.svg}</div>
+        <div class="options-grid" role="radiogroup" aria-label="Question ${q.num} options">
+          ${q.options.map(opt => `
+            <button type="button" class="opt-btn" data-qid="${q.id}" data-opt="${opt.key}">
+              <span class="opt-letter">${opt.key.toUpperCase()}</span>
+              <span>${opt.html}</span>
+            </button>
+          `).join("")}
+        </div>
+        <div class="explanation-box" id="exp-${q.id}"></div>
+      </article>
+    `).join("");
+
+    mcqContainer.querySelectorAll(".opt-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (state.graded) return;
+        const qid = btn.dataset.qid;
+        const opt = btn.dataset.opt;
+        state.mcqAnswers[qid] = opt;
+        sfx.tap();
+
+        const card = document.getElementById(`card-${qid}`);
+        card.classList.remove("missing-alert");
+        card.querySelectorAll(".opt-btn").forEach(b => {
+          b.classList.toggle("selected", b.dataset.opt === opt);
+        });
+        updateTracker();
+      });
+    });
+  }
+
+  /* ==================== RENDER 3-LINE PROBLEMS ==================== */
+  const problemsContainer = document.getElementById("problemsContainer");
+
+  function stepperHtml(pid, field, step) {
+    return `
+      <span class="num-stepper" id="stepper-${pid}-${field}">
+        <button type="button" class="step-btn" data-pid="${pid}" data-field="${field}" data-dir="-1" data-step="${step}" aria-label="Decrease value">▼</button>
+        <input type="number" inputmode="decimal" step="${step}" class="num-input" id="input-${pid}-${field}" data-pid="${pid}" data-field="${field}" placeholder="?" aria-label="Numeric answer">
+        <button type="button" class="step-btn" data-pid="${pid}" data-field="${field}" data-dir="1" data-step="${step}" aria-label="Increase value">▲</button>
+      </span>
+    `;
+  }
+
+  function renderProblems() {
+    problemsContainer.innerHTML = PROBLEMS.map(p => {
+      const shuffledTiles = shuffleArray(p.tiles);
+      const slotHtml = `<button type="button" class="sym-slot" id="slot-${p.id}" data-pid="${p.id}" aria-label="Formula symbol blank">?</button>`;
+      const input2Html = stepperHtml(p.id, "num2", p.step2);
+      const input3Html = stepperHtml(p.id, "num3", p.step3);
+
+      return `
+        <article class="q-card" id="card-${p.id}">
+          <div class="q-top">
+            <span class="q-num">${p.title} • 10 pts</span>
+            <span class="q-status-badge" id="status-${p.id}"></span>
+          </div>
+          <p class="q-text">${p.text}</p>
+          <div class="diagram-box">${p.svg}</div>
+
+          <div class="three-line-box">
+            <div class="math-line">
+              <div class="line-label"><span>Line 1 — Law / Formula (3 pts)</span><span>Drag or tap tile</span></div>
+              <div class="line-content">${p.renderLine1(slotHtml)}</div>
+              <div class="blank-feedback" id="fb-${p.id}-sym"></div>
+            </div>
+
+            <div class="math-line">
+              <div class="line-label"><span>Line 2 — Substitution (3 pts)</span><span>Type or use ▲ / ▼</span></div>
+              <div class="line-content">${p.renderLine2(input2Html)}</div>
+              <div class="blank-feedback" id="fb-${p.id}-num2"></div>
+            </div>
+
+            <div class="math-line">
+              <div class="line-label"><span>Line 3 — Final Answer (4 pts)</span><span>Type or use ▲ / ▼</span></div>
+              <div class="line-content">${p.renderLine3(input3Html)}</div>
+              <div class="blank-feedback" id="fb-${p.id}-num3"></div>
+            </div>
+          </div>
+
+          <div class="tile-bank-wrap" id="bank-wrap-${p.id}">
+            <div class="tile-bank-title">
+              <span>Formula Tile Bank (14 options)</span>
+              <span>Tap a tile to place into Line 1 (tap slot to clear)</span>
+            </div>
+            <div class="tile-bank" id="bank-${p.id}">
+              ${shuffledTiles.map(t => `
+                <button type="button" class="tile-btn" draggable="true" data-pid="${p.id}" data-val="${t.val}" data-html="${t.html.replace(/"/g, '&quot;')}">${t.html}</button>
+              `).join("")}
+            </div>
+          </div>
+
+          <div class="prob-actions">
+            <button type="button" class="reset-prob-btn" data-reset-pid="${p.id}">↺ Reset Problem</button>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    attachProblemListeners();
+  }
+
+  function placeTileInSlot(pid, val, html) {
+    if (state.graded) return;
+    state.probAnswers[pid].sym = val;
+    state.probAnswers[pid].symHtml = html;
+    state.activeSlotProbId = null;
+
+    const slot = document.getElementById(`slot-${pid}`);
+    slot.innerHTML = html;
+    slot.classList.add("filled");
+    slot.classList.remove("active-slot");
+
+    const bank = document.getElementById(`bank-${pid}`);
+    bank.querySelectorAll(".tile-btn").forEach(tb => {
+      tb.classList.toggle("used", tb.dataset.val === val);
+    });
+
+    document.getElementById(`card-${pid}`).classList.remove("missing-alert");
+    sfx.place();
+    updateTracker();
+  }
+
+  function clearSlot(pid) {
+    if (state.graded) return;
+    state.probAnswers[pid].sym = "";
+    state.probAnswers[pid].symHtml = "";
+    const slot = document.getElementById(`slot-${pid}`);
+    slot.innerHTML = "?";
+    slot.classList.remove("filled");
+    const bank = document.getElementById(`bank-${pid}`);
+    bank.querySelectorAll(".tile-btn").forEach(tb => tb.classList.remove("used"));
+    sfx.remove();
+    updateTracker();
+  }
+
+  function attachProblemListeners() {
+    // Symbolic slot tap & drag-drop
+    PROBLEMS.forEach(p => {
+      const slot = document.getElementById(`slot-${p.id}`);
+
+      slot.addEventListener("click", () => {
+        if (state.graded) return;
+        if (state.probAnswers[p.id].sym) {
+          clearSlot(p.id);
+        } else {
+          document.querySelectorAll(".sym-slot").forEach(s => s.classList.remove("active-slot"));
+          slot.classList.add("active-slot");
+          state.activeSlotProbId = p.id;
+          sfx.tap();
+        }
+      });
+
+      slot.addEventListener("dragover", e => {
+        if (state.graded) return;
+        e.preventDefault();
+        slot.classList.add("drag-over");
+      });
+
+      slot.addEventListener("dragleave", () => {
+        slot.classList.remove("drag-over");
+      });
+
+      slot.addEventListener("drop", e => {
+        if (state.graded) return;
+        e.preventDefault();
+        slot.classList.remove("drag-over");
+        const raw = e.dataTransfer.getData("text/plain");
+        if (!raw) return;
+        try {
+          const data = JSON.parse(raw);
+          if (data.pid === p.id) {
+            placeTileInSlot(p.id, data.val, data.html);
+          }
+        } catch (_) {}
+      });
+    });
+
+    // Tile buttons (tap + dragstart)
+    problemsContainer.querySelectorAll(".tile-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (state.graded) return;
+        const pid = btn.dataset.pid;
+        placeTileInSlot(pid, btn.dataset.val, btn.dataset.html);
+      });
+
+      btn.addEventListener("dragstart", e => {
+        if (state.graded) { e.preventDefault(); return; }
+        e.dataTransfer.setData("text/plain", JSON.stringify({
+          pid: btn.dataset.pid,
+          val: btn.dataset.val,
+          html: btn.dataset.html
+        }));
+      });
+    });
+
+    // Stepper arrows
+    problemsContainer.querySelectorAll(".step-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (state.graded) return;
+        const pid = btn.dataset.pid;
+        const field = btn.dataset.field;
+        const dir = Number(btn.dataset.dir);
+        const step = Number(btn.dataset.step) || 1;
+        const input = document.getElementById(`input-${pid}-${field}`);
+        let current = input.value.trim() === "" ? 0 : parseFloat(input.value);
+        if (isNaN(current)) current = 0;
+        const next = Math.round((current + dir * step) * 1000) / 1000;
+        input.value = next;
+        state.probAnswers[pid][field] = String(next);
+        document.getElementById(`card-${pid}`).classList.remove("missing-alert");
+        sfx.tap();
+        updateTracker();
+      });
+    });
+
+    // Direct numeric typing
+    problemsContainer.querySelectorAll(".num-input").forEach(input => {
+      input.addEventListener("input", () => {
+        if (state.graded) return;
+        const pid = input.dataset.pid;
+        const field = input.dataset.field;
+        state.probAnswers[pid][field] = input.value.trim();
+        document.getElementById(`card-${pid}`).classList.remove("missing-alert");
+        updateTracker();
+      });
+    });
+
+    // Reset Problem buttons
+    problemsContainer.querySelectorAll(".reset-prob-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (state.graded) return;
+        const pid = btn.dataset.resetPid;
+        state.probAnswers[pid] = { sym: "", symHtml: "", num2: "", num3: "" };
+        const slot = document.getElementById(`slot-${pid}`);
+        slot.innerHTML = "?";
+        slot.classList.remove("filled", "active-slot");
+        document.getElementById(`bank-${pid}`).querySelectorAll(".tile-btn").forEach(tb => tb.classList.remove("used"));
+        document.getElementById(`input-${pid}-num2`).value = "";
+        document.getElementById(`input-${pid}-num3`).value = "";
+        document.getElementById(`card-${pid}`).classList.remove("missing-alert");
+        sfx.remove();
+        updateTracker();
+      });
+    });
+  }
+
+  /* ==================== PROGRESS TRACKER ==================== */
+  const trackerPill = document.getElementById("trackerPill");
+
+  function countAnswered() {
+    let count = 0;
+    MCQS.forEach(q => {
+      if (state.mcqAnswers[q.id]) count++;
+    });
+    PROBLEMS.forEach(p => {
+      const ans = state.probAnswers[p.id];
+      if (ans.sym !== "" && ans.num2 !== "" && ans.num3 !== "") count++;
+    });
+    return count;
+  }
+
+  function updateTracker() {
+    if (state.graded) {
+      trackerPill.textContent = `Score: ${state.results.totalScore} / 100`;
+      trackerPill.classList.add("graded");
+    } else {
+      trackerPill.textContent = `Answered: ${countAnswered()} / 14`;
+      trackerPill.classList.remove("graded");
+    }
+  }
+
+  /* ==================== DEFERRED MASTER GRADING ==================== */
+  const finishBtn = document.getElementById("finishBtn");
+  const missingBanner = document.getElementById("missingBanner");
+
+  function getTier(score) {
+    if (score >= 90) return "🏆 Rotational Master";
+    if (score >= 80) return "🌟 Physics Ace";
+    if (score >= 70) return "⚙️ Kinematics Pro";
+    if (score >= 60) return "📐 Steady Spinner";
+    return "🔧 Apprentice Physicist";
+  }
+
+  finishBtn.addEventListener("click", () => {
+    if (state.graded) return;
+
+    // 1. Validate all 14 items are filled
+    const missingItems = [];
+    let firstMissingEl = null;
+
+    document.querySelectorAll(".q-card").forEach(c => c.classList.remove("missing-alert"));
+
+    MCQS.forEach(q => {
+      if (!state.mcqAnswers[q.id]) {
+        missingItems.push(`MCQ #${q.num}`);
+        const card = document.getElementById(`card-${q.id}`);
+        card.classList.add("missing-alert");
+        if (!firstMissingEl) firstMissingEl = card;
+      }
+    });
+
+    PROBLEMS.forEach(p => {
+      const ans = state.probAnswers[p.id];
+      const blanksMissing = [];
+      if (ans.sym === "") blanksMissing.push("Line 1");
+      if (ans.num2 === "") blanksMissing.push("Line 2");
+      if (ans.num3 === "") blanksMissing.push("Line 3");
+      if (blanksMissing.length > 0) {
+        missingItems.push(`Problem ${p.num} (${blanksMissing.join(", ")})`);
+        const card = document.getElementById(`card-${p.id}`);
+        card.classList.add("missing-alert");
+        if (!firstMissingEl) firstMissingEl = card;
+      }
+    });
+
+    if (missingItems.length > 0) {
+      sfx.error();
+      missingBanner.innerHTML = `⚠️ Please complete all questions before checking answers.<br><span style="font-weight:600; font-size:0.9rem;">Remaining: ${missingItems.join(" • ")}</span>`;
+      missingBanner.classList.add("show");
+      if (firstMissingEl) {
+        firstMissingEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
+    // 2. Grade everything simultaneously
+    missingBanner.classList.remove("show");
+    state.graded = true;
+    finishBtn.disabled = true;
+    finishBtn.textContent = "✅ Quiz Graded — Review Results Below";
+
+    let mcqScore = 0;
+    MCQS.forEach(q => {
+      const chosen = state.mcqAnswers[q.id];
+      const isCorrect = chosen === q.answer;
+      if (isCorrect) mcqScore += 6;
+
+      const card = document.getElementById(`card-${q.id}`);
+      const statusBadge = document.getElementById(`status-${q.id}`);
+      const expBox = document.getElementById(`exp-${q.id}`);
+
+      card.classList.add(isCorrect ? "graded-correct" : "graded-wrong");
+      statusBadge.textContent = isCorrect ? "✓ Correct (+6 pts)" : "✕ Incorrect (0 pts)";
+      statusBadge.className = `q-status-badge show ${isCorrect ? "correct" : "wrong"}`;
+
+      card.querySelectorAll(".opt-btn").forEach(btn => {
+        btn.disabled = true;
+        if (btn.dataset.opt === q.answer) {
+          btn.classList.add("correct-reveal");
+        } else if (btn.dataset.opt === chosen && !isCorrect) {
+          btn.classList.add("wrong-reveal");
+        }
+      });
+
+      expBox.innerHTML = `<strong>${isCorrect ? "Well done!" : "Scientific Explanation:"}</strong> ${q.explanation}`;
+      expBox.className = `explanation-box show ${isCorrect ? "exp-correct" : "exp-wrong"}`;
+    });
+
+    const pScores = [];
+    PROBLEMS.forEach((p, idx) => {
+      const ans = state.probAnswers[p.id];
+      const symOk = ans.sym === p.symCorrect;
+      const n2Val = parseFloat(ans.num2);
+      const n3Val = parseFloat(ans.num3);
+      const num2Ok = !isNaN(n2Val) && Math.abs(n2Val - p.num2Correct) < 0.001;
+      const num3Ok = !isNaN(n3Val) && Math.abs(n3Val - p.num3Correct) < 0.001;
+
+      const pPts = (symOk ? 3 : 0) + (num2Ok ? 3 : 0) + (num3Ok ? 4 : 0);
+      pScores.push(pPts);
+
+      const card = document.getElementById(`card-${p.id}`);
+      const statusBadge = document.getElementById(`status-${p.id}`);
+      const slot = document.getElementById(`slot-${p.id}`);
+      const st2 = document.getElementById(`stepper-${p.id}-num2`);
+      const st3 = document.getElementById(`stepper-${p.id}-num3`);
+      const in2 = document.getElementById(`input-${p.id}-num2`);
+      const in3 = document.getElementById(`input-${p.id}-num3`);
+
+      // Lock inputs
+      slot.classList.add("locked", symOk ? "slot-correct" : "slot-wrong");
+      slot.disabled = true;
+      st2.classList.add(num2Ok ? "stepper-correct" : "stepper-wrong");
+      st3.classList.add(num3Ok ? "stepper-correct" : "stepper-wrong");
+      in2.disabled = true;
+      in3.disabled = true;
+      card.querySelectorAll(".step-btn, .tile-btn, .reset-prob-btn").forEach(b => {
+        b.disabled = true;
+        b.setAttribute("draggable", "false");
+      });
+
+      // Per-blank feedback
+      const fbSym = document.getElementById(`fb-${p.id}-sym`);
+      fbSym.className = `blank-feedback show ${symOk ? "fb-ok" : "fb-err"}`;
+      fbSym.innerHTML = symOk
+        ? `✓ Correct (+3 pts)`
+        : `✕ Your answer: ${ans.symHtml || ans.sym} &nbsp;|&nbsp; Correct answer: <span class="math">${p.symDisplay}</span>`;
+
+      const fbNum2 = document.getElementById(`fb-${p.id}-num2`);
+      fbNum2.className = `blank-feedback show ${num2Ok ? "fb-ok" : "fb-err"}`;
+      fbNum2.innerHTML = num2Ok
+        ? `✓ Correct (+3 pts)`
+        : `✕ Your answer: ${ans.num2} &nbsp;|&nbsp; Correct answer: ${p.num2Correct}`;
+
+      const fbNum3 = document.getElementById(`fb-${p.id}-num3`);
+      fbNum3.className = `blank-feedback show ${num3Ok ? "fb-ok" : "fb-err"}`;
+      fbNum3.innerHTML = num3Ok
+        ? `✓ Correct (+4 pts)`
+        : `✕ Your answer: ${ans.num3} &nbsp;|&nbsp; Correct answer: ${p.num3Correct} ${p.unit}`;
+
+      if (pPts === 10) {
+        card.classList.add("graded-correct");
+        statusBadge.className = "q-status-badge show correct";
+        statusBadge.textContent = "✓ 10 / 10 pts";
+      } else if (pPts > 0) {
+        card.classList.add("graded-partial");
+        statusBadge.className = "q-status-badge show partial";
+        statusBadge.textContent = `◐ ${pPts} / 10 pts`;
+      } else {
+        card.classList.add("graded-wrong");
+        statusBadge.className = "q-status-badge show wrong";
+        statusBadge.textContent = "✕ 0 / 10 pts";
+      }
+    });
+
+    const totalScore = mcqScore + pScores.reduce((a, b) => a + b, 0);
+    const tier = getTier(totalScore);
+    const breakdown = `MCQ:${mcqScore}/60 | P1:${pScores[0]} | P2:${pScores[1]} | P3:${pScores[2]} | P4:${pScores[3]}`;
+
+    state.results = { totalScore, mcqScore, pScores, tier, breakdown };
+    updateTracker();
+    renderReport();
+    sfx.fanfare();
+
+    document.getElementById("reportCard").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* ==================== REPORT CARD ==================== */
+  const studentNameInput = document.getElementById("studentNameInput");
+  const reportCard = document.getElementById("reportCard");
+  const reportStudentMeta = document.getElementById("reportStudentMeta");
+  const reportScoreBig = document.getElementById("reportScoreBig");
+  const reportTierBadge = document.getElementById("reportTierBadge");
+  const breakdownGrid = document.getElementById("breakdownGrid");
+
+  function syncReportName() {
+    const name = studentNameInput.value.trim() || "Student Name Not Entered Yet";
+    reportStudentMeta.textContent = `Student: ${name} • Grade 10 Physics • Lab Code: ${LAB_CODE} • ${TEACHER_NAME}`;
+  }
+
+  studentNameInput.addEventListener("input", () => {
+    if (state.graded) syncReportName();
+  });
+
+  function renderReport() {
+    syncReportName();
+    reportScoreBig.textContent = `${state.results.totalScore} / 100`;
+    reportTierBadge.textContent = state.results.tier;
+    breakdownGrid.innerHTML = `
+      <div class="bd-item"><div class="bd-label">Part 1: MCQs</div><div class="bd-val">${state.results.mcqScore} / 60</div></div>
+      <div class="bd-item"><div class="bd-label">Problem 1</div><div class="bd-val">${state.results.pScores[0]} / 10</div></div>
+      <div class="bd-item"><div class="bd-label">Problem 2</div><div class="bd-val">${state.results.pScores[1]} / 10</div></div>
+      <div class="bd-item"><div class="bd-label">Problem 3</div><div class="bd-val">${state.results.pScores[2]} / 10</div></div>
+      <div class="bd-item"><div class="bd-label">Problem 4</div><div class="bd-val">${state.results.pScores[3]} / 10</div></div>
+    `;
+    reportCard.classList.add("show");
+  }
+
+  /* ==================== SUBMIT SCORE TO TEACHER ==================== */
+  const submitTeacherBtn = document.getElementById("submitTeacherBtn");
+
+  submitTeacherBtn.addEventListener("click", async () => {
+    const studentName = studentNameInput.value.trim();
+    if (!studentName) {
+      sfx.error();
+      alert("Please enter your full name in the top bar before submitting!");
+      studentNameInput.focus();
+      return;
+    }
+
+    submitTeacherBtn.disabled = true;
+    submitTeacherBtn.textContent = "⏳ Sending...";
+
+    const payload = {
+      studentName,
+      labCode: LAB_CODE,
+      totalScore: `${state.results.totalScore} / 100`,
+      breakdown: state.results.breakdown,
+      tier: state.results.tier
+    };
+
+    try {
+      await fetch(SUBMIT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      sfx.fanfare();
+      submitTeacherBtn.textContent = "✅ Submitted to Teacher!";
+      submitTeacherBtn.classList.add("submitted");
+    } catch (err) {
+      sfx.error();
+      alert("Could not submit score. Please check your internet connection and try again.");
+      submitTeacherBtn.disabled = false;
+      submitTeacherBtn.textContent = "🚀 Submit Score to Teacher";
+    }
+  });
+
+  /* ==================== SHARE WITH PARENT (CANVAS PNG + MODAL) ==================== */
+  const shareParentBtn = document.getElementById("shareParentBtn");
+  const shareModal = document.getElementById("shareModal");
+  const certCanvas = document.getElementById("certCanvas");
+  const certPreviewImg = document.getElementById("certPreviewImg");
+  const nativeShareBtn = document.getElementById("nativeShareBtn");
+  const whatsappShareLink = document.getElementById("whatsappShareLink");
+  const emailShareLink = document.getElementById("emailShareLink");
+  const downloadCertBtn = document.getElementById("downloadCertBtn");
+  const copySummaryBtn = document.getElementById("copySummaryBtn");
+
+  let currentCertDataUrl = "";
+  let currentSummaryText = "";
+
+  function generateCertificateCanvas(studentName) {
+    const ctx = certCanvas.getContext("2d");
+    const W = 1200, H = 675;
+
+    // Pure white background
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, W, H);
+
+    // Outer & inner decorative borders
+    ctx.strokeStyle = "#1d4ed8";
+    ctx.lineWidth = 14;
+    ctx.strokeRect(24, 24, W - 48, H - 48);
+
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(46, 46, W - 92, H - 92);
+
+    // Top banner accent
+    ctx.fillStyle = "#eff6ff";
+    ctx.fillRect(48, 48, W - 96, 118);
+
+    ctx.fillStyle = "#1e40af";
+    ctx.font = "800 22px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("OFFICIAL PHYSICS LAB REPORT & CERTIFICATE", W / 2, 92);
+
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "900 36px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText(QUIZ_TITLE, W / 2, 142);
+
+    // Student Name
+    ctx.fillStyle = "#475569";
+    ctx.font = "600 22px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText("Awarded to", W / 2, 218);
+
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "900 48px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText(studentName, W / 2, 278);
+
+    // Divider line
+    ctx.strokeStyle = "#e2e8f0";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(240, 304);
+    ctx.lineTo(960, 304);
+    ctx.stroke();
+
+    // Score Box
+    ctx.fillStyle = "#eff6ff";
+    ctx.strokeStyle = "#93c5fd";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.roundRect(350, 330, 500, 128, 18);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = "#1d4ed8";
+    ctx.font = "900 58px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText(`${state.results.totalScore} / 100`, W / 2, 400);
+
+    ctx.fillStyle = "#78350f";
+    ctx.font = "800 26px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText(state.results.tier, W / 2, 442);
+
+    // Breakdown
+    ctx.fillStyle = "#334155";
+    ctx.font = "700 22px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText(`Breakdown:  ${state.results.breakdown}`, W / 2, 514);
+
+    // Footer metadata
+    const dateStr = new Date().toLocaleDateString("en-US", {
+      year: "numeric", month: "long", day: "numeric"
+    });
+    ctx.fillStyle = "#64748b";
+    ctx.font = "600 20px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+    ctx.fillText(`Grade 10 Physics  •  Lab Code: ${LAB_CODE}  •  ${TEACHER_NAME}  •  ${dateStr}`, W / 2, 592);
+
+    return certCanvas.toDataURL("image/png");
+  }
+
+  shareParentBtn.addEventListener("click", () => {
+    const studentName = studentNameInput.value.trim();
+    if (!studentName) {
+      sfx.error();
+      alert("Please enter your full name in the top bar before sharing!");
+      studentNameInput.focus();
+      return;
+    }
+
+    sfx.tap();
+    const dateStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+    currentCertDataUrl = generateCertificateCanvas(studentName);
+    certPreviewImg.src = currentCertDataUrl;
+
+    currentSummaryText =
+      `🎓 ${QUIZ_TITLE} (${LAB_CODE})\n` +
+      `👤 Student: ${studentName}\n` +
+      `📊 Final Score: ${state.results.totalScore} / 100\n` +
+      `🏅 Rank: ${state.results.tier}\n` +
+      `📋 Breakdown: ${state.results.breakdown}\n` +
+      `👨‍🏫 ${TEACHER_NAME} • ${dateStr}`;
+
+    whatsappShareLink.href = `https://wa.me/?text=${encodeURIComponent(currentSummaryText)}`;
+    emailShareLink.href = `mailto:?subject=${encodeURIComponent(`${QUIZ_TITLE} Result — ${studentName}`)}&body=${encodeURIComponent(currentSummaryText)}`;
+
+    if (navigator.share) {
+      nativeShareBtn.style.display = "inline-flex";
+    } else {
+      nativeShareBtn.style.display = "none";
+    }
+
+    copySummaryBtn.textContent = "📋 Copy Result Summary";
+    shareModal.classList.add("open");
+  });
+
+  nativeShareBtn.addEventListener("click", async () => {
+    try {
+      const res = await fetch(currentCertDataUrl);
+      const blob = await res.blob();
+      const file = new File([blob], `${LAB_CODE}-Certificate.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: QUIZ_TITLE,
+          text: currentSummaryText,
+          files: [file]
+        });
+      } else {
+        await navigator.share({
+          title: QUIZ_TITLE,
+          text: currentSummaryText
+        });
+      }
+    } catch (_) {}
+  });
+
+  downloadCertBtn.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = currentCertDataUrl;
+    a.download = `${LAB_CODE}-${(studentNameInput.value.trim() || "Student").replace(/\s+/g, "_")}-Certificate.png`;
+    a.click();
+    sfx.tap();
+  });
+
+  copySummaryBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(currentSummaryText);
+      copySummaryBtn.textContent = "✅ Summary Copied!";
+      sfx.place();
+      setTimeout(() => { copySummaryBtn.textContent = "📋 Copy Result Summary"; }, 2200);
+    } catch (_) {
+      alert(currentSummaryText);
+    }
+  });
+
+  /* ==================== PRINT & RETAKE ==================== */
+  document.getElementById("printBtn").addEventListener("click", () => {
+    sfx.tap();
+    window.print();
+  });
+
+  document.getElementById("retakeBtn").addEventListener("click", () => {
+    sfx.tap();
+    state.graded = false;
+    state.mcqAnswers = {};
+    state.activeSlotProbId = null;
+    initProbState();
+
+    finishBtn.disabled = false;
+    finishBtn.textContent = "✅ Finish & Check All Answers";
+    missingBanner.classList.remove("show");
+    reportCard.classList.remove("show");
+
+    submitTeacherBtn.disabled = false;
+    submitTeacherBtn.textContent = "🚀 Submit Score to Teacher";
+    submitTeacherBtn.classList.remove("submitted");
+
+    renderMCQs();
+    renderProblems();
+    updateTracker();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  /* ==================== SOUND TOGGLE & MODALS ==================== */
+  const soundToggleBtn = document.getElementById("soundToggleBtn");
+  soundToggleBtn.addEventListener("click", () => {
+    soundEnabled = !soundEnabled;
+    soundToggleBtn.textContent = soundEnabled ? "🔊 Sound On" : "🔇 Sound Off";
+    soundToggleBtn.classList.toggle("sound-off", !soundEnabled);
+    if (soundEnabled) sfx.tap();
+  });
+
+  const hintsModal = document.getElementById("hintsModal");
+  document.getElementById("hintsBtn").addEventListener("click", () => {
+    sfx.tap();
+    hintsModal.classList.add("open");
+  });
+
+  document.querySelectorAll("[data-close-modal]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      sfx.tap();
+      document.getElementById(btn.dataset.closeModal).classList.remove("open");
+    });
+  });
+
+  [hintsModal, shareModal].forEach(modal => {
+    modal.addEventListener("click", e => {
+      if (e.target === modal) modal.classList.remove("open");
+    });
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      hintsModal.classList.remove("open");
+      shareModal.classList.remove("open");
+    }
+  });
+
+  /* ==================== INITIAL RENDER ==================== */
+  renderMCQs();
+  renderProblems();
+  updateTracker();
+})();
+</script>
+</body>
+</html>

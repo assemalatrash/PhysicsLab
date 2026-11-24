@@ -1,0 +1,3067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz: Free Body Diagrams | Grade 12 Physics</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-subtle: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --border-light: #e2e8f0;
+      --primary: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #3b82f6;
+      --amber: #d97706;
+      --amber-hover: #b45309;
+      --amber-light: #fffbeb;
+      --emerald: #059669;
+      --emerald-light: #ecfdf5;
+      --emerald-border: #10b981;
+      --rose: #dc2626;
+      --rose-light: #fef2f2;
+      --rose-border: #ef4444;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-math: "Cambria Math", "Times New Roman", Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Math Typography */
+    .math {
+      font-family: var(--font-math);
+      font-size: 1.12em;
+      font-style: normal;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18em;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .math-var {
+      font-family: var(--font-math);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .math-op {
+      font-style: normal;
+      padding: 0 0.12em;
+    }
+
+    .math sub, .math sup, sub, sup {
+      font-size: 0.72em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    sub { bottom: -0.25em; }
+    sup { top: -0.45em; }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 0.18em;
+      line-height: 1.05;
+      font-family: var(--font-math);
+      font-size: 0.92em;
+    }
+
+    .frac .num {
+      border-bottom: 1.5px solid currentColor;
+      padding: 0 0.28em 0.1em;
+      text-align: center;
+      width: 100%;
+    }
+
+    .frac .den {
+      padding: 0.12em 0.28em 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Sticky Top Navigation Bar */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: #ffffff;
+      border-bottom: 2px solid var(--border-light);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      padding: 10px 14px;
+    }
+
+    .sticky-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 12px;
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .sticky-title {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sticky-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      flex: 1 1 320px;
+      justify-content: flex-end;
+    }
+
+    .name-input {
+      flex: 1 1 170px;
+      min-width: 145px;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .name-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.14);
+    }
+
+    .tracker-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      border: 2px solid var(--border-light);
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .tracker-pill.graded {
+      background: var(--emerald-light);
+      border-color: var(--emerald-border);
+      color: #065f46;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-subtle);
+      border-color: var(--text-muted);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.97);
+    }
+
+    .hints-btn {
+      background: var(--amber-light);
+      border-color: var(--amber);
+      color: #92400e;
+    }
+
+    .hints-btn:hover {
+      background: #fef3c7;
+      border-color: var(--amber-hover);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 14px 64px;
+    }
+
+    /* Hero Header */
+    .hero-card {
+      background: #ffffff;
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: var(--surface-subtle);
+      border: 1.5px solid var(--border-light);
+      color: var(--text-muted);
+    }
+
+    .meta-tag.code {
+      background: var(--primary-light);
+      border-color: #bfdbfe;
+      color: var(--primary);
+    }
+
+    .hero-heading {
+      margin: 0 0 8px;
+      font-size: clamp(1.45rem, 4.5vw, 2.05rem);
+      line-height: 1.2;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .hero-heading .prefix {
+      color: var(--primary);
+    }
+
+    .hero-sub {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-rules {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: var(--surface-subtle);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin: 30px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border-light);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .section-pts {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    /* Question Cards */
+    .q-card {
+      background: #ffffff;
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .q-card.missing-highlight {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.14);
+    }
+
+    .q-card.graded-correct {
+      border-color: var(--emerald-border);
+    }
+
+    .q-card.graded-wrong {
+      border-color: var(--rose-border);
+    }
+
+    .q-card.graded-partial {
+      border-color: var(--amber);
+    }
+
+    .q-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .q-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .q-status-badge {
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: none;
+    }
+
+    .q-status-badge.show {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .q-status-badge.correct {
+      background: var(--emerald-light);
+      color: #065f46;
+      border: 1.5px solid var(--emerald-border);
+    }
+
+    .q-status-badge.wrong {
+      background: var(--rose-light);
+      color: #991b1b;
+      border: 1.5px solid var(--rose-border);
+    }
+
+    .q-status-badge.partial {
+      background: var(--amber-light);
+      color: #92400e;
+      border: 1.5px solid var(--amber);
+    }
+
+    .q-text {
+      font-size: 1.04rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 14px;
+    }
+
+    /* SVG Diagram Container */
+    .diagram-box {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      margin: 0 0 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .diagram-box svg {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      display: block;
+    }
+
+    /* MCQ Options */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      min-height: 50px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.98rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      background: var(--surface-subtle);
+      border-color: var(--border);
+    }
+
+    .opt-btn:active:not(:disabled) {
+      transform: scale(0.99);
+    }
+
+    .opt-letter {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: #ffffff;
+    }
+
+    .opt-btn.selected {
+      border-color: var(--primary-border);
+      background: var(--primary-light);
+    }
+
+    .opt-btn.selected .opt-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Graded MCQ States */
+    .opt-btn.correct-reveal {
+      border-color: var(--emerald-border) !important;
+      background: var(--emerald-light) !important;
+      color: #064e3b;
+    }
+
+    .opt-btn.correct-reveal .opt-letter {
+      background: var(--emerald) !important;
+      border-color: var(--emerald) !important;
+      color: #ffffff !important;
+    }
+
+    .opt-btn.wrong-reveal {
+      border-color: var(--rose-border) !important;
+      background: var(--rose-light) !important;
+      color: #7f1d1d;
+    }
+
+    .opt-btn.wrong-reveal .opt-letter {
+      background: var(--rose) !important;
+      border-color: var(--rose) !important;
+      color: #ffffff !important;
+    }
+
+    .opt-btn:disabled {
+      cursor: default;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      border-left: 4px solid var(--primary);
+      font-size: 0.94rem;
+      color: var(--text);
+    }
+
+    .explanation-box.show {
+      display: block;
+    }
+
+    /* Part 2: 3-Line Math Rule Challenges */
+    .math-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .math-line-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+    }
+
+    .line-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      min-width: 118px;
+    }
+
+    .line-expr {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-math);
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Interactive Symbolic Drop Slot */
+    .tile-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 78px;
+      min-height: 44px;
+      padding: 4px 12px;
+      border: 2px dashed var(--primary-border);
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--primary);
+      font-family: var(--font-math);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .tile-slot.active-slot {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+    }
+
+    .tile-slot.filled {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--text);
+    }
+
+    .tile-slot.drag-over {
+      background: #dbeafe;
+      border-color: var(--primary);
+      transform: scale(1.03);
+    }
+
+    .tile-slot.slot-correct {
+      border-color: var(--emerald-border) !important;
+      background: var(--emerald-light) !important;
+      color: #065f46 !important;
+    }
+
+    .tile-slot.slot-wrong {
+      border-color: var(--rose-border) !important;
+      background: var(--rose-light) !important;
+      color: #991b1b !important;
+    }
+
+    /* Numeric Stepper Control */
+    .stepper-wrap {
+      display: inline-flex;
+      align-items: stretch;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+      overflow: hidden;
+      min-height: 44px;
+    }
+
+    .stepper-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.14);
+    }
+
+    .stepper-wrap.slot-correct {
+      border-color: var(--emerald-border) !important;
+      background: var(--emerald-light) !important;
+    }
+
+    .stepper-wrap.slot-wrong {
+      border-color: var(--rose-border) !important;
+      background: var(--rose-light) !important;
+    }
+
+    .num-input {
+      width: 78px;
+      min-height: 44px;
+      border: none;
+      background: transparent;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      outline: none;
+      padding: 4px 6px;
+      -moz-appearance: textfield;
+    }
+
+    .num-input::-webkit-outer-spin-button,
+    .num-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .stepper-btns {
+      display: flex;
+      flex-direction: column;
+      border-left: 1.5px solid var(--border-light);
+    }
+
+    .step-btn {
+      width: 36px;
+      height: 22px;
+      min-height: 22px;
+      border: none;
+      background: var(--surface-subtle);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background 0.12s;
+    }
+
+    .step-btn:first-child {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .step-btn:hover:not(:disabled) {
+      background: #e2e8f0;
+    }
+
+    .step-btn:active:not(:disabled) {
+      background: #cbd5e1;
+    }
+
+    .step-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    /* Tile Bank */
+    .bank-box {
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      background: #ffffff;
+    }
+
+    .bank-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .bank-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .bank-hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .tile-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .bank-tile {
+      min-width: 56px;
+      min-height: 44px;
+      padding: 6px 12px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--text);
+      font-family: var(--font-math);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: grab;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: transform 0.12s, border-color 0.15s, background 0.15s, opacity 0.15s;
+    }
+
+    .bank-tile:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .bank-tile.selected-tile {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+    }
+
+    .bank-tile.used {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .bank-tile:disabled {
+      cursor: default;
+      opacity: 0.55;
+    }
+
+    .problem-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .reset-prob-btn {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .reset-prob-btn:hover:not(:disabled) {
+      border-color: var(--text);
+      color: var(--text);
+      background: var(--surface-subtle);
+    }
+
+    .reset-prob-btn:disabled {
+      display: none;
+    }
+
+    .correction-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--emerald-light);
+      color: #065f46;
+      border: 1.5px solid var(--emerald-border);
+      margin-left: 6px;
+    }
+
+    /* Validation Alert Banner */
+    .validation-banner {
+      display: none;
+      margin: 18px 0;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--rose-light);
+      border: 2px solid var(--rose-border);
+      color: #991b1b;
+      font-weight: 700;
+      font-size: 0.96rem;
+    }
+
+    .validation-banner.show {
+      display: block;
+    }
+
+    /* Master Submit Area */
+    .master-action-wrap {
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .master-btn {
+      width: 100%;
+      max-width: 440px;
+      min-height: 56px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 1.12rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(29, 78, 216, 0.28);
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .master-btn:hover {
+      background: #1e40af;
+    }
+
+    .master-btn:active {
+      transform: scale(0.98);
+    }
+
+    .master-btn.hidden {
+      display: none;
+    }
+
+    /* Final Lab Report / Certificate Section */
+    .report-section {
+      display: none;
+      margin-top: 32px;
+      background: #ffffff;
+      border: 3px solid var(--primary);
+      border-radius: 18px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    }
+
+    .report-section.show {
+      display: block;
+    }
+
+    .report-header {
+      text-align: center;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .report-kicker {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .report-title {
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .report-student {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .score-hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .score-circle {
+      min-width: 140px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      background: var(--primary-light);
+      border: 2px solid var(--primary-border);
+      text-align: center;
+    }
+
+    .score-big {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .score-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .tier-badge {
+      padding: 14px 22px;
+      border-radius: 16px;
+      background: var(--amber-light);
+      border: 2px solid var(--amber);
+      color: #92400e;
+      font-weight: 900;
+      font-size: 1.15rem;
+      text-align: center;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin: 20px 0 24px;
+    }
+
+    .bd-card {
+      padding: 12px;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      text-align: center;
+    }
+
+    .bd-name {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .bd-val {
+      font-size: 1.18rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-top: 4px;
+    }
+
+    .report-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .action-btn {
+      min-height: 50px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .action-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn-retake {
+      background: #ffffff;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-retake:hover {
+      background: var(--surface-subtle);
+      border-color: var(--text);
+    }
+
+    .btn-print {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: var(--text);
+    }
+
+    .btn-print:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-submit-teacher {
+      background: var(--amber);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.25);
+    }
+
+    .btn-submit-teacher:hover:not(:disabled) {
+      background: var(--amber-hover);
+    }
+
+    .btn-submit-teacher.submitted {
+      background: var(--emerald) !important;
+      color: #ffffff !important;
+      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .btn-share {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-share:hover {
+      background: #1e40af;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.55);
+      padding: 16px;
+      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid var(--border-light);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+      padding: 20px;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .close-modal-btn {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 10px;
+      border: 2px solid var(--border-light);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .close-modal-btn:hover {
+      background: var(--surface-subtle);
+    }
+
+    .hint-block {
+      background: var(--surface-subtle);
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .hint-block h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .hint-block ul, .hint-block ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .hint-block li {
+      margin-bottom: 6px;
+      font-size: 0.94rem;
+    }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+
+    .formula-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .formula-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .formula-eq {
+      font-family: var(--font-math);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Share Modal Preview */
+    .cert-preview-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid var(--border-light);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .share-btn {
+      min-height: 48px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .share-btn:hover {
+      background: var(--surface-subtle);
+    }
+
+    .share-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .share-btn.whatsapp {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #ffffff;
+    }
+
+    .share-btn.email {
+      background: #0f172a;
+      border-color: #0f172a;
+      color: #ffffff;
+    }
+
+    .copy-feedback {
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--emerald);
+      margin-top: 10px;
+      min-height: 20px;
+    }
+
+    /* Footer */
+    .page-footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1.5px solid var(--border-light);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* Mobile Tweaks */
+    @media (max-width: 600px) {
+      .sticky-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .sticky-controls {
+        justify-content: space-between;
+      }
+      .name-input {
+        flex: 1 1 100%;
+      }
+      .line-label {
+        min-width: 100%;
+      }
+      .q-card {
+        padding: 15px 12px;
+      }
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      .sticky-header,
+      .hints-btn,
+      .bank-box,
+      .reset-prob-btn,
+      .master-action-wrap,
+      .report-actions,
+      .modal-backdrop,
+      .validation-banner {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .q-card, .hero-card, .report-section {
+        box-shadow: none !important;
+        break-inside: avoid;
+        border: 1.5px solid #94a3b8 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Bar -->
+  <header class="sticky-header">
+    <div class="sticky-inner">
+      <div class="brand-bar">
+        <span class="quiz-badge">Quiz</span>
+        <span class="sticky-title">Free Body Diagrams</span>
+      </div>
+      <div class="sticky-controls">
+        <input
+          type="text"
+          id="studentNameInput"
+          class="name-input"
+          placeholder="Enter Student Full Name..."
+          aria-label="Student Full Name"
+          autocomplete="name"
+        />
+        <div id="progressTracker" class="tracker-pill" aria-live="polite">
+          Answered: 0 / 14
+        </div>
+        <button type="button" id="soundToggleBtn" class="icon-btn" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+          🔊 Sound
+        </button>
+        <button type="button" id="openHintsBtn" class="icon-btn hints-btn">
+          💡 Lesson Hints &amp; Formulas
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Header -->
+    <section class="hero-card">
+      <div class="hero-top">
+        <span class="quiz-badge">Quiz</span>
+        <span class="meta-tag code">Lab Code: Q2-G12-L1</span>
+        <span class="meta-tag">Grade 12 Physics</span>
+        <span class="meta-tag">Teacher Assem Alatrash</span>
+      </div>
+      <h1 class="hero-heading">
+        <span class="prefix">Quiz:</span> Free Body Diagrams
+      </h1>
+      <p class="hero-sub">
+        AP Physics FBD Rules, Horizontal &amp; Vertical Systems, Inclined Planes, and Coupled Two-Body Systems (OpenStax Ch. 4, Sections 4.3 &amp; 4.6).
+      </p>
+      <div class="hero-rules">
+        <strong>Instructions:</strong> Answer all <strong>10 Multiple Choice Questions</strong> (60 pts) and all <strong>4 Three-Line Math Rule Challenges</strong> (40 pts). You can freely edit your answers at any time. Your score, detailed solutions, and certificate will appear once you click <strong>“Finish &amp; Check All Answers”</strong> at the bottom.
+      </div>
+    </section>
+
+    <!-- Part 1: MCQs -->
+    <section aria-labelledby="part1-heading">
+      <div class="section-header">
+        <h2 id="part1-heading">Part 1: Multiple Choice Questions</h2>
+        <span class="section-pts">60 Points Total (6 pts each)</span>
+      </div>
+      <div id="mcqContainer"></div>
+    </section>
+
+    <!-- Part 2: 3-Line Math Rule Problems -->
+    <section aria-labelledby="part2-heading">
+      <div class="section-header">
+        <h2 id="part2-heading">Part 2: Interactive 3-Line Math Rule Challenges</h2>
+        <span class="section-pts">40 Points Total (10 pts each)</span>
+      </div>
+      <div id="problemsContainer"></div>
+    </section>
+
+    <!-- Validation Alert -->
+    <div id="validationBanner" class="validation-banner" role="alert"></div>
+
+    <!-- Master Finish Button -->
+    <div class="master-action-wrap">
+      <button type="button" id="finishQuizBtn" class="master-btn">
+        ✅ Finish &amp; Check All Answers
+      </button>
+    </div>
+
+    <!-- Final Lab Report / Certificate Section -->
+    <section id="reportSection" class="report-section" aria-live="polite">
+      <div class="report-header">
+        <div class="report-kicker">Official Physics Lab Report &amp; Certificate</div>
+        <h2 class="report-title">Quiz: Free Body Diagrams (Q2-G12-L1)</h2>
+        <div id="reportStudentName" class="report-student">Student: —</div>
+      </div>
+
+      <div class="score-hero">
+        <div class="score-circle">
+          <div id="reportScoreValue" class="score-big">0 / 100</div>
+          <div class="score-label">Final Score</div>
+        </div>
+        <div id="reportTierBadge" class="tier-badge">Rank: —</div>
+      </div>
+
+      <div id="breakdownGrid" class="breakdown-grid"></div>
+
+      <div class="report-actions">
+        <button type="button" id="retakeBtn" class="action-btn btn-retake">
+          🔄 Retake Full Quiz
+        </button>
+        <button type="button" id="printBtn" class="action-btn btn-print">
+          🖨️ Print / Save PDF
+        </button>
+        <button type="button" id="submitTeacherBtn" class="action-btn btn-submit-teacher">
+          🚀 Submit Score to Teacher
+        </button>
+        <button type="button" id="shareParentBtn" class="action-btn btn-share">
+          📤 Share Result with Parent
+        </button>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      Grade 12 AP Physics &middot; Lab Code: <strong>Q2-G12-L1</strong> &middot; Prepared by <strong>Teacher Assem Alatrash</strong>
+    </footer>
+  </main>
+
+  <!-- Lesson Hints & Formulas Modal -->
+  <div id="hintsModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="hintsModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="hintsModalTitle">💡 Lesson Hints &amp; Formulas — Free Body Diagrams</h3>
+        <button type="button" class="close-modal-btn" data-close="hintsModal" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="hint-block">
+        <h4>The 5 Golden AP Rules for Drawing FBDs</h4>
+        <ol>
+          <li><strong>Single Dot:</strong> Represent the object as one dot (center of mass).</li>
+          <li><strong>Outward Arrows:</strong> Draw arrows starting ON the dot and pointing AWAY in the direction of each push or pull.</li>
+          <li><strong>External Forces Only:</strong> Include only real external forces acting ON the object (<span class="math"><span class="math-var">W</span></span>, <span class="math"><span class="math-var">N</span></span>, <span class="math"><span class="math-var">T</span></span>, <span class="math"><span class="math-var">f</span></span>, <span class="math"><span class="math-var">F</span><sub>app</sub></span>).</li>
+          <li><strong>No Forbidden Arrows:</strong> NEVER draw velocity (<span class="math"><span class="math-var">v</span></span>), acceleration (<span class="math"><span class="math-var">a</span></span>), or net force (<span class="math"><span class="math-var">F</span><sub>net</sub></span>) on an official FBD.</li>
+          <li><strong>Proportional Lengths:</strong> Equal opposite arrows mean balanced forces (<span class="math"><span class="math-var">a</span> = 0</span>). A longer arrow means acceleration in that direction.</li>
+        </ol>
+      </div>
+
+      <div class="hint-block">
+        <h4>Core FBD Equations &amp; Toolkit (<span class="math"><span class="math-var">g</span> = 10 m/s<sup>2</sup></span>)</h4>
+        <div class="formula-grid">
+          <div class="formula-card">
+            <div class="formula-label">Horizontal FBD Acceleration</div>
+            <div class="formula-eq">
+              <span class="math">
+                <span class="math-var">a</span> <span class="math-op">=</span>
+                <span class="frac"><span class="num"><span class="math-var">F</span><sub>app</sub> &minus; <span class="math-var">f</span></span><span class="den"><span class="math-var">m</span></span></span>
+              </span>
+            </div>
+          </div>
+          <div class="formula-card">
+            <div class="formula-label">Vertical Tension / Elevator</div>
+            <div class="formula-eq">
+              <span class="math"><span class="math-var">T</span> = <span class="math-var">W</span> + <span class="math-var">m</span> &middot; <span class="math-var">a</span></span> <small>(up)</small><br />
+              <span class="math"><span class="math-var">T</span> = <span class="math-var">W</span> &minus; <span class="math-var">m</span> &middot; <span class="math-var">a</span></span> <small>(down)</small>
+            </div>
+          </div>
+          <div class="formula-card">
+            <div class="formula-label">Ramp Parallel Weight</div>
+            <div class="formula-eq">
+              <span class="math"><span class="math-var">W</span><sub>&#8741;</sub> = <span class="math-var">W</span> &middot; sin&thinsp;&theta;</span>
+            </div>
+          </div>
+          <div class="formula-card">
+            <div class="formula-label">Ramp Normal Force</div>
+            <div class="formula-eq">
+              <span class="math"><span class="math-var">N</span> = <span class="math-var">W</span> &middot; cos&thinsp;&theta;</span>
+            </div>
+          </div>
+          <div class="formula-card">
+            <div class="formula-label">Coupled Two-Body System</div>
+            <div class="formula-eq">
+              <span class="math">
+                <span class="math-var">a</span> <span class="math-op">=</span>
+                <span class="frac"><span class="num"><span class="math-var">F</span></span><span class="den"><span class="math-var">m</span><sub>1</sub> + <span class="math-var">m</span><sub>2</sub></span></span>
+              </span>
+            </div>
+          </div>
+          <div class="formula-card">
+            <div class="formula-label">Key Trig Fractions</div>
+            <div class="formula-eq">
+              <span class="math">sin&thinsp;30&deg; = <span class="frac"><span class="num">1</span><span class="den">2</span></span></span><br />
+              <span class="math">3-4-5: sin&thinsp;&theta; = <span class="frac"><span class="num">3</span><span class="den">5</span></span>, cos&thinsp;&theta; = <span class="frac"><span class="num">4</span><span class="den">5</span></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hint-block">
+        <h4>Key Conceptual Reminders</h4>
+        <ul>
+          <li><strong>Constant Velocity (<span class="math"><span class="math-var">a</span> = 0</span>):</strong> Forces are balanced! A puck sliding on frictionless ice needs NO forward force arrow.</li>
+          <li><strong>Inclined Planes:</strong> Weight (<span class="math"><span class="math-var">W</span></span>) always points straight vertically down. Normal Force (<span class="math"><span class="math-var">N</span></span>) points perpendicular (90&deg;) to the ramp and is always <strong>less than</strong> <span class="math"><span class="math-var">W</span></span>.</li>
+          <li><strong>Coupled Systems:</strong> Internal rope tension forms an equal and opposite Newton's 3rd Law pair, so it cancels inside the combined system FBD.</li>
+          <li><strong>3-Line Math Rule:</strong> Line 1: Formula &rarr; Line 2: Substitution (use <span class="frac"><span class="num">1</span><span class="den">2</span></span> for fractions and &middot; for multiplication) &rarr; Line 3: Final Answer with units in parentheses.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Result Modal -->
+  <div id="shareModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="shareModalTitle">📤 Share Official Result with Parent</h3>
+        <button type="button" class="close-modal-btn" data-close="shareModal" aria-label="Close modal">✕</button>
+      </div>
+      <img id="certPreviewImg" class="cert-preview-img" alt="Official Quiz Certificate Preview" />
+      <div class="share-grid">
+        <button type="button" id="nativeShareBtn" class="share-btn primary" style="display:none;">
+          📱 Share Certificate &amp; Text
+        </button>
+        <a id="whatsappShareLink" class="share-btn whatsapp" target="_blank" rel="noopener noreferrer">
+          💬 Send via WhatsApp
+        </a>
+        <a id="emailShareLink" class="share-btn email">
+          ✉️ Send via Email
+        </a>
+        <button type="button" id="downloadCertBtn" class="share-btn">
+          ⬇️ Download Certificate (PNG)
+        </button>
+        <button type="button" id="copySummaryBtn" class="share-btn">
+          📋 Copy Result Summary
+        </button>
+      </div>
+      <div id="copyFeedback" class="copy-feedback"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* =========================================================
+         1. CONFIG & METADATA
+      ========================================================= */
+      const LAB_CODE = "Q2-G12-L1";
+      const QUIZ_TITLE = "Quiz: Free Body Diagrams";
+      const TEACHER_NAME = "Teacher Assem Alatrash";
+      const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbwsoVYIuvk6RL_JiLCTtqGWcDfWH46uDeqRSnOPe7trrM3nOHhDfiwPH4i7XQReNAgUiA/exec";
+
+      /* =========================================================
+         2. WEB AUDIO API SOUND ENGINE (ZERO EXTERNAL FILES)
+      ========================================================= */
+      let soundEnabled = true;
+      let audioCtx = null;
+
+      function getAudioCtx() {
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) audioCtx = new Ctx();
+        }
+        if (audioCtx && audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playTone(freq, duration, type = "sine", volume = 0.08, delay = 0) {
+        if (!soundEnabled) return;
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      const Sound = {
+        click() {
+          playTone(540, 0.06, "triangle", 0.05);
+        },
+        place() {
+          playTone(660, 0.08, "sine", 0.06);
+        },
+        error() {
+          playTone(220, 0.14, "sawtooth", 0.07, 0);
+          playTone(180, 0.18, "sawtooth", 0.07, 0.12);
+        },
+        fanfare() {
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((n, i) => playTone(n, 0.22, "triangle", 0.08, i * 0.09));
+        }
+      };
+
+      /* =========================================================
+         3. HELPER FOR CLEAN FRACTIONS & MATH HTML
+      ========================================================= */
+      function fracHTML(n, d) {
+        return `<span class="frac"><span class="num">${n}</span><span class="den">${d}</span></span>`;
+      }
+
+      /* =========================================================
+         4. SVG DIAGRAM LIBRARY (HIGH-CONTRAST ON PURE WHITE)
+      ========================================================= */
+      const SVG_DIAGRAMS = {
+        q1: `<svg viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-label="Dot with two equal opposite arrows">
+          <defs>
+            <marker id="arrB1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+          </defs>
+          <line x1="180" y1="65" x2="70" y2="65" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#arrB1)"/>
+          <line x1="180" y1="65" x2="290" y2="65" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#arrB1)"/>
+          <circle cx="180" cy="65" r="7" fill="#0f172a"/>
+          <text x="115" y="48" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">F₁</text>
+          <text x="245" y="48" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">F₂</text>
+          <text x="180" y="108" font-family="sans-serif" font-size="13" font-weight="700" fill="#475569" text-anchor="middle">Equal lengths, opposite directions</text>
+        </svg>`,
+
+        q2: `<svg viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-label="Hockey puck sliding on frictionless ice">
+          <rect x="20" y="92" width="320" height="16" rx="4" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="180" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#0369a1" text-anchor="middle">Frictionless Ice Surface</text>
+          <rect x="138" y="72" width="64" height="20" rx="5" fill="#1e293b"/>
+          <path d="M 218 82 L 280 82" stroke="#64748b" stroke-width="2.5" stroke-dasharray="5 4"/>
+          <polygon points="280,77 292,82 280,87" fill="#64748b"/>
+          <text x="252" y="68" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569" text-anchor="middle">Constant velocity (v)</text>
+          <text x="170" y="55" font-family="sans-serif" font-size="14" font-weight="800" fill="#1d4ed8" text-anchor="middle">FBD = ?</text>
+        </svg>`,
+
+        q3: `<svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" aria-label="Skydiver falling at terminal velocity">
+          <path d="M 130 50 Q 180 5 230 50 Z" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+          <line x1="138" y1="50" x2="174" y2="88" stroke="#475569" stroke-width="1.5"/>
+          <line x1="180" y1="50" x2="180" y2="88" stroke="#475569" stroke-width="1.5"/>
+          <line x1="222" y1="50" x2="186" y2="88" stroke="#475569" stroke-width="1.5"/>
+          <circle cx="180" cy="96" r="8" fill="#0f172a"/>
+          <line x1="180" y1="104" x2="180" y2="125" stroke="#0f172a" stroke-width="3"/>
+          <text x="275" y="66" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569" text-anchor="middle">Terminal Velocity</text>
+          <text x="275" y="84" font-family="Georgia,serif" font-size="14" font-weight="700" fill="#1d4ed8" text-anchor="middle">a = 0 m/s²</text>
+          <text x="80" y="75" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569" text-anchor="middle">Compare F_air &amp; W</text>
+        </svg>`,
+
+        q4: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="4 kg lamp lowered by a rope with downward acceleration">
+          <defs>
+            <marker id="arrR4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+            <marker id="arrB4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+          </defs>
+          <line x1="130" y1="12" x2="230" y2="12" stroke="#0f172a" stroke-width="4"/>
+          <line x1="180" y1="12" x2="180" y2="68" stroke="#475569" stroke-width="3"/>
+          <rect x="150" y="68" width="60" height="44" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+          <text x="180" y="95" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">4 kg</text>
+          <text x="112" y="45" font-family="Georgia,serif" font-size="14" font-weight="700" fill="#1d4ed8" text-anchor="middle">T = ?</text>
+          <text x="180" y="134" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">W = 40 N</text>
+          <line x1="258" y1="52" x2="258" y2="105" stroke="#dc2626" stroke-width="3" marker-end="url(#arrR4)"/>
+          <text x="298" y="83" font-family="sans-serif" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">a = 3 m/s²</text>
+          <text x="298" y="99" font-family="sans-serif" font-size="11" font-weight="700" fill="#dc2626" text-anchor="middle">(down)</text>
+        </svg>`,
+
+        q5: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="20 N box on table with 10 N downward hand push">
+          <defs>
+            <marker id="arrD5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+          </defs>
+          <rect x="45" y="114" width="270" height="12" rx="3" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+          <rect x="135" y="64" width="90" height="50" rx="5" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+          <text x="180" y="94" font-family="sans-serif" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">W = 20 N</text>
+          <line x1="180" y1="16" x2="180" y2="56" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arrD5)"/>
+          <text x="245" y="40" font-family="sans-serif" font-size="13" font-weight="800" fill="#dc2626" text-anchor="middle">Hand = 10 N</text>
+          <text x="90" y="142" font-family="sans-serif" font-size="13" font-weight="800" fill="#1d4ed8">Upward Normal N = ?</text>
+        </svg>`,
+
+        q6: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="Top view of floating barge with Fx = 15 N East and Fy = 20 N North">
+          <defs>
+            <marker id="arrB6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+          </defs>
+          <line x1="130" y1="115" x2="235" y2="115" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#arrB6)"/>
+          <line x1="130" y1="115" x2="130" y2="25" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#arrB6)"/>
+          <rect x="130" y="101" width="14" height="14" fill="none" stroke="#64748b" stroke-width="1.5"/>
+          <circle cx="130" cy="115" r="7" fill="#0f172a"/>
+          <text x="255" y="120" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a">Fx = 15 N (E)</text>
+          <text x="195" y="34" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a">Fy = 20 N (N)</text>
+          <text x="260" y="75" font-family="sans-serif" font-size="13" font-weight="800" fill="#d97706">F_net = ?</text>
+        </svg>`,
+
+        q7: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="10 kg block on frictionless 30 degree ramp">
+          <polygon points="50,130 300,130 50,35" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+          <g transform="translate(155,75) rotate(20.8)">
+            <rect x="-26" y="-30" width="52" height="30" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+            <text x="0" y="-11" font-family="sans-serif" font-size="12" font-weight="800" fill="#0f172a" text-anchor="middle">10 kg</text>
+          </g>
+          <text x="252" y="122" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a">30°</text>
+          <text x="252" y="55" font-family="sans-serif" font-size="13" font-weight="800" fill="#1d4ed8">W∥ = 50 N</text>
+          <text x="252" y="74" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569">Frictionless, a = ?</text>
+        </svg>`,
+
+        q8: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="Block resting on tilted ramp comparing Normal Force and Weight">
+          <defs>
+            <marker id="arrN8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+            <marker id="arrW8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+          </defs>
+          <polygon points="55,132 305,132 55,40" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+          <g transform="translate(160,78) rotate(20.2)">
+            <rect x="-24" y="-26" width="48" height="26" rx="4" fill="#ffffff" stroke="#0f172a" stroke-width="2.2"/>
+            <line x1="0" y1="-13" x2="0" y2="-56" stroke="#1d4ed8" stroke-width="3" marker-end="url(#arrN8)"/>
+          </g>
+          <line x1="164" y1="67" x2="164" y2="124" stroke="#dc2626" stroke-width="3" marker-end="url(#arrW8)"/>
+          <text x="200" y="34" font-family="Georgia,serif" font-size="15" font-weight="800" fill="#1d4ed8">N</text>
+          <text x="178" y="122" font-family="Georgia,serif" font-size="15" font-weight="800" fill="#dc2626">W</text>
+          <text x="260" y="122" font-family="Georgia,serif" font-size="15" font-weight="800" fill="#0f172a">θ</text>
+        </svg>`,
+
+        q9: `<svg viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-label="Combined two-block system with internal connecting string">
+          <defs>
+            <marker id="arrF9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+          </defs>
+          <line x1="25" y1="96" x2="335" y2="96" stroke="#64748b" stroke-width="2.5"/>
+          <rect x="65" y="34" width="185" height="68" rx="12" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="7 5"/>
+          <text x="157" y="24" font-family="sans-serif" font-size="12" font-weight="800" fill="#b45309" text-anchor="middle">Combined System Boundary</text>
+          <rect x="78" y="54" width="54" height="40" rx="5" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+          <text x="105" y="79" font-family="Georgia,serif" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">m₂</text>
+          <line x1="132" y1="74" x2="182" y2="74" stroke="#0f172a" stroke-width="3"/>
+          <text x="157" y="66" font-family="Georgia,serif" font-size="13" font-weight="800" fill="#dc2626" text-anchor="middle">T</text>
+          <rect x="182" y="54" width="54" height="40" rx="5" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+          <text x="209" y="79" font-family="Georgia,serif" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">m₁</text>
+          <line x1="236" y1="74" x2="310" y2="74" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#arrF9)"/>
+          <text x="285" y="62" font-family="Georgia,serif" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">F</text>
+        </svg>`,
+
+        q10: `<svg viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-label="Two blocks 2 kg and 3 kg pushed together by 30 N force">
+          <defs>
+            <marker id="arrF10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+          </defs>
+          <line x1="25" y1="98" x2="335" y2="98" stroke="#64748b" stroke-width="2.5"/>
+          <line x1="38" y1="72" x2="115" y2="72" stroke="#1d4ed8" stroke-width="4" marker-end="url(#arrF10)"/>
+          <text x="72" y="56" font-family="sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="middle">F = 30 N</text>
+          <rect x="122" y="50" width="66" height="48" rx="5" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+          <text x="155" y="79" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">m₁ = 2 kg</text>
+          <rect x="188" y="42" width="76" height="56" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+          <text x="226" y="75" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">m₂ = 3 kg</text>
+          <text x="180" y="118" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569" text-anchor="middle">Frictionless Floor — Shared a = ?</text>
+        </svg>`,
+
+        p1: `<svg viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-label="12 kg crate with 85 N rightward pull and 25 N leftward friction">
+          <defs>
+            <marker id="arrP1R" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+            <marker id="arrP1L" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+          </defs>
+          <line x1="20" y1="98" x2="340" y2="98" stroke="#64748b" stroke-width="2.5"/>
+          <rect x="135" y="46" width="90" height="52" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+          <text x="180" y="77" font-family="sans-serif" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">12 kg</text>
+          <line x1="225" y1="72" x2="322" y2="72" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#arrP1R)"/>
+          <text x="278" y="58" font-family="sans-serif" font-size="12" font-weight="800" fill="#1d4ed8" text-anchor="middle">F_app = 85 N</text>
+          <line x1="135" y1="72" x2="68" y2="72" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arrP1L)"/>
+          <text x="86" y="58" font-family="sans-serif" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">f = 25 N</text>
+          <text x="180" y="119" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569" text-anchor="middle">Find horizontal acceleration (a)</text>
+        </svg>`,
+
+        p2: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="8 kg box accelerated upward at 3 m/s squared">
+          <defs>
+            <marker id="arrP2U" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"/>
+            </marker>
+          </defs>
+          <line x1="125" y1="12" x2="235" y2="12" stroke="#0f172a" stroke-width="4"/>
+          <line x1="180" y1="12" x2="180" y2="66" stroke="#475569" stroke-width="3"/>
+          <rect x="142" y="66" width="76" height="48" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+          <text x="180" y="88" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">8 kg</text>
+          <text x="180" y="105" font-family="sans-serif" font-size="11" font-weight="700" fill="#475569" text-anchor="middle">W = 80 N</text>
+          <text x="120" y="45" font-family="Georgia,serif" font-size="14" font-weight="800" fill="#1d4ed8" text-anchor="middle">T = ?</text>
+          <line x1="258" y1="108" x2="258" y2="48" stroke="#059669" stroke-width="3.5" marker-end="url(#arrP2U)"/>
+          <text x="302" y="76" font-family="sans-serif" font-size="12" font-weight="800" fill="#059669" text-anchor="middle">a = 3 m/s²</text>
+          <text x="302" y="92" font-family="sans-serif" font-size="11" font-weight="700" fill="#059669" text-anchor="middle">(upward)</text>
+        </svg>`,
+
+        p3: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="120 N shipping crate on 30 degree ramp">
+          <polygon points="50,132 305,132 50,35" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+          <g transform="translate(155,76) rotate(20.8)">
+            <rect x="-32" y="-34" width="64" height="34" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+            <text x="0" y="-13" font-family="sans-serif" font-size="12" font-weight="800" fill="#0f172a" text-anchor="middle">W = 120 N</text>
+          </g>
+          <text x="255" y="123" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a">30°</text>
+          <text x="255" y="55" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569">sin 30° = 1/2</text>
+          <text x="255" y="75" font-family="sans-serif" font-size="13" font-weight="800" fill="#1d4ed8">Find W∥ = ?</text>
+        </svg>`,
+
+        p4: `<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" aria-label="150 N block on 3-4-5 right triangle ramp">
+          <polygon points="55,130 295,130 55,35" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+          <text x="40" y="88" font-family="sans-serif" font-size="13" font-weight="800" fill="#475569">3</text>
+          <text x="175" y="146" font-family="sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="middle">4</text>
+          <text x="195" y="72" font-family="sans-serif" font-size="13" font-weight="800" fill="#475569">5</text>
+          <g transform="translate(148,72) rotate(21.6)">
+            <rect x="-32" y="-34" width="64" height="34" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+            <text x="0" y="-13" font-family="sans-serif" font-size="12" font-weight="800" fill="#0f172a" text-anchor="middle">W = 150 N</text>
+          </g>
+          <text x="252" y="122" font-family="Georgia,serif" font-size="14" font-weight="800" fill="#0f172a">θ</text>
+          <text x="265" y="50" font-family="sans-serif" font-size="12" font-weight="700" fill="#475569">cos θ = 4/5</text>
+          <text x="265" y="70" font-family="sans-serif" font-size="13" font-weight="800" fill="#1d4ed8">Find N = ?</text>
+        </svg>`
+      };
+
+      /* =========================================================
+         5. QUIZ DATA (STRICT FIDELITY TO ATTACHED FILE)
+      ========================================================= */
+      const MCQS = [
+        {
+          id: "q1",
+          text: "On an AP Physics Free Body Diagram, what do equal arrow lengths pointing in opposite directions signify?",
+          options: [
+            "The object is accelerating rapidly",
+            "Those two forces are balanced and cancel each other out along that axis",
+            "One force is twice as large as the other",
+            "The object has zero mass"
+          ],
+          correct: 1,
+          explanation: "Equal-length arrows pointing in opposite directions represent forces of identical magnitude that sum to zero along that axis, meaning they are balanced."
+        },
+        {
+          id: "q2",
+          text: "A hockey puck slides to the right at a steady, constant velocity across completely frictionless ice. Which forces should appear on its Free Body Diagram?",
+          options: [
+            "Downward Weight (<span class='math-var'>W</span>) and equal upward Normal Force (<span class='math-var'>N</span>) only",
+            "Weight down, Normal Force up, and a forward pushing force to the right",
+            "Weight down, Normal Force up, and friction to the left",
+            "Zero forces at all"
+          ],
+          correct: 0,
+          explanation: "Constant velocity on frictionless ice means zero horizontal acceleration and zero horizontal forces; only vertical Weight (<span class='math-var'>W</span>) and Normal Force (<span class='math-var'>N</span>) act on the puck."
+        },
+        {
+          id: "q3",
+          text: "A skydiver falls straight downward at a constant terminal velocity (<span class='math'><span class='math-var'>a</span> = 0 m/s<sup>2</sup></span>). How does the upward Air Resistance arrow compare to the downward Weight arrow on the skydiver's FBD?",
+          options: [
+            "Weight is much longer than Air Resistance",
+            "Air Resistance is much longer than Weight",
+            "Both arrows have the exact same length (balanced forces)",
+            "Air Resistance is zero"
+          ],
+          correct: 2,
+          explanation: "At terminal velocity, acceleration is zero (<span class='math'><span class='math-var'>a</span> = 0</span>), so the upward air resistance and downward weight must be balanced with equal arrow lengths."
+        },
+        {
+          id: "q4",
+          text: "A 4 kg lamp (weight <span class='math'><span class='math-var'>W</span> = 40 N</span>) is lowered by a rope with a downward acceleration of <span class='math'><span class='math-var'>a</span> = 3 m/s<sup>2</sup></span>. Using <span class='math'><span class='math-var'>T</span> = <span class='math-var'>W</span> &minus; <span class='math-var'>m</span> &middot; <span class='math-var'>a</span></span>, what is the upward tension (<span class='math-var'>T</span>) in the rope?",
+          options: ["12 N", "28 N", "40 N", "52 N"],
+          correct: 1,
+          explanation: "Substituting into <span class='math'><span class='math-var'>T</span> = <span class='math-var'>W</span> &minus; <span class='math-var'>m</span> &middot; <span class='math-var'>a</span></span> gives <span class='math'><span class='math-var'>T</span> = 40 &minus; 4 &middot; 3 = 40 &minus; 12 = 28 (N)</span>."
+        },
+        {
+          id: "q5",
+          text: "A 20 N box rests motionless on a table while a student presses straight downward on top of the box with a hand force of 10 N. What is the magnitude of the upward Normal Force (<span class='math-var'>N</span>) arrow on the box's FBD?",
+          options: ["10 N", "20 N", "30 N", "200 N"],
+          correct: 2,
+          explanation: "Since the box is motionless (<span class='math'><span class='math-var'>a</span> = 0</span>), upward force equals total downward force: <span class='math'><span class='math-var'>N</span> = 20 + 10 = 30 (N)</span>."
+        },
+        {
+          id: "q6",
+          text: "A Free Body Diagram of a floating barge (viewed from above) shows two perpendicular horizontal pulls: <span class='math'><span class='math-var'>F</span><sub>x</sub> = 15 N</span> East and <span class='math'><span class='math-var'>F</span><sub>y</sub> = 20 N</span> North (a scaled 3-4-5 right triangle). What is the magnitude of the net force (<span class='math'><span class='math-var'>F</span><sub>net</sub></span>)?",
+          options: ["5 N", "25 N", "35 N", "300 N"],
+          correct: 1,
+          explanation: "15 N and 20 N are 5 times the legs of a 3-4-5 right triangle (<span class='math'>5 &middot; 3</span> and <span class='math'>5 &middot; 4</span>), so the hypotenuse is <span class='math'>5 &middot; 5 = 25 (N)</span>."
+        },
+        {
+          id: "q7",
+          text: `A 10 kg block (weight <span class='math'><span class='math-var'>W</span> = 100 N</span>) slides down a frictionless 30&deg; ramp (<span class='math'>sin&thinsp;30&deg; = ${fracHTML(1, 2)}</span>), so its downhill force is <span class='math'><span class='math-var'>W</span><sub>&#8741;</sub> = 50 N</span>. Using <span class='math'><span class='math-var'>a</span> = ${fracHTML("<span class='math-var'>W</span><sub>&#8741;</sub>", "<span class='math-var'>m</span>")}</span>, what is the block's acceleration down the ramp?`,
+          options: [
+            "2 m/s<sup>2</sup>",
+            "5 m/s<sup>2</sup>",
+            "10 m/s<sup>2</sup>",
+            "50 m/s<sup>2</sup>"
+          ],
+          correct: 1,
+          explanation: `Using Newton's Second Law along the ramp: <span class='math'><span class='math-var'>a</span> = ${fracHTML(50, 10)} = 5 (m/s<sup>2</sup>)</span>.`
+        },
+        {
+          id: "q8",
+          text: "How does the Normal Force (<span class='math-var'>N</span>) acting on a box resting on a tilted ramp compare to the box's Weight (<span class='math-var'>W</span>)?",
+          options: [
+            "<span class='math-var'>N</span> is always greater than <span class='math-var'>W</span> on a ramp",
+            "<span class='math-var'>N</span> is always less than <span class='math-var'>W</span> on a ramp (since <span class='math'><span class='math-var'>N</span> = <span class='math-var'>W</span> &middot; cos&thinsp;&theta;</span>)",
+            "<span class='math-var'>N</span> is always equal to <span class='math-var'>W</span> on any ramp",
+            "<span class='math-var'>N</span> is always zero on a ramp"
+          ],
+          correct: 1,
+          explanation: "Because <span class='math'>cos&thinsp;&theta; &lt; 1</span> for any tilted angle <span class='math'>&theta; &gt; 0&deg;</span>, the perpendicular support force <span class='math'><span class='math-var'>N</span> = <span class='math-var'>W</span> &middot; cos&thinsp;&theta;</span> is always less than the full weight <span class='math-var'>W</span>."
+        },
+        {
+          id: "q9",
+          text: "Why does the tension (<span class='math-var'>T</span>) in a string connecting two blocks disappear when drawing the Free Body Diagram of the combined two-block system?",
+          options: [
+            "Because internal tension forces form an equal and opposite Newton's Third Law pair that cancels within the system",
+            "Because strings cannot exert tension when two blocks move together",
+            "Because gravity turns off in coupled systems",
+            "Because only the heavier block experiences tension"
+          ],
+          correct: 0,
+          explanation: "Inside the combined two-block system boundary, the string pulls equally in opposite directions on the two blocks, forming an internal Newton's 3rd Law pair that sums to zero."
+        },
+        {
+          id: "q10",
+          text: `Two blocks (<span class='math'><span class='math-var'>m</span><sub>1</sub> = 2 kg</span> and <span class='math'><span class='math-var'>m</span><sub>2</sub> = 3 kg</span>) are pushed together across a frictionless floor by a horizontal force of <span class='math'><span class='math-var'>F</span> = 30 N</span>. Using <span class='math'><span class='math-var'>a</span> = ${fracHTML("<span class='math-var'>F</span>", "<span class='math-var'>m</span><sub>1</sub> + <span class='math-var'>m</span><sub>2</sub>")}</span>, what is their shared acceleration?`,
+          options: [
+            "3 m/s<sup>2</sup>",
+            "5 m/s<sup>2</sup>",
+            "6 m/s<sup>2</sup>",
+            "15 m/s<sup>2</sup>"
+          ],
+          correct: 2,
+          explanation: `Total mass is <span class='math'>2 + 3 = 5 kg</span>, so <span class='math'><span class='math-var'>a</span> = ${fracHTML(30, "2 + 3")} = ${fracHTML(30, 5)} = 6 (m/s<sup>2</sup>)</span>.`
+        }
+      ];
+
+      /* Part 2: 4 Problems (10 pts each: Line 1 = 3 pts, Line 2 = 3 pts, Line 3 = 4 pts) */
+      const PROBLEMS = [
+        {
+          id: "p1",
+          title: "Problem 1 — Horizontal FBD Acceleration",
+          text: "The Free Body Diagram of a 12 kg crate on a warehouse floor shows a rightward applied pull of <span class='math'><span class='math-var'>F</span><sub>app</sub> = 85 N</span> and a leftward kinetic friction force of <span class='math'><span class='math-var'>f</span> = 25 N</span>. Calculate the horizontal acceleration (<span class='math-var'>a</span>) of the crate.",
+          tiles: [
+            { id: "p1_f", html: "<span class='math-var'>f</span>", val: "f" },
+            { id: "p1_N", html: "<span class='math-var'>N</span>", val: "N" },
+            { id: "p1_W", html: "<span class='math-var'>W</span>", val: "W" },
+            { id: "p1_T", html: "<span class='math-var'>T</span>", val: "T" },
+            { id: "p1_g", html: "<span class='math-var'>g</span>", val: "g" },
+            { id: "p1_a", html: "<span class='math-var'>a</span>", val: "a" },
+            { id: "p1_m", html: "<span class='math-var'>m</span>", val: "m" },
+            { id: "p1_v", html: "<span class='math-var'>v</span>", val: "v" },
+            { id: "p1_mu", html: "&mu;", val: "mu" },
+            { id: "p1_mg", html: "<span class='math-var'>m</span>&middot;<span class='math-var'>g</span>", val: "mg" },
+            { id: "p1_Fnet", html: "<span class='math-var'>F</span><sub>net</sub>", val: "Fnet" },
+            { id: "p1_sin", html: "sin&thinsp;&theta;", val: "sin" },
+            { id: "p1_cos", html: "cos&thinsp;&theta;", val: "cos" },
+            { id: "p1_Wp", html: "<span class='math-var'>W</span><sub>&#8741;</sub>", val: "Wp" }
+          ],
+          blanks: [
+            { key: "b1", line: "Line 1 (Formula)", type: "tile", expected: "f", displayExpected: "<span class='math-var'>f</span>", pts: 3 },
+            { key: "b2", line: "Line 2 (Substitution)", type: "number", expected: 12, step: 1, displayExpected: "12", pts: 3 },
+            { key: "b3", line: "Line 3 (Answer)", type: "number", expected: 5, step: 1, displayExpected: "5", pts: 4 }
+          ],
+          renderLine(blankKey, slotHTML) {
+            if (blankKey === "b1") {
+              return `<span class="math"><span class="math-var">a</span> <span class="math-op">=</span> <span class="frac"><span class="num"><span class="math-var">F</span><sub>app</sub> &minus; ${slotHTML}</span><span class="den"><span class="math-var">m</span></span></span></span>`;
+            }
+            if (blankKey === "b2") {
+              return `<span class="math"><span class="math-var">a</span> <span class="math-op">=</span> <span class="frac"><span class="num">85 &minus; 25</span><span class="den">${slotHTML}</span></span></span>`;
+            }
+            return `<span class="math"><span class="math-var">a</span> <span class="math-op">=</span> ${slotHTML} <span>(m/s<sup>2</sup>)</span></span>`;
+          }
+        },
+        {
+          id: "p2",
+          title: "Problem 2 — Vertical Cable Tension",
+          text: "An 8 kg supply box (weight <span class='math'><span class='math-var'>W</span> = 80 N</span>) hangs from a vertical cable and is accelerated straight upward at <span class='math'><span class='math-var'>a</span> = 3 m/s<sup>2</sup></span>. Calculate the upward tension (<span class='math-var'>T</span>) in the cable.",
+          tiles: [
+            { id: "p2_a", html: "<span class='math-var'>a</span>", val: "a" },
+            { id: "p2_g", html: "<span class='math-var'>g</span>", val: "g" },
+            { id: "p2_v", html: "<span class='math-var'>v</span>", val: "v" },
+            { id: "p2_W", html: "<span class='math-var'>W</span>", val: "W" },
+            { id: "p2_N", html: "<span class='math-var'>N</span>", val: "N" },
+            { id: "p2_f", html: "<span class='math-var'>f</span>", val: "f" },
+            { id: "p2_T", html: "<span class='math-var'>T</span>", val: "T" },
+            { id: "p2_m", html: "<span class='math-var'>m</span>", val: "m" },
+            { id: "p2_neg_a", html: "&minus;<span class='math-var'>a</span>", val: "-a" },
+            { id: "p2_sin", html: "sin&thinsp;&theta;", val: "sin" },
+            { id: "p2_cos", html: "cos&thinsp;&theta;", val: "cos" },
+            { id: "p2_half", html: fracHTML(1, 2), val: "1/2" },
+            { id: "p2_Fapp", html: "<span class='math-var'>F</span><sub>app</sub>", val: "Fapp" },
+            { id: "p2_t", html: "<span class='math-var'>t</span>", val: "t" }
+          ],
+          blanks: [
+            { key: "b1", line: "Line 1 (Formula)", type: "tile", expected: "a", displayExpected: "<span class='math-var'>a</span>", pts: 3 },
+            { key: "b2", line: "Line 2 (Substitution)", type: "number", expected: 3, step: 1, displayExpected: "3", pts: 3 },
+            { key: "b3", line: "Line 3 (Answer)", type: "number", expected: 104, step: 1, displayExpected: "104", pts: 4 }
+          ],
+          renderLine(blankKey, slotHTML) {
+            if (blankKey === "b1") {
+              return `<span class="math"><span class="math-var">T</span> <span class="math-op">=</span> <span class="math-var">W</span> <span class="math-op">+</span> <span class="math-var">m</span> <span class="math-op">&middot;</span> ${slotHTML}</span>`;
+            }
+            if (blankKey === "b2") {
+              return `<span class="math"><span class="math-var">T</span> <span class="math-op">=</span> 80 <span class="math-op">+</span> 8 <span class="math-op">&middot;</span> ${slotHTML}</span>`;
+            }
+            return `<span class="math"><span class="math-var">T</span> <span class="math-op">=</span> ${slotHTML} <span>(N)</span></span>`;
+          }
+        },
+        {
+          id: "p3",
+          title: "Problem 3 — Ramp Parallel Weight Component",
+          text: `A heavy shipping crate of weight <span class='math'><span class='math-var'>W</span> = 120 N</span> rests on a smooth 30&deg; inclined ramp (where <span class='math'>sin&thinsp;30&deg; = ${fracHTML(1, 2)}</span>). Calculate the parallel weight component (<span class='math'><span class='math-var'>W</span><sub>&#8741;</sub></span>) pulling the crate down the ramp.`,
+          tiles: [
+            { id: "p3_sin", html: "sin&thinsp;&theta;", val: "sin_theta" },
+            { id: "p3_cos", html: "cos&thinsp;&theta;", val: "cos_theta" },
+            { id: "p3_tan", html: "tan&thinsp;&theta;", val: "tan_theta" },
+            { id: "p3_1_2", html: fracHTML(1, 2), val: "1/2" },
+            { id: "p3_3_5", html: fracHTML(3, 5), val: "3/5" },
+            { id: "p3_4_5", html: fracHTML(4, 5), val: "4/5" },
+            { id: "p3_2_3", html: fracHTML(2, 3), val: "2/3" },
+            { id: "p3_1_3", html: fracHTML(1, 3), val: "1/3" },
+            { id: "p3_3_4", html: fracHTML(3, 4), val: "3/4" },
+            { id: "p3_2_1", html: "2", val: "2" },
+            { id: "p3_30", html: "30", val: "30" },
+            { id: "p3_g", html: "<span class='math-var'>g</span>", val: "g" },
+            { id: "p3_mu", html: "&mu;", val: "mu" },
+            { id: "p3_a", html: "<span class='math-var'>a</span>", val: "a" }
+          ],
+          blanks: [
+            { key: "b1", line: "Line 1 (Formula)", type: "tile", expected: "sin_theta", displayExpected: "sin&thinsp;&theta;", pts: 3 },
+            { key: "b2", line: "Line 2 (Substitution)", type: "tile", expected: "1/2", displayExpected: fracHTML(1, 2), pts: 3 },
+            { key: "b3", line: "Line 3 (Answer)", type: "number", expected: 60, step: 1, displayExpected: "60", pts: 4 }
+          ],
+          renderLine(blankKey, slotHTML) {
+            if (blankKey === "b1") {
+              return `<span class="math"><span class="math-var">W</span><sub>&#8741;</sub> <span class="math-op">=</span> <span class="math-var">W</span> <span class="math-op">&middot;</span> ${slotHTML}</span>`;
+            }
+            if (blankKey === "b2") {
+              return `<span class="math"><span class="math-var">W</span><sub>&#8741;</sub> <span class="math-op">=</span> 120 <span class="math-op">&middot;</span> ${slotHTML}</span>`;
+            }
+            return `<span class="math"><span class="math-var">W</span><sub>&#8741;</sub> <span class="math-op">=</span> ${slotHTML} <span>(N)</span></span>`;
+          }
+        },
+        {
+          id: "p4",
+          title: "Problem 4 — Ramp Normal Force (3-4-5 Triangle)",
+          text: `A block of weight <span class='math'><span class='math-var'>W</span> = 150 N</span> rests on an inclined ramp shaped like a 3-4-5 right triangle (where <span class='math'>cos&thinsp;&theta; = ${fracHTML(4, 5)}</span>). Calculate the Normal Force (<span class='math-var'>N</span>) exerted by the ramp on the block.`,
+          tiles: [
+            { id: "p4_cos", html: "cos&thinsp;&theta;", val: "cos_theta" },
+            { id: "p4_sin", html: "sin&thinsp;&theta;", val: "sin_theta" },
+            { id: "p4_tan", html: "tan&thinsp;&theta;", val: "tan_theta" },
+            { id: "p4_4_5", html: fracHTML(4, 5), val: "4/5" },
+            { id: "p4_3_5", html: fracHTML(3, 5), val: "3/5" },
+            { id: "p4_1_2", html: fracHTML(1, 2), val: "1/2" },
+            { id: "p4_5_4", html: fracHTML(5, 4), val: "5/4" },
+            { id: "p4_3_4", html: fracHTML(3, 4), val: "3/4" },
+            { id: "p4_4_3", html: fracHTML(4, 3), val: "4/3" },
+            { id: "p4_5_3", html: fracHTML(5, 3), val: "5/3" },
+            { id: "p4_1_5", html: fracHTML(1, 5), val: "1/5" },
+            { id: "p4_g", html: "<span class='math-var'>g</span>", val: "g" },
+            { id: "p4_m", html: "<span class='math-var'>m</span>", val: "m" },
+            { id: "p4_mu", html: "&mu;", val: "mu" }
+          ],
+          blanks: [
+            { key: "b1", line: "Line 1 (Formula)", type: "tile", expected: "cos_theta", displayExpected: "cos&thinsp;&theta;", pts: 3 },
+            { key: "b2", line: "Line 2 (Substitution)", type: "tile", expected: "4/5", displayExpected: fracHTML(4, 5), pts: 3 },
+            { key: "b3", line: "Line 3 (Answer)", type: "number", expected: 120, step: 1, displayExpected: "120", pts: 4 }
+          ],
+          renderLine(blankKey, slotHTML) {
+            if (blankKey === "b1") {
+              return `<span class="math"><span class="math-var">N</span> <span class="math-op">=</span> <span class="math-var">W</span> <span class="math-op">&middot;</span> ${slotHTML}</span>`;
+            }
+            if (blankKey === "b2") {
+              return `<span class="math"><span class="math-var">N</span> <span class="math-op">=</span> 150 <span class="math-op">&middot;</span> ${slotHTML}</span>`;
+            }
+            return `<span class="math"><span class="math-var">N</span> <span class="math-op">=</span> ${slotHTML} <span>(N)</span></span>`;
+          }
+        }
+      ];
+
+      /* =========================================================
+         6. APPLICATION STATE
+      ========================================================= */
+      let state = {
+        mcqAnswers: {}, // { q1: 0..3 }
+        probAnswers: {}, // { p1: { b1: { tileId, val, html }, b2: "12", b3: "5" } }
+        activeSlot: null, // { probId, blankKey }
+        selectedTile: null, // { probId, tileId }
+        graded: false,
+        finalScore: 0,
+        tier: "",
+        breakdownString: "",
+        breakdownParts: [],
+        certDataUrl: "",
+        certBlob: null
+      };
+
+      function initProbState() {
+        PROBLEMS.forEach((p) => {
+          state.probAnswers[p.id] = {};
+          p.blanks.forEach((b) => {
+            state.probAnswers[p.id][b.key] = b.type === "tile" ? null : "";
+          });
+        });
+      }
+
+      /* Deterministic shuffle per render so correct tile isn't always first */
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      /* =========================================================
+         7. RENDER MCQs
+      ========================================================= */
+      const letters = ["A", "B", "C", "D"];
+
+      function renderMCQs() {
+        const container = document.getElementById("mcqContainer");
+        container.innerHTML = "";
+
+        MCQS.forEach((q, idx) => {
+          const card = document.createElement("article");
+          card.className = "q-card";
+          card.id = `card-${q.id}`;
+
+          const optsHTML = q.options
+            .map(
+              (opt, oIdx) => `
+              <button type="button" class="opt-btn" data-qid="${q.id}" data-opt="${oIdx}">
+                <span class="opt-letter">${letters[oIdx]}</span>
+                <span>${opt}</span>
+              </button>`
+            )
+            .join("");
+
+          card.innerHTML = `
+            <div class="q-top">
+              <span class="q-num">Question ${idx + 1} of 10 &middot; 6 pts</span>
+              <span class="q-status-badge" id="badge-${q.id}"></span>
+            </div>
+            <p class="q-text">${q.text}</p>
+            <div class="diagram-box">${SVG_DIAGRAMS[q.id]}</div>
+            <div class="options-grid">${optsHTML}</div>
+            <div class="explanation-box" id="exp-${q.id}">
+              <strong>Scientific Explanation:</strong> ${q.explanation}
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+
+        container.addEventListener("click", (e) => {
+          const btn = e.target.closest(".opt-btn");
+          if (!btn || state.graded) return;
+
+          const qid = btn.dataset.qid;
+          const optIdx = Number(btn.dataset.opt);
+          state.mcqAnswers[qid] = optIdx;
+          Sound.click();
+
+          const card = document.getElementById(`card-${qid}`);
+          card.classList.remove("missing-highlight");
+          card.querySelectorAll(".opt-btn").forEach((b) => {
+            b.classList.toggle("selected", Number(b.dataset.opt) === optIdx);
+          });
+
+          hideValidationBanner();
+          updateProgressTracker();
+        });
+      }
+
+      /* =========================================================
+         8. RENDER 3-LINE MATH RULE PROBLEMS
+      ========================================================= */
+      function renderProblems() {
+        const container = document.getElementById("problemsContainer");
+        container.innerHTML = "";
+
+        PROBLEMS.forEach((p, idx) => {
+          const card = document.createElement("article");
+          card.className = "q-card";
+          card.id = `card-${p.id}`;
+
+          const linesHTML = p.blanks
+            .map((b) => {
+              let slotHTML = "";
+              if (b.type === "tile") {
+                slotHTML = `<button type="button" class="tile-slot" data-pid="${p.id}" data-bkey="${b.key}" aria-label="${p.title} ${b.line}">?</button>`;
+              } else {
+                slotHTML = `
+                  <span class="stepper-wrap" id="wrap-${p.id}-${b.key}">
+                    <input
+                      type="text"
+                      inputmode="decimal"
+                      class="num-input"
+                      id="num-${p.id}-${b.key}"
+                      data-pid="${p.id}"
+                      data-bkey="${b.key}"
+                      placeholder="?"
+                      autocomplete="off"
+                      aria-label="${p.title} ${b.line}"
+                    />
+                    <span class="stepper-btns">
+                      <button type="button" class="step-btn" data-pid="${p.id}" data-bkey="${b.key}" data-dir="1" aria-label="Increase value">&#9650;</button>
+                      <button type="button" class="step-btn" data-pid="${p.id}" data-bkey="${b.key}" data-dir="-1" aria-label="Decrease value">&#9660;</button>
+                    </span>
+                  </span>`;
+              }
+              return `
+                <div class="math-line-row" id="row-${p.id}-${b.key}">
+                  <span class="line-label">${b.line}:</span>
+                  <div class="line-expr">
+                    ${p.renderLine(b.key, slotHTML)}
+                    <span id="corr-${p.id}-${b.key}"></span>
+                  </div>
+                </div>`;
+            })
+            .join("");
+
+          const shuffledTiles = shuffleArray(p.tiles);
+          const tilesHTML = shuffledTiles
+            .map(
+              (t) => `
+              <button
+                type="button"
+                class="bank-tile"
+                draggable="true"
+                data-pid="${p.id}"
+                data-tid="${t.id}"
+                data-val="${t.val}"
+              >${t.html}</button>`
+            )
+            .join("");
+
+          card.innerHTML = `
+            <div class="q-top">
+              <span class="q-num">${p.title} &middot; 10 pts</span>
+              <span class="q-status-badge" id="badge-${p.id}"></span>
+            </div>
+            <p class="q-text">${p.text}</p>
+            <div class="diagram-box">${SVG_DIAGRAMS[p.id]}</div>
+            <div class="math-lines">${linesHTML}</div>
+            <div class="bank-box" id="bank-box-${p.id}">
+              <div class="bank-header">
+                <span class="bank-title">Formula &amp; Symbol Tile Bank</span>
+                <span class="bank-hint">Drag a tile or tap a blank, then tap a tile</span>
+              </div>
+              <div class="tile-bank" id="bank-${p.id}">${tilesHTML}</div>
+            </div>
+            <div class="problem-footer">
+              <button type="button" class="reset-prob-btn" data-reset="${p.id}">
+                ↺ Reset Problem ${idx + 1}
+              </button>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+
+        bindProblemEvents();
+      }
+
+      function bindProblemEvents() {
+        const container = document.getElementById("problemsContainer");
+
+        // Click handling for slots, tiles, steppers, and reset
+        container.addEventListener("click", (e) => {
+          if (state.graded) return;
+
+          // 1. Reset button
+          const resetBtn = e.target.closest(".reset-prob-btn");
+          if (resetBtn) {
+            resetSingleProblem(resetBtn.dataset.reset);
+            Sound.click();
+            return;
+          }
+
+          // 2. Stepper up/down buttons
+          const stepBtn = e.target.closest(".step-btn");
+          if (stepBtn) {
+            const pid = stepBtn.dataset.pid;
+            const bkey = stepBtn.dataset.bkey;
+            const dir = Number(stepBtn.dataset.dir);
+            const prob = PROBLEMS.find((p) => p.id === pid);
+            const blank = prob.blanks.find((b) => b.key === bkey);
+            const input = document.getElementById(`num-${pid}-${bkey}`);
+            let cur = parseFloat(input.value);
+            if (isNaN(cur)) {
+              cur = dir > 0 ? blank.step : 0;
+            } else {
+              cur = Math.round((cur + dir * blank.step) * 100) / 100;
+            }
+            input.value = String(cur);
+            state.probAnswers[pid][bkey] = String(cur);
+            document.getElementById(`card-${pid}`).classList.remove("missing-highlight");
+            Sound.click();
+            hideValidationBanner();
+            updateProgressTracker();
+            return;
+          }
+
+          // 3. Tile Slot tapped
+          const slot = e.target.closest(".tile-slot");
+          if (slot) {
+            const pid = slot.dataset.pid;
+            const bkey = slot.dataset.bkey;
+
+            // If user already tapped a tile in the same problem, place it directly
+            if (state.selectedTile && state.selectedTile.probId === pid) {
+              placeTileInSlot(pid, bkey, state.selectedTile.tileId);
+              clearActiveSelections();
+              return;
+            }
+
+            // If slot is already filled, tapping returns tile to bank
+            if (state.probAnswers[pid][bkey]) {
+              clearSlot(pid, bkey);
+              Sound.click();
+              return;
+            }
+
+            // Otherwise select this slot for tap-to-place
+            clearActiveSelections();
+            state.activeSlot = { probId: pid, blankKey: bkey };
+            slot.classList.add("active-slot");
+            Sound.click();
+            return;
+          }
+
+          // 4. Bank Tile tapped
+          const tileBtn = e.target.closest(".bank-tile");
+          if (tileBtn) {
+            const pid = tileBtn.dataset.pid;
+            const tid = tileBtn.dataset.tid;
+
+            // If a slot in this problem is active, place immediately
+            if (state.activeSlot && state.activeSlot.probId === pid) {
+              placeTileInSlot(pid, state.activeSlot.blankKey, tid);
+              clearActiveSelections();
+              return;
+            }
+
+            // If there is only one empty tile slot in this problem, smart-place it!
+            const prob = PROBLEMS.find((p) => p.id === pid);
+            const emptyTileBlanks = prob.blanks.filter(
+              (b) => b.type === "tile" && !state.probAnswers[pid][b.key]
+            );
+            if (emptyTileBlanks.length === 1) {
+              placeTileInSlot(pid, emptyTileBlanks[0].key, tid);
+              clearActiveSelections();
+              return;
+            }
+
+            // Otherwise select tile so user can tap a slot
+            clearActiveSelections();
+            state.selectedTile = { probId: pid, tileId: tid };
+            tileBtn.classList.add("selected-tile");
+            Sound.click();
+          }
+        });
+
+        // Direct typing into numeric inputs
+        container.addEventListener("input", (e) => {
+          if (state.graded) return;
+          const input = e.target.closest(".num-input");
+          if (!input) return;
+          const pid = input.dataset.pid;
+          const bkey = input.dataset.bkey;
+          const cleaned = input.value.replace(/[^0-9.\-]/g, "");
+          if (cleaned !== input.value) input.value = cleaned;
+          state.probAnswers[pid][bkey] = cleaned.trim();
+          document.getElementById(`card-${pid}`).classList.remove("missing-highlight");
+          hideValidationBanner();
+          updateProgressTracker();
+        });
+
+        // HTML5 Drag-and-Drop Support
+        container.addEventListener("dragstart", (e) => {
+          if (state.graded) return;
+          const tile = e.target.closest(".bank-tile");
+          if (!tile) return;
+          e.dataTransfer.setData("text/plain", JSON.stringify({
+            pid: tile.dataset.pid,
+            tid: tile.dataset.tid
+          }));
+        });
+
+        container.addEventListener("dragover", (e) => {
+          if (state.graded) return;
+          const slot = e.target.closest(".tile-slot");
+          if (!slot) return;
+          e.preventDefault();
+          slot.classList.add("drag-over");
+        });
+
+        container.addEventListener("dragleave", (e) => {
+          const slot = e.target.closest(".tile-slot");
+          if (slot) slot.classList.remove("drag-over");
+        });
+
+        container.addEventListener("drop", (e) => {
+          if (state.graded) return;
+          const slot = e.target.closest(".tile-slot");
+          if (!slot) return;
+          e.preventDefault();
+          slot.classList.remove("drag-over");
+          try {
+            const payload = JSON.parse(e.dataTransfer.getData("text/plain"));
+            if (payload.pid === slot.dataset.pid) {
+              placeTileInSlot(payload.pid, slot.dataset.bkey, payload.tid);
+              clearActiveSelections();
+            }
+          } catch (_) {}
+        });
+      }
+
+      function clearActiveSelections() {
+        document.querySelectorAll(".tile-slot.active-slot").forEach((el) => el.classList.remove("active-slot"));
+        document.querySelectorAll(".bank-tile.selected-tile").forEach((el) => el.classList.remove("selected-tile"));
+        state.activeSlot = null;
+        state.selectedTile = null;
+      }
+
+      function placeTileInSlot(pid, bkey, tid) {
+        const prob = PROBLEMS.find((p) => p.id === pid);
+        const tileObj = prob.tiles.find((t) => t.id === tid);
+        if (!tileObj) return;
+
+        // If slot already had a tile, release old tile
+        const prev = state.probAnswers[pid][bkey];
+        if (prev && prev.tileId) {
+          const oldBtn = document.querySelector(`.bank-tile[data-tid="${prev.tileId}"]`);
+          if (oldBtn) oldBtn.classList.remove("used");
+        }
+
+        state.probAnswers[pid][bkey] = {
+          tileId: tileObj.id,
+          val: tileObj.val,
+          html: tileObj.html
+        };
+
+        const slotEl = document.querySelector(`.tile-slot[data-pid="${pid}"][data-bkey="${bkey}"]`);
+        if (slotEl) {
+          slotEl.innerHTML = tileObj.html;
+          slotEl.classList.add("filled");
+        }
+
+        const newBtn = document.querySelector(`.bank-tile[data-tid="${tid}"]`);
+        if (newBtn) newBtn.classList.add("used");
+
+        document.getElementById(`card-${pid}`).classList.remove("missing-highlight");
+        Sound.place();
+        hideValidationBanner();
+        updateProgressTracker();
+      }
+
+      function clearSlot(pid, bkey) {
+        const prev = state.probAnswers[pid][bkey];
+        if (prev && prev.tileId) {
+          const btn = document.querySelector(`.bank-tile[data-tid="${prev.tileId}"]`);
+          if (btn) btn.classList.remove("used");
+        }
+        state.probAnswers[pid][bkey] = null;
+        const slotEl = document.querySelector(`.tile-slot[data-pid="${pid}"][data-bkey="${bkey}"]`);
+        if (slotEl) {
+          slotEl.innerHTML = "?";
+          slotEl.classList.remove("filled");
+        }
+        updateProgressTracker();
+      }
+
+      function resetSingleProblem(pid) {
+        const prob = PROBLEMS.find((p) => p.id === pid);
+        if (!prob) return;
+        clearActiveSelections();
+        prob.blanks.forEach((b) => {
+          if (b.type === "tile") {
+            clearSlot(pid, b.key);
+          } else {
+            state.probAnswers[pid][b.key] = "";
+            const input = document.getElementById(`num-${pid}-${b.key}`);
+            if (input) input.value = "";
+          }
+        });
+        updateProgressTracker();
+      }
+
+      /* =========================================================
+         9. PROGRESS TRACKER (NO CORRECTNESS REVEALED BEFORE FINISH)
+      ========================================================= */
+      function countAnswered() {
+        let count = 0;
+        MCQS.forEach((q) => {
+          if (state.mcqAnswers[q.id] !== undefined) count++;
+        });
+        PROBLEMS.forEach((p) => {
+          const allFilled = p.blanks.every((b) => {
+            const val = state.probAnswers[p.id][b.key];
+            if (b.type === "tile") return val !== null;
+            return val !== "" && !isNaN(parseFloat(val));
+          });
+          if (allFilled) count++;
+        });
+        return count;
+      }
+
+      function updateProgressTracker() {
+        const tracker = document.getElementById("progressTracker");
+        if (state.graded) {
+          tracker.textContent = `Score: ${state.finalScore} / 100`;
+          tracker.classList.add("graded");
+        } else {
+          tracker.textContent = `Answered: ${countAnswered()} / 14`;
+          tracker.classList.remove("graded");
+        }
+      }
+
+      function hideValidationBanner() {
+        const banner = document.getElementById("validationBanner");
+        banner.classList.remove("show");
+        banner.textContent = "";
+      }
+
+      /* =========================================================
+         10. MASTER DEFERRED GRADING
+      ========================================================= */
+      function getTier(score) {
+        if (score >= 90) return "🏆 AP Physics Master";
+        if (score >= 75) return "⚡ Dynamics Specialist";
+        if (score >= 60) return "🧭 FBD Navigator";
+        return "📘 Physics Apprentice";
+      }
+
+      function handleFinishQuiz() {
+        if (state.graded) return;
+
+        // Clear prior missing highlights
+        document.querySelectorAll(".q-card.missing-highlight").forEach((c) => c.classList.remove("missing-highlight"));
+
+        const missingItems = [];
+
+        MCQS.forEach((q, idx) => {
+          if (state.mcqAnswers[q.id] === undefined) {
+            missingItems.push({ el: document.getElementById(`card-${q.id}`), label: `MCQ #${idx + 1}` });
+          }
+        });
+
+        PROBLEMS.forEach((p, idx) => {
+          const missingBlank = p.blanks.some((b) => {
+            const val = state.probAnswers[p.id][b.key];
+            return b.type === "tile" ? val === null : (val === "" || isNaN(parseFloat(val)));
+          });
+          if (missingBlank) {
+            missingItems.push({ el: document.getElementById(`card-${p.id}`), label: `Problem ${idx + 1}` });
+          }
+        });
+
+        if (missingItems.length > 0) {
+          Sound.error();
+          missingItems.forEach((m) => m.el.classList.add("missing-highlight"));
+          const banner = document.getElementById("validationBanner");
+          const labels = missingItems.slice(0, 5).map((m) => m.label).join(", ");
+          const extra = missingItems.length > 5 ? ` and ${missingItems.length - 5} more` : "";
+          banner.textContent = `Please complete all questions before checking! Missing: ${labels}${extra}.`;
+          banner.classList.add("show");
+          missingItems[0].el.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
+        // Grade everything at once
+        state.graded = true;
+        clearActiveSelections();
+        hideValidationBanner();
+
+        let mcqScore = 0;
+        MCQS.forEach((q) => {
+          const chosen = state.mcqAnswers[q.id];
+          const isCorrect = chosen === q.correct;
+          if (isCorrect) mcqScore += 6;
+
+          const card = document.getElementById(`card-${q.id}`);
+          card.classList.add(isCorrect ? "graded-correct" : "graded-wrong");
+
+          const badge = document.getElementById(`badge-${q.id}`);
+          badge.classList.add("show", isCorrect ? "correct" : "wrong");
+          badge.textContent = isCorrect ? "✓ Correct (+6 pts)" : "✕ Incorrect (0 pts)";
+
+          card.querySelectorAll(".opt-btn").forEach((btn) => {
+            btn.disabled = true;
+            const oIdx = Number(btn.dataset.opt);
+            if (oIdx === q.correct) {
+              btn.classList.add("correct-reveal");
+            } else if (oIdx === chosen && !isCorrect) {
+              btn.classList.add("wrong-reveal");
+            }
+          });
+
+          document.getElementById(`exp-${q.id}`).classList.add("show");
+        });
+
+        let probTotal = 0;
+        const probScores = [];
+
+        PROBLEMS.forEach((p, idx) => {
+          let pScore = 0;
+
+          p.blanks.forEach((b) => {
+            const ans = state.probAnswers[p.id][b.key];
+            let isRight = false;
+
+            if (b.type === "tile") {
+              isRight = ans && ans.val === b.expected;
+              const slotEl = document.querySelector(`.tile-slot[data-pid="${p.id}"][data-bkey="${b.key}"]`);
+              slotEl.disabled = true;
+              slotEl.classList.add(isRight ? "slot-correct" : "slot-wrong");
+            } else {
+              const numVal = parseFloat(ans);
+              isRight = !isNaN(numVal) && Math.abs(numVal - b.expected) < 0.001;
+              const wrap = document.getElementById(`wrap-${p.id}-${b.key}`);
+              const input = document.getElementById(`num-${p.id}-${b.key}`);
+              wrap.classList.add(isRight ? "slot-correct" : "slot-wrong");
+              input.disabled = true;
+              wrap.querySelectorAll(".step-btn").forEach((sb) => (sb.disabled = true));
+            }
+
+            if (isRight) {
+              pScore += b.pts;
+            } else {
+              const corrEl = document.getElementById(`corr-${p.id}-${b.key}`);
+              corrEl.innerHTML = `<span class="correction-tag">Correct: ${b.displayExpected}</span>`;
+            }
+          });
+
+          // Lock bank tiles & hide reset button
+          const bank = document.getElementById(`bank-${p.id}`);
+          bank.querySelectorAll(".bank-tile").forEach((t) => (t.disabled = true));
+          const resetBtn = document.querySelector(`.reset-prob-btn[data-reset="${p.id}"]`);
+          if (resetBtn) resetBtn.disabled = true;
+
+          probTotal += pScore;
+          probScores.push(pScore);
+
+          const card = document.getElementById(`card-${p.id}`);
+          const badge = document.getElementById(`badge-${p.id}`);
+          badge.classList.add("show");
+          if (pScore === 10) {
+            card.classList.add("graded-correct");
+            badge.classList.add("correct");
+            badge.textContent = "✓ Perfect (+10 pts)";
+          } else if (pScore > 0) {
+            card.classList.add("graded-partial");
+            badge.classList.add("partial");
+            badge.textContent = `◐ Partial (+${pScore} / 10 pts)`;
+          } else {
+            card.classList.add("graded-wrong");
+            badge.classList.add("wrong");
+            badge.textContent = "✕ 0 / 10 pts";
+          }
+        });
+
+        state.finalScore = mcqScore + probTotal;
+        state.tier = getTier(state.finalScore);
+        state.breakdownParts = [
+          { name: "Part 1 (MCQs)", val: `${mcqScore} / 60` },
+          { name: "Problem 1", val: `${probScores[0]} / 10` },
+          { name: "Problem 2", val: `${probScores[1]} / 10` },
+          { name: "Problem 3", val: `${probScores[2]} / 10` },
+          { name: "Problem 4", val: `${probScores[3]} / 10` }
+        ];
+        state.breakdownString = `MCQ:${mcqScore}/60 | P1:${probScores[0]} | P2:${probScores[1]} | P3:${probScores[2]} | P4:${probScores[3]}`;
+
+        updateProgressTracker();
+        document.getElementById("finishQuizBtn").classList.add("hidden");
+        renderReportSection();
+        Sound.fanfare();
+
+        document.getElementById("reportSection").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function renderReportSection() {
+        const studentName = document.getElementById("studentNameInput").value.trim() || "Student (Name not entered yet)";
+        document.getElementById("reportStudentName").textContent = `Student: ${studentName}`;
+        document.getElementById("reportScoreValue").textContent = `${state.finalScore} / 100`;
+        document.getElementById("reportTierBadge").textContent = state.tier;
+
+        const grid = document.getElementById("breakdownGrid");
+        grid.innerHTML = state.breakdownParts
+          .map(
+            (b) => `
+            <div class="bd-card">
+              <div class="bd-name">${b.name}</div>
+              <div class="bd-val">${b.val}</div>
+            </div>`
+          )
+          .join("");
+
+        // Reset Submit button if previously submitted
+        const subBtn = document.getElementById("submitTeacherBtn");
+        subBtn.disabled = false;
+        subBtn.classList.remove("submitted");
+        subBtn.textContent = "🚀 Submit Score to Teacher";
+
+        document.getElementById("reportSection").classList.add("show");
+      }
+
+      /* Keep report student name synced if they type it after finishing */
+      document.getElementById("studentNameInput").addEventListener("input", (e) => {
+        if (state.graded) {
+          const val = e.target.value.trim() || "Student (Name not entered yet)";
+          document.getElementById("reportStudentName").textContent = `Student: ${val}`;
+        }
+      });
+
+      /* =========================================================
+         11. RETAKE FULL QUIZ
+      ========================================================= */
+      function retakeQuiz() {
+        Sound.click();
+        state.mcqAnswers = {};
+        state.probAnswers = {};
+        state.activeSlot = null;
+        state.selectedTile = null;
+        state.graded = false;
+        state.finalScore = 0;
+        state.tier = "";
+        state.breakdownString = "";
+        state.breakdownParts = [];
+
+        initProbState();
+        renderMCQs();
+        renderProblems();
+        hideValidationBanner();
+
+        document.getElementById("reportSection").classList.remove("show");
+        document.getElementById("finishQuizBtn").classList.remove("hidden");
+        updateProgressTracker();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      /* =========================================================
+         12. SUBMIT SCORE TO TEACHER (GOOGLE APPS SCRIPT)
+      ========================================================= */
+      async function submitScoreToTeacher() {
+        const nameInput = document.getElementById("studentNameInput");
+        const trimmedName = nameInput.value.trim();
+
+        if (!trimmedName) {
+          Sound.error();
+          alert("Please enter your full name in the top bar before submitting!");
+          nameInput.focus();
+          return;
+        }
+
+        const btn = document.getElementById("submitTeacherBtn");
+        btn.disabled = true;
+        btn.textContent = "⏳ Sending...";
+
+        const payload = {
+          studentName: trimmedName,
+          labCode: LAB_CODE,
+          totalScore: `${state.finalScore} / 100`,
+          breakdown: state.breakdownString,
+          tier: state.tier
+        };
+
+        try {
+          await fetch(SUBMIT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          Sound.fanfare();
+          btn.textContent = "✅ Submitted to Teacher!";
+          btn.classList.add("submitted");
+        } catch (err) {
+          Sound.error();
+          alert("Submission failed. Please check your internet connection and try again.");
+          btn.disabled = false;
+          btn.textContent = "🚀 Submit Score to Teacher";
+        }
+      }
+
+      /* =========================================================
+         13. SHARE RESULT WITH PARENT (1200x675 CANVAS CERTIFICATE)
+      ========================================================= */
+      function generateCertificateCanvas(studentName) {
+        const canvas = document.createElement("canvas");
+        canvas.width = 1200;
+        canvas.height = 675;
+        const ctx = canvas.getContext("2d");
+
+        // Pure crisp white background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, 1200, 675);
+
+        // Outer border frame
+        ctx.strokeStyle = "#1d4ed8";
+        ctx.lineWidth = 14;
+        ctx.strokeRect(24, 24, 1152, 627);
+
+        // Inner accent border
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(46, 46, 1108, 583);
+
+        // Top Header Band
+        ctx.fillStyle = "#eff6ff";
+        ctx.fillRect(48, 48, 1104, 115);
+
+        ctx.fillStyle = "#1d4ed8";
+        ctx.font = "800 22px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("GRADE 12 AP PHYSICS  •  OFFICIAL LAB QUIZ CERTIFICATE", 600, 92);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "900 38px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText(`${QUIZ_TITLE} (${LAB_CODE})`, 600, 142);
+
+        // Student Name
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 22px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText("Awarded To", 600, 215);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "900 46px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText(studentName, 600, 272);
+
+        // Divider
+        ctx.strokeStyle = "#e2e8f0";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(260, 295);
+        ctx.lineTo(940, 295);
+        ctx.stroke();
+
+        // Score Box
+        ctx.fillStyle = "#eff6ff";
+        ctx.strokeStyle = "#3b82f6";
+        ctx.lineWidth = 3;
+        roundRect(ctx, 210, 325, 340, 130, 16, true, true);
+
+        ctx.fillStyle = "#1d4ed8";
+        ctx.font = "900 58px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText(`${state.finalScore} / 100`, 380, 400);
+
+        ctx.fillStyle = "#475569";
+        ctx.font = "800 18px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText("FINAL SCORE", 380, 434);
+
+        // Tier Box
+        ctx.fillStyle = "#fffbeb";
+        ctx.strokeStyle = "#d97706";
+        ctx.lineWidth = 3;
+        roundRect(ctx, 590, 325, 400, 130, 16, true, true);
+
+        ctx.fillStyle = "#92400e";
+        ctx.font = "900 30px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText(state.tier.replace(/^[^\w\s]+\s*/, ""), 790, 396);
+
+        ctx.fillStyle = "#b45309";
+        ctx.font = "800 18px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText("EARNED RANK / TIER", 790, 434);
+
+        // Breakdown Line
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "700 22px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.fillText(state.breakdownString, 600, 512);
+
+        // Footer Date & Teacher Credit
+        const today = new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 20px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(`Instructor: ${TEACHER_NAME}`, 90, 592);
+
+        ctx.textAlign = "right";
+        ctx.fillText(`Date: ${today}`, 1110, 592);
+
+        return canvas;
+      }
+
+      function roundRect(ctx, x, y, w, h, r, fill, stroke) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+        if (fill) ctx.fill();
+        if (stroke) ctx.stroke();
+      }
+
+      function openShareModal() {
+        const nameInput = document.getElementById("studentNameInput");
+        const studentName = nameInput.value.trim();
+
+        if (!studentName) {
+          Sound.error();
+          alert("Please enter your full name in the top bar before sharing your certificate!");
+          nameInput.focus();
+          return;
+        }
+
+        Sound.click();
+        const canvas = generateCertificateCanvas(studentName);
+        state.certDataUrl = canvas.toDataURL("image/png");
+        document.getElementById("certPreviewImg").src = state.certDataUrl;
+
+        canvas.toBlob((blob) => {
+          state.certBlob = blob;
+        }, "image/png");
+
+        const today = new Date().toLocaleDateString();
+        const summaryText =
+          `Official Physics Quiz Result (${LAB_CODE})\n` +
+          `Student: ${studentName}\n` +
+          `Quiz: ${QUIZ_TITLE}\n` +
+          `Score: ${state.finalScore} / 100\n` +
+          `Rank: ${state.tier}\n` +
+          `Breakdown: ${state.breakdownString}\n` +
+          `Date: ${today} | ${TEACHER_NAME}`;
+
+        // WhatsApp Link
+        document.getElementById("whatsappShareLink").href =
+          `https://wa.me/?text=${encodeURIComponent(summaryText)}`;
+
+        // Email Link
+        const emailSub = `${QUIZ_TITLE} (${LAB_CODE}) Result — ${studentName}`;
+        document.getElementById("emailShareLink").href =
+          `mailto:?subject=${encodeURIComponent(emailSub)}&body=${encodeURIComponent(summaryText)}`;
+
+        // Web Share API visibility
+        const nativeBtn = document.getElementById("nativeShareBtn");
+        if (navigator.share) {
+          nativeBtn.style.display = "inline-flex";
+          nativeBtn.onclick = async () => {
+            try {
+              const shareData = { title: QUIZ_TITLE, text: summaryText };
+              if (state.certBlob && navigator.canShare) {
+                const file = new File([state.certBlob], `${LAB_CODE}-${studentName.replace(/\s+/g, "_")}.png`, { type: "image/png" });
+                if (navigator.canShare({ files: [file] })) {
+                  shareData.files = [file];
+                }
+              }
+              await navigator.share(shareData);
+            } catch (_) {}
+          };
+        } else {
+          nativeBtn.style.display = "none";
+        }
+
+        // Download PNG
+        document.getElementById("downloadCertBtn").onclick = () => {
+          const a = document.createElement("a");
+          a.href = state.certDataUrl;
+          a.download = `${LAB_CODE}-Certificate-${studentName.replace(/\s+/g, "_")}.png`;
+          a.click();
+          Sound.click();
+        };
+
+        // Copy Summary
+        document.getElementById("copySummaryBtn").onclick = async () => {
+          const fb = document.getElementById("copyFeedback");
+          try {
+            await navigator.clipboard.writeText(summaryText);
+            fb.textContent = "✅ Result summary copied to clipboard!";
+            Sound.place();
+          } catch (_) {
+            fb.textContent = "Could not copy automatically. Please copy manually.";
+          }
+        };
+
+        document.getElementById("copyFeedback").textContent = "";
+        document.getElementById("shareModal").classList.add("open");
+      }
+
+      /* =========================================================
+         14. MODALS & GLOBAL CONTROLS
+      ========================================================= */
+      document.getElementById("openHintsBtn").addEventListener("click", () => {
+        Sound.click();
+        document.getElementById("hintsModal").classList.add("open");
+      });
+
+      document.querySelectorAll(".close-modal-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          Sound.click();
+          document.getElementById(btn.dataset.close).classList.remove("open");
+        });
+      });
+
+      document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) backdrop.classList.remove("open");
+        });
+      });
+
+      document.getElementById("soundToggleBtn").addEventListener("click", (e) => {
+        soundEnabled = !soundEnabled;
+        e.currentTarget.textContent = soundEnabled ? "🔊 Sound" : "🔇 Muted";
+        if (soundEnabled) Sound.click();
+      });
+
+      document.getElementById("finishQuizBtn").addEventListener("click", handleFinishQuiz);
+      document.getElementById("retakeBtn").addEventListener("click", retakeQuiz);
+      document.getElementById("printBtn").addEventListener("click", () => window.print());
+      document.getElementById("submitTeacherBtn").addEventListener("click", submitScoreToTeacher);
+      document.getElementById("shareParentBtn").addEventListener("click", openShareModal);
+
+      /* =========================================================
+         15. INITIALIZE QUIZ
+      ========================================================= */
+      initProbState();
+      renderMCQs();
+      renderProblems();
+      updateProgressTracker();
+    })();
+  </script>
+</body>
+</html>

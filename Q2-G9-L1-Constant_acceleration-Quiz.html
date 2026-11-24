@@ -1,0 +1,2905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz: Constant Acceleration | Grade 9 Physics (Q2-G9-L1)</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --surface-tint: #eff6ff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-light: #dbeafe;
+      --amber: #d97706;
+      --amber-hover: #b45309;
+      --emerald: #059669;
+      --emerald-light: #d1fae5;
+      --emerald-dark: #065f46;
+      --rose: #dc2626;
+      --rose-light: #fee2e2;
+      --rose-dark: #991b1b;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sticky Top Navigation Bar */
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      padding: 10px 14px;
+    }
+
+    .sticky-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sticky-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .quiz-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .brand-title-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tracker-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-soft);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .tracker-badge.graded {
+      background: var(--emerald-light);
+      border-color: var(--emerald);
+      color: var(--emerald-dark);
+    }
+
+    .sticky-row-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .name-input {
+      flex: 1 1 180px;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .name-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+    }
+
+    .btn-top {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-top:hover {
+      background: var(--surface-soft);
+    }
+
+    .btn-top:active {
+      transform: scale(0.98);
+    }
+
+    .btn-hints {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #78350f;
+    }
+
+    .btn-hints:hover {
+      background: #fde68a;
+    }
+
+    .btn-sound.muted {
+      color: var(--text-muted);
+      background: var(--surface-soft);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 14px 64px;
+    }
+
+    /* Hero Header */
+    .hero-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+    }
+
+    .meta-tag.code {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .hero-title {
+      margin: 0 0 8px;
+      font-size: clamp(1.45rem, 4.5vw, 2.05rem);
+      line-height: 1.2;
+      font-weight: 900;
+      color: var(--text);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-quiz-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.85em;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .hero-rules {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .hero-rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* Section Headings */
+    .section-header {
+      margin: 30px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #0f172a;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.32rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .section-pts {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* Question Cards */
+    .q-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .q-card.missing-highlight {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.16);
+    }
+
+    .q-card.graded-correct {
+      border-color: var(--emerald);
+      border-width: 2px;
+    }
+
+    .q-card.graded-wrong {
+      border-color: var(--rose);
+      border-width: 2px;
+    }
+
+    .q-card.graded-partial {
+      border-color: var(--amber);
+      border-width: 2px;
+    }
+
+    .q-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .q-num {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .q-status-pill {
+      display: none;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .q-status-pill.show {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .q-status-pill.correct {
+      background: var(--emerald-light);
+      color: var(--emerald-dark);
+    }
+
+    .q-status-pill.wrong {
+      background: var(--rose-light);
+      color: var(--rose-dark);
+    }
+
+    .q-status-pill.partial {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .q-text {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Diagram Container */
+    .diagram-box {
+      width: 100%;
+      margin: 0 0 14px;
+      padding: 10px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-sm);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .diagram-box svg {
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      display: block;
+    }
+
+    /* Math Typography */
+    .math {
+      font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+      font-size: 1.08em;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      vertical-align: middle;
+    }
+
+    .math var {
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .math sub, .math sup {
+      font-size: 0.72em;
+      line-height: 0;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      line-height: 1.15;
+    }
+
+    .frac .num {
+      border-bottom: 1.8px solid #0f172a;
+      padding: 0 4px 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-width: 22px;
+    }
+
+    .frac .den {
+      padding: 2px 4px 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-width: 22px;
+    }
+
+    /* MCQ Options */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 14px;
+      border: 1.8px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      background: var(--surface-soft);
+      border-color: var(--border-strong);
+    }
+
+    .opt-letter {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1.8px solid var(--border-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      flex-shrink: 0;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .opt-btn.selected {
+      background: var(--surface-tint);
+      border-color: var(--primary);
+      border-width: 2px;
+    }
+
+    .opt-btn.selected .opt-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .opt-btn.reveal-correct {
+      background: var(--emerald-light) !important;
+      border-color: var(--emerald) !important;
+      border-width: 2px;
+      color: var(--emerald-dark);
+    }
+
+    .opt-btn.reveal-correct .opt-letter {
+      background: var(--emerald) !important;
+      border-color: var(--emerald) !important;
+      color: #ffffff !important;
+    }
+
+    .opt-btn.reveal-wrong {
+      background: var(--rose-light) !important;
+      border-color: var(--rose) !important;
+      border-width: 2px;
+      color: var(--rose-dark);
+    }
+
+    .opt-btn.reveal-wrong .opt-letter {
+      background: var(--rose) !important;
+      border-color: var(--rose) !important;
+      color: #ffffff !important;
+    }
+
+    .opt-btn:disabled {
+      cursor: default;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+      border-left: 4px solid var(--primary);
+      font-size: 0.94rem;
+      color: var(--text);
+    }
+
+    .explanation-box.show {
+      display: block;
+    }
+
+    /* Part 2: 3-Line Math Rule Interactive Problems */
+    .problem-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 14px 0 16px;
+    }
+
+    .math-line-box {
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      background: var(--surface-soft);
+    }
+
+    .line-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .line-eq {
+      font-size: 1.12rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 46px;
+    }
+
+    /* Symbolic Drop/Tap Slot */
+    .sym-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 74px;
+      min-height: 44px;
+      padding: 4px 10px;
+      border: 2px dashed var(--primary);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .sym-slot.active-slot {
+      background: var(--primary-light);
+      border-style: solid;
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+    }
+
+    .sym-slot.filled {
+      border-style: solid;
+      background: var(--surface-tint);
+      color: var(--text);
+    }
+
+    .sym-slot.drag-over {
+      background: var(--primary-light);
+      transform: scale(1.04);
+    }
+
+    .sym-slot.slot-correct {
+      border-color: var(--emerald);
+      background: var(--emerald-light);
+      color: var(--emerald-dark);
+    }
+
+    .sym-slot.slot-wrong {
+      border-color: var(--rose);
+      background: var(--rose-light);
+      color: var(--rose-dark);
+    }
+
+    .sym-slot.slot-missing {
+      border-color: var(--rose);
+      background: #fff1f2;
+    }
+
+    /* Numeric Stepper Control */
+    .num-stepper {
+      display: inline-flex;
+      align-items: center;
+      border: 2px solid var(--border-strong);
+      border-radius: 10px;
+      background: #ffffff;
+      overflow: hidden;
+      height: 46px;
+      vertical-align: middle;
+    }
+
+    .num-stepper:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+    }
+
+    .num-stepper.num-correct {
+      border-color: var(--emerald);
+      background: var(--emerald-light);
+    }
+
+    .num-stepper.num-wrong {
+      border-color: var(--rose);
+      background: var(--rose-light);
+    }
+
+    .num-stepper.num-missing {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+    }
+
+    .step-btn {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: var(--surface-soft);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.12s ease;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .step-btn:hover:not(:disabled) {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .step-btn:active:not(:disabled) {
+      background: #bfdbfe;
+    }
+
+    .step-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .num-input {
+      width: 72px;
+      height: 44px;
+      border: none;
+      border-left: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--text);
+      background: transparent;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+
+    .num-input::-webkit-outer-spin-button,
+    .num-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Tile Bank */
+    .tile-bank-wrap {
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      background: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .tile-bank-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .tile-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tile-item {
+      min-width: 56px;
+      min-height: 44px;
+      padding: 6px 12px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: grab;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .tile-item:hover:not(.used):not(:disabled) {
+      border-color: var(--primary);
+      background: var(--surface-tint);
+      transform: translateY(-1px);
+    }
+
+    .tile-item:active:not(.used):not(:disabled) {
+      cursor: grabbing;
+    }
+
+    .tile-item.used {
+      opacity: 0.35;
+      border-style: dashed;
+      cursor: not-allowed;
+    }
+
+    .problem-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-reset-prob {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      touch-action: manipulation;
+    }
+
+    .btn-reset-prob:hover:not(:disabled) {
+      background: var(--surface-soft);
+    }
+
+    .btn-reset-prob:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .correction-note {
+      display: none;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #9a3412;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .correction-note.show {
+      display: block;
+    }
+
+    /* Master Submit Bar */
+    .master-submit-area {
+      margin-top: 28px;
+      padding: 20px 16px;
+      border: 2px solid #0f172a;
+      border-radius: var(--radius);
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .validation-banner {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--rose-light);
+      border: 1.5px solid var(--rose);
+      color: var(--rose-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    .validation-banner.show {
+      display: block;
+    }
+
+    .btn-master {
+      width: 100%;
+      max-width: 420px;
+      min-height: 54px;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 1.08rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-md);
+      transition: background 0.15s ease, transform 0.1s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-master:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .btn-master:active:not(:disabled) {
+      transform: scale(0.99);
+    }
+
+    .btn-master:disabled {
+      background: #64748b;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    /* Final Lab Report / Certificate Section */
+    .report-section {
+      display: none;
+      margin-top: 32px;
+      border: 2.5px solid #0f172a;
+      border-radius: var(--radius);
+      padding: 24px 18px;
+      background: #ffffff;
+      box-shadow: var(--shadow-md);
+    }
+
+    .report-section.show {
+      display: block;
+    }
+
+    .report-header {
+      text-align: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .report-kicker {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .report-title {
+      margin: 0 0 6px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .report-student {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .report-score-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .score-box {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      background: var(--surface-soft);
+    }
+
+    .score-big {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .bd-card {
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .bd-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .bd-val {
+      font-size: 1.12rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    .report-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .btn-action {
+      min-height: 48px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1.8px solid transparent;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-amber {
+      background: var(--amber);
+      color: #ffffff;
+    }
+
+    .btn-amber:hover:not(:disabled) {
+      background: var(--amber-hover);
+    }
+
+    .btn-amber.submitted {
+      background: var(--emerald) !important;
+      color: #ffffff !important;
+      cursor: default;
+    }
+
+    .btn-share {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-share:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-soft);
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(15, 23, 42, 0.55);
+      padding: 14px;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      width: 100%;
+      max-width: 660px;
+      max-height: 88vh;
+      background: #ffffff;
+      border-radius: var(--radius);
+      border: 2px solid #0f172a;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-head {
+      padding: 14px 18px;
+      border-bottom: 1.5px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #ffffff;
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .modal-close {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .modal-body {
+      padding: 18px;
+      overflow-y: auto;
+      font-size: 0.96rem;
+      color: var(--text);
+    }
+
+    .hint-block {
+      margin-bottom: 16px;
+      padding: 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+    }
+
+    .hint-block h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .hint-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .hint-list li {
+      margin-bottom: 6px;
+    }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .formula-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .formula-name {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .cert-preview-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .btn-wa {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .btn-wa:hover {
+      background: #15803d;
+    }
+
+    .btn-mail {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .btn-mail:hover {
+      background: #1e293b;
+    }
+
+    .footer-credit {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-top: 1px solid #e2e8f0;
+      padding-top: 16px;
+    }
+
+    /* Responsive Desktop Enhancements */
+    @media (min-width: 640px) {
+      .sticky-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sticky-row-top {
+        flex-wrap: nowrap;
+      }
+
+      .sticky-row-controls {
+        flex-wrap: nowrap;
+      }
+
+      .options-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .report-score-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .report-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .formula-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .share-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Clean Print Stylesheet */
+    @media print {
+      .sticky-bar,
+      .tile-bank-wrap,
+      .problem-footer,
+      .master-submit-area,
+      .report-actions,
+      .modal-backdrop {
+        display: none !important;
+      }
+
+      body, .container {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .q-card, .hero-card, .report-section {
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border-color: #94a3b8 !important;
+      }
+
+      .step-btn {
+        display: none !important;
+      }
+
+      .num-stepper {
+        border: 1px solid #000000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Compact Sticky Top Bar -->
+  <header class="sticky-bar" role="banner">
+    <div class="sticky-inner">
+      <div class="sticky-row-top">
+        <div class="brand-mini">
+          <span class="quiz-pill">Quiz</span>
+          <span class="brand-title-text">Constant Acceleration</span>
+        </div>
+        <div id="trackerBadge" class="tracker-badge" aria-live="polite">Answered: 0 / 14</div>
+      </div>
+
+      <div class="sticky-row-controls">
+        <input
+          type="text"
+          id="studentNameInput"
+          class="name-input"
+          placeholder="Enter Student Full Name..."
+          aria-label="Student Full Name"
+          autocomplete="name"
+        />
+        <button type="button" id="soundToggleBtn" class="btn-top btn-sound" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">
+          🔊 Sound
+        </button>
+        <button type="button" id="openHintsBtn" class="btn-top btn-hints">
+          💡 Lesson Hints &amp; Formulas
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Title Card -->
+    <section class="hero-card">
+      <div class="hero-meta-row">
+        <span class="meta-tag code">Q2-G9-L1</span>
+        <span class="meta-tag">Grade 9 Physics</span>
+        <span class="meta-tag">Teacher Assem Alatrash</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-quiz-badge">Quiz</span>
+        <span>Constant Acceleration</span>
+      </h1>
+      <p class="hero-subtitle">
+        Chapter 2: Kinematics (OpenStax Sections 2.4 &amp; 2.5) — Understanding how velocity changes step-by-step and applying the 3-Line Math Rule.
+      </p>
+      <div class="hero-rules">
+        <div class="hero-rule-item"><span>📝</span><span><strong>Part 1:</strong> 10 Multiple Choice Questions (60 pts total — 6 pts each).</span></div>
+        <div class="hero-rule-item"><span>🧮</span><span><strong>Part 2:</strong> 4 Interactive 3-Line Math Rule Challenges (40 pts total — 10 pts each).</span></div>
+        <div class="hero-rule-item"><span>🔒</span><span><strong>Deferred Grading:</strong> You can freely edit any answer until you click <em>Finish &amp; Check All Answers</em> at the bottom.</span></div>
+      </div>
+    </section>
+
+    <!-- PART 1: MULTIPLE CHOICE QUESTIONS -->
+    <div class="section-header">
+      <h2>Part 1: Multiple Choice Questions</h2>
+      <span class="section-pts">60 Points (6 pts each)</span>
+    </div>
+    <div id="mcqContainer"></div>
+
+    <!-- PART 2: 3-LINE MATH RULE CHALLENGES -->
+    <div class="section-header">
+      <h2>Part 2: Interactive 3-Line Math Rule Challenges</h2>
+      <span class="section-pts">40 Points (10 pts each)</span>
+    </div>
+    <div id="problemsContainer"></div>
+
+    <!-- MASTER FINISH & CHECK BUTTON -->
+    <section class="master-submit-area" id="masterSubmitArea">
+      <div id="validationBanner" class="validation-banner" role="alert"></div>
+      <button type="button" id="finishQuizBtn" class="btn-master">
+        ✅ Finish &amp; Check All Answers
+      </button>
+    </section>
+
+    <!-- FINAL LAB REPORT / CERTIFICATE SECTION -->
+    <section class="report-section" id="reportSection" aria-live="polite">
+      <div class="report-header">
+        <div class="report-kicker">Official Physics Lab Report • Q2-G9-L1</div>
+        <h2 class="report-title">Quiz: Constant Acceleration</h2>
+        <div class="report-student" id="reportStudentName">Student: —</div>
+      </div>
+
+      <div class="report-score-grid">
+        <div class="score-box">
+          <div class="bd-label">Total Score</div>
+          <div class="score-big" id="reportTotalScore">0 / 100</div>
+        </div>
+        <div class="score-box">
+          <div class="bd-label">Earned Rank / Tier</div>
+          <div><span class="tier-badge" id="reportTierBadge">—</span></div>
+        </div>
+      </div>
+
+      <div class="breakdown-grid" id="reportBreakdownGrid"></div>
+
+      <div class="report-actions">
+        <button type="button" id="submitTeacherBtn" class="btn-action btn-amber">
+          🚀 Submit Score to Teacher
+        </button>
+        <button type="button" id="shareParentBtn" class="btn-action btn-share">
+          📤 Share Result with Parent
+        </button>
+        <button type="button" id="printReportBtn" class="btn-action btn-outline">
+          🖨️ Print / Save PDF
+        </button>
+        <button type="button" id="retakeQuizBtn" class="btn-action btn-outline">
+          🔄 Retake Full Quiz
+        </button>
+      </div>
+    </section>
+
+    <footer class="footer-credit">
+      Grade 9 Physics • Lab Code: <strong>Q2-G9-L1</strong> • Prepared by <strong>Teacher Assem Alatrash</strong>
+    </footer>
+  </main>
+
+  <!-- LESSON HINTS & FORMULAS MODAL -->
+  <div class="modal-backdrop" id="hintsModal" role="dialog" aria-modal="true" aria-labelledby="hintsModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <h3 id="hintsModalTitle">💡 Lesson Hints &amp; Formulas</h3>
+        <button type="button" class="modal-close" data-close-modal="hintsModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="hint-block">
+          <h4>1. Core Definition &amp; Key Ideas</h4>
+          <ul class="hint-list">
+            <li><strong>Acceleration (<span class="math"><var>a</var></span>):</strong> The rate at which an object's velocity changes over time. Standard SI unit: <strong><span class="math">m/s<sup>2</sup></span></strong>.</li>
+            <li><strong>Constant Acceleration:</strong> Velocity changes by the exact same amount every single second.</li>
+            <li><strong>Positive Acceleration (<span class="math">+<var>a</var></span>):</strong> Speeding up in the forward direction (<span class="math"><var>v</var><sub>f</sub> &gt; <var>v</var><sub>i</sub></span>).</li>
+            <li><strong>Negative Acceleration / Deceleration (<span class="math">&minus;<var>a</var></span>):</strong> Slowing down while moving forward (<span class="math"><var>v</var><sub>f</sub> &lt; <var>v</var><sub>i</sub></span>).</li>
+            <li><strong>Zero Acceleration (<span class="math"><var>a</var> = 0 m/s<sup>2</sup></span>):</strong> Moving at a steady, unchanging velocity (<span class="math"><var>v</var><sub>f</sub> = <var>v</var><sub>i</sub></span>).</li>
+          </ul>
+        </div>
+
+        <div class="hint-block">
+          <h4>2. Variables, Units &amp; Keyword Clues</h4>
+          <ul class="hint-list">
+            <li><span class="math"><var>v</var><sub>i</sub></span> = Initial velocity (m/s) &nbsp;|&nbsp; <em>"Starts from rest"</em> &rarr; <span class="math"><var>v</var><sub>i</sub> = 0 m/s</span></li>
+            <li><span class="math"><var>v</var><sub>f</sub></span> = Final velocity (m/s) &nbsp;|&nbsp; <em>"Comes to a complete stop"</em> &rarr; <span class="math"><var>v</var><sub>f</sub> = 0 m/s</span></li>
+            <li><span class="math"><var>t</var></span> = Time interval (s)</li>
+            <li><span class="math"><var>a</var></span> = Constant acceleration (<span class="math">m/s<sup>2</sup></span>)</li>
+            <li><span class="math"><var>d</var></span> = Displacement / distance in a straight line (m)</li>
+          </ul>
+        </div>
+
+        <div class="hint-block">
+          <h4>3. The 4 Constant Acceleration Formulas</h4>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="formula-name">Finding Acceleration</div>
+              <div class="math">
+                <var>a</var> =
+                <span class="frac">
+                  <span class="num"><var>v</var><sub>f</sub> &minus; <var>v</var><sub>i</sub></span>
+                  <span class="den"><var>t</var></span>
+                </span>
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="formula-name">Finding Final Velocity</div>
+              <div class="math">
+                <var>v</var><sub>f</sub> = <var>v</var><sub>i</sub> + <var>a</var> &middot; <var>t</var>
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="formula-name">Displacement from Rest (<span class="math"><var>v</var><sub>i</sub> = 0</span>)</div>
+              <div class="math">
+                <var>d</var> =
+                <span class="frac">
+                  <span class="num">1</span>
+                  <span class="den">2</span>
+                </span>
+                &middot; <var>a</var> &middot; <var>t</var><sup>2</sup>
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="formula-name">Displacement with Average Velocity</div>
+              <div class="math">
+                <var>d</var> =
+                <span class="frac">
+                  <span class="num"><var>v</var><sub>i</sub> + <var>v</var><sub>f</sub></span>
+                  <span class="den">2</span>
+                </span>
+                &middot; <var>t</var>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint-block" style="margin-bottom:0;">
+          <h4>4. The 3-Line Math Rule</h4>
+          <ul class="hint-list">
+            <li><strong>Line 1 (Formula):</strong> Write the physics equation using symbols.</li>
+            <li><strong>Line 2 (Substitution):</strong> Plug in the given numbers cleanly.</li>
+            <li><strong>Line 3 (Answer):</strong> Write the final number with its SI unit inside parentheses, e.g., <span class="math">12 (m/s)</span>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHARE WITH PARENT MODAL -->
+  <div class="modal-backdrop" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <h3 id="shareModalTitle">📤 Share Official Certificate with Parent</h3>
+        <button type="button" class="modal-close" data-close-modal="shareModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <img id="certPreviewImg" class="cert-preview-img" alt="Official Quiz Certificate Preview" />
+        <div class="share-grid">
+          <button type="button" id="nativeShareBtn" class="btn-action btn-share" style="display:none;">
+            📱 Share Certificate (Native)
+          </button>
+          <a id="whatsappShareBtn" class="btn-action btn-wa" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+            💬 Send via WhatsApp
+          </a>
+          <a id="emailShareBtn" class="btn-action btn-mail" style="text-decoration:none;">
+            ✉️ Send via Email
+          </a>
+          <button type="button" id="downloadCertBtn" class="btn-action btn-outline">
+            ⬇️ Download Certificate (PNG)
+          </button>
+          <button type="button" id="copySummaryBtn" class="btn-action btn-outline">
+            📋 Copy Result Summary
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Canvas for 1200x675 PNG Certificate -->
+  <canvas id="certCanvas" width="1200" height="675" style="display:none;"></canvas>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const LAB_CODE = "Q2-G9-L1";
+      const QUIZ_TITLE = "Quiz: Constant Acceleration";
+      const TEACHER_NAME = "Teacher Assem Alatrash";
+      const GRADE_LABEL = "Grade 9 Physics";
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsoVYIuvk6RL_JiLCTtqGWcDfWH46uDeqRSnOPe7trrM3nOHhDfiwPH4i7XQReNAgUiA/exec";
+
+      /* =========================================================
+         WEB AUDIO API SYNTHESIZER (ZERO EXTERNAL AUDIO FILES)
+      ========================================================= */
+      let soundEnabled = true;
+      let audioCtx = null;
+
+      function ensureAudio() {
+        if (!soundEnabled) return null;
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) audioCtx = new Ctx();
+        }
+        if (audioCtx && audioCtx.state === "suspended") {
+          audioCtx.resume().catch(() => {});
+        }
+        return audioCtx;
+      }
+
+      function playTone(freq, duration, type = "sine", gainVal = 0.08, delay = 0) {
+        const ctx = ensureAudio();
+        if (!ctx) return;
+        const now = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(gainVal, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      function playClick() {
+        playTone(540, 0.06, "triangle", 0.06, 0);
+      }
+
+      function playPlace() {
+        playTone(660, 0.08, "sine", 0.07, 0);
+      }
+
+      function playError() {
+        playTone(220, 0.16, "sawtooth", 0.07, 0);
+        playTone(185, 0.22, "sawtooth", 0.07, 0.14);
+      }
+
+      function playFanfare() {
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((f, idx) => {
+          playTone(f, 0.24, "triangle", 0.1, idx * 0.11);
+        });
+      }
+
+      /* =========================================================
+         INLINE SVG DIAGRAM HELPERS (HIGH-CONTRAST ON WHITE)
+      ========================================================= */
+      function svgLinearMotion({ objLabel, viText, vfText, aText, tText, slowing = false }) {
+        const arrowColor = slowing ? "#dc2626" : "#1d4ed8";
+        const aDir = slowing
+          ? `<line x1="255" y1="30" x2="185" y2="30" stroke="${arrowColor}" stroke-width="3" marker-end="url(#arrRed)"/>`
+          : `<line x1="185" y1="30" x2="255" y2="30" stroke="${arrowColor}" stroke-width="3" marker-end="url(#arrBlue)"/>`;
+        return `
+          <svg viewBox="0 0 440 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${objLabel} motion diagram">
+            <defs>
+              <marker id="arrBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,1 L7,4 L0,7 Z" fill="#1d4ed8"/>
+              </marker>
+              <marker id="arrRed" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,1 L7,4 L0,7 Z" fill="#dc2626"/>
+              </marker>
+              <marker id="arrDark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,1 L7,4 L0,7 Z" fill="#0f172a"/>
+              </marker>
+            </defs>
+            <line x1="20" y1="92" x2="420" y2="92" stroke="#0f172a" stroke-width="2.5"/>
+            <line x1="65" y1="86" x2="65" y2="98" stroke="#0f172a" stroke-width="2"/>
+            <line x1="365" y1="86" x2="365" y2="98" stroke="#0f172a" stroke-width="2"/>
+            <rect x="42" y="64" width="46" height="24" rx="6" fill="#eff6ff" stroke="#0f172a" stroke-width="2"/>
+            <text x="65" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a">${objLabel}</text>
+            <rect x="342" y="64" width="46" height="24" rx="6" fill="#f8fafc" stroke="#0f172a" stroke-width="2" stroke-dasharray="4 3"/>
+            <text x="365" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">${objLabel}</text>
+            <line x1="96" y1="76" x2="332" y2="76" stroke="#0f172a" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrDark)"/>
+            ${aDir}
+            <text x="220" y="18" text-anchor="middle" font-size="12" font-weight="800" fill="${arrowColor}">${aText}</text>
+            <text x="220" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">${tText}</text>
+            <text x="65" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">${viText}</text>
+            <text x="365" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">${vfText}</text>
+          </svg>
+        `;
+      }
+
+      function svgRampDiagram() {
+        return `
+          <svg viewBox="0 0 440 125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Marble rolling down a ramp">
+            <defs>
+              <marker id="arrRamp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,1 L7,4 L0,7 Z" fill="#1d4ed8"/>
+              </marker>
+            </defs>
+            <polygon points="40,105 390,105 40,28" fill="#f8fafc" stroke="#0f172a" stroke-width="2.2"/>
+            <circle cx="58" cy="24" r="10" fill="#1d4ed8" stroke="#0f172a" stroke-width="2"/>
+            <circle cx="355" cy="89" r="10" fill="#dbeafe" stroke="#0f172a" stroke-width="2" stroke-dasharray="3 2"/>
+            <line x1="82" y1="27" x2="332" y2="82" stroke="#1d4ed8" stroke-width="2.2" stroke-dasharray="5 4" marker-end="url(#arrRamp)"/>
+            <text x="95" y="20" font-size="12" font-weight="700" fill="#0f172a">vᵢ = 0 m/s</text>
+            <text x="355" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">v_f = 15 m/s</text>
+            <text x="215" y="45" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">t = 3 s, a = ?</text>
+          </svg>
+        `.replace("v_f", "v\u1d66").replace("v\u1d66", "vf");
+      }
+
+      function svgTimelineTicks() {
+        return `
+          <svg viewBox="0 0 440 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Constant acceleration velocity ticks each second">
+            <line x1="30" y1="68" x2="410" y2="68" stroke="#0f172a" stroke-width="2.5"/>
+            <circle cx="70" cy="68" r="6" fill="#1d4ed8"/>
+            <circle cx="170" cy="68" r="6" fill="#1d4ed8"/>
+            <circle cx="270" cy="68" r="6" fill="#1d4ed8"/>
+            <circle cx="370" cy="68" r="6" fill="#1d4ed8"/>
+            <text x="70" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">t = 0 s</text>
+            <text x="170" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">t = 1 s</text>
+            <text x="270" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">t = 2 s</text>
+            <text x="370" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">t = 3 s</text>
+            <text x="120" y="45" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">+ Δv?</text>
+            <text x="220" y="45" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">+ Δv?</text>
+            <text x="320" y="45" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">+ Δv?</text>
+            <text x="220" y="20" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">Constant Acceleration: a = 5 m/s²</text>
+          </svg>
+        `;
+      }
+
+      function svgBrakeSign() {
+        return `
+          <svg viewBox="0 0 440 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Forward velocity and negative acceleration vectors">
+            <defs>
+              <marker id="arrV" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,1 L7,4 L0,7 Z" fill="#059669"/>
+              </marker>
+              <marker id="arrA" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,1 L7,4 L0,7 Z" fill="#dc2626"/>
+              </marker>
+            </defs>
+            <line x1="25" y1="88" x2="415" y2="88" stroke="#0f172a" stroke-width="2.2"/>
+            <rect x="175" y="56" width="90" height="30" rx="8" fill="#f8fafc" stroke="#0f172a" stroke-width="2"/>
+            <text x="220" y="75" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">Object</text>
+            <line x1="270" y1="71" x2="365" y2="71" stroke="#059669" stroke-width="3.2" marker-end="url(#arrV)"/>
+            <text x="320" y="58" text-anchor="middle" font-size="12" font-weight="800" fill="#059669">Velocity (+)</text>
+            <line x1="255" y1="30" x2="175" y2="30" stroke="#dc2626" stroke-width="3.2" marker-end="url(#arrA)"/>
+            <text x="215" y="18" text-anchor="middle" font-size="12" font-weight="800" fill="#dc2626">a = −3 m/s²</text>
+          </svg>
+        `;
+      }
+
+      /* =========================================================
+         PART 1 DATA: 10 MCQs (STRICT FIDELITY TO SOURCE FILE)
+      ========================================================= */
+      const MCQS = [
+        {
+          id: 1,
+          questionHtml: `If an object has a constant acceleration of <span class="math">5 m/s<sup>2</sup></span>, how much does its velocity increase every second?`,
+          diagram: svgTimelineTicks(),
+          options: [
+            { key: "a", html: `<span class="math">1 m/s</span>` },
+            { key: "b", html: `<span class="math">5 m/s</span>` },
+            { key: "c", html: `<span class="math">10 m/s</span>` },
+            { key: "d", html: `<span class="math">25 m/s</span>` }
+          ],
+          correct: "b",
+          explanation: `A constant acceleration of <span class="math">5 m/s<sup>2</sup></span> means the object's velocity increases by <span class="math">5 m/s</span> during every single second.`
+        },
+        {
+          id: 2,
+          questionHtml: `What is the value of the final velocity (<span class="math"><var>v</var><sub>f</sub></span>) when a moving car "comes to a complete stop"?`,
+          diagram: svgLinearMotion({ objLabel: "Car", viText: "Moving", vfText: "Stopped (v_f = ?)".replace("v_f", "vf"), aText: "Braking", tText: "Slowing to a stop", slowing: true }),
+          options: [
+            { key: "a", html: `<span class="math"><var>v</var><sub>f</sub> = 0 m/s</span>` },
+            { key: "b", html: `<span class="math"><var>v</var><sub>f</sub> = 10 m/s</span>` },
+            { key: "c", html: `<span class="math"><var>v</var><sub>f</sub> = &minus;10 m/s</span>` },
+            { key: "d", html: `<span class="math"><var>v</var><sub>f</sub> = 1 m/s</span>` }
+          ],
+          correct: "a",
+          explanation: `When any moving object comes to a complete stop, its motion ends so its final velocity is <span class="math"><var>v</var><sub>f</sub> = 0 m/s</span>.`
+        },
+        {
+          id: 3,
+          questionHtml: `A marble rolls down a ramp from rest (<span class="math">0 m/s</span>) to <span class="math">15 m/s</span> in <span class="math">3 seconds</span>. What is its acceleration?`,
+          diagram: svgRampDiagram(),
+          options: [
+            { key: "a", html: `<span class="math">3 m/s<sup>2</sup></span>` },
+            { key: "b", html: `<span class="math">5 m/s<sup>2</sup></span>` },
+            { key: "c", html: `<span class="math">12 m/s<sup>2</sup></span>` },
+            { key: "d", html: `<span class="math">45 m/s<sup>2</sup></span>` }
+          ],
+          correct: "b",
+          explanation: `Using <span class="math"><var>a</var> = <span class="frac"><span class="num"><var>v</var><sub>f</sub> &minus; <var>v</var><sub>i</sub></span><span class="den"><var>t</var></span></span> = <span class="frac"><span class="num">15 &minus; 0</span><span class="den">3</span></span> = 5 m/s<sup>2</sup></span>.`
+        },
+        {
+          id: 4,
+          questionHtml: `A runner moving at <span class="math">2 m/s</span> speeds up to <span class="math">10 m/s</span> in <span class="math">4 seconds</span>. What is the runner's acceleration?`,
+          diagram: svgLinearMotion({ objLabel: "Runner", viText: "vi = 2 m/s", vfText: "vf = 10 m/s", aText: "a = ?", tText: "t = 4 s" }),
+          options: [
+            { key: "a", html: `<span class="math">2 m/s<sup>2</sup></span>` },
+            { key: "b", html: `<span class="math">3 m/s<sup>2</sup></span>` },
+            { key: "c", html: `<span class="math">4 m/s<sup>2</sup></span>` },
+            { key: "d", html: `<span class="math">8 m/s<sup>2</sup></span>` }
+          ],
+          correct: "a",
+          explanation: `Using <span class="math"><var>a</var> = <span class="frac"><span class="num">10 &minus; 2</span><span class="den">4</span></span> = <span class="frac"><span class="num">8</span><span class="den">4</span></span> = 2 m/s<sup>2</sup></span>.`
+        },
+        {
+          id: 5,
+          questionHtml: `A boat starts from rest and accelerates at <span class="math">3 m/s<sup>2</sup></span> for <span class="math">6 seconds</span>. What is its final velocity?`,
+          diagram: svgLinearMotion({ objLabel: "Boat", viText: "vi = 0 m/s", vfText: "vf = ?", aText: "a = 3 m/s²", tText: "t = 6 s" }),
+          options: [
+            { key: "a", html: `<span class="math">2 m/s</span>` },
+            { key: "b", html: `<span class="math">9 m/s</span>` },
+            { key: "c", html: `<span class="math">18 m/s</span>` },
+            { key: "d", html: `<span class="math">54 m/s</span>` }
+          ],
+          correct: "c",
+          explanation: `Starting from rest means <span class="math"><var>v</var><sub>i</sub> = 0 m/s</span>, so <span class="math"><var>v</var><sub>f</sub> = <var>v</var><sub>i</sub> + <var>a</var> &middot; <var>t</var> = 0 + 3 &middot; 6 = 18 m/s</span>.`
+        },
+        {
+          id: 6,
+          questionHtml: `Which situation describes zero acceleration (<span class="math"><var>a</var> = 0 m/s<sup>2</sup></span>)?`,
+          diagram: null,
+          options: [
+            { key: "a", html: `A ball dropped from a roof` },
+            { key: "b", html: `A rocket launching into space` },
+            { key: "c", html: `A train moving straight at a constant <span class="math">20 m/s</span>` },
+            { key: "d", html: `A bicycle braking at a stop sign` }
+          ],
+          correct: "c",
+          explanation: `Zero acceleration occurs when an object's velocity does not change at all (<span class="math"><var>v</var><sub>f</sub> = <var>v</var><sub>i</sub></span>), such as a train moving straight at a constant <span class="math">20 m/s</span>.`
+        },
+        {
+          id: 7,
+          questionHtml: `A scooter moving at <span class="math">12 m/s</span> slows down to <span class="math">4 m/s</span> in <span class="math">2 seconds</span>. What is its acceleration?`,
+          diagram: svgLinearMotion({ objLabel: "Scooter", viText: "vi = 12 m/s", vfText: "vf = 4 m/s", aText: "a = ?", tText: "t = 2 s", slowing: true }),
+          options: [
+            { key: "a", html: `<span class="math">4 m/s<sup>2</sup></span>` },
+            { key: "b", html: `<span class="math">&minus;4 m/s<sup>2</sup></span>` },
+            { key: "c", html: `<span class="math">8 m/s<sup>2</sup></span>` },
+            { key: "d", html: `<span class="math">&minus;8 m/s<sup>2</sup></span>` }
+          ],
+          correct: "b",
+          explanation: `Using <span class="math"><var>a</var> = <span class="frac"><span class="num">4 &minus; 12</span><span class="den">2</span></span> = <span class="frac"><span class="num">&minus;8</span><span class="den">2</span></span> = &minus;4 m/s<sup>2</sup></span>. The negative sign shows deceleration.`
+        },
+        {
+          id: 8,
+          questionHtml: `A bowling ball starts from rest and accelerates at <span class="math">2 m/s<sup>2</sup></span> for <span class="math">3 seconds</span>. What distance does it travel using <span class="math"><var>d</var> = <span class="frac"><span class="num">1</span><span class="den">2</span></span> &middot; <var>a</var> &middot; <var>t</var><sup>2</sup></span>?`,
+          diagram: svgLinearMotion({ objLabel: "Ball", viText: "vi = 0 m/s", vfText: "d = ?", aText: "a = 2 m/s²", tText: "t = 3 s" }),
+          options: [
+            { key: "a", html: `<span class="math">3 m</span>` },
+            { key: "b", html: `<span class="math">6 m</span>` },
+            { key: "c", html: `<span class="math">9 m</span>` },
+            { key: "d", html: `<span class="math">18 m</span>` }
+          ],
+          correct: "c",
+          explanation: `Substituting into <span class="math"><var>d</var> = <span class="frac"><span class="num">1</span><span class="den">2</span></span> &middot; 2 &middot; 3<sup>2</sup> = 1 &middot; 9 = 9 m</span>.`
+        },
+        {
+          id: 9,
+          questionHtml: `A car speeds up smoothly from <span class="math">4 m/s</span> to <span class="math">12 m/s</span> in <span class="math">5 seconds</span>. Using <span class="math"><var>d</var> = <span class="frac"><span class="num"><var>v</var><sub>i</sub> + <var>v</var><sub>f</sub></span><span class="den">2</span></span> &middot; <var>t</var></span>, how far does the car travel?`,
+          diagram: svgLinearMotion({ objLabel: "Car", viText: "vi = 4 m/s", vfText: "vf = 12 m/s", aText: "d = ?", tText: "t = 5 s" }),
+          options: [
+            { key: "a", html: `<span class="math">20 m</span>` },
+            { key: "b", html: `<span class="math">40 m</span>` },
+            { key: "c", html: `<span class="math">60 m</span>` },
+            { key: "d", html: `<span class="math">80 m</span>` }
+          ],
+          correct: "b",
+          explanation: `Average velocity is <span class="math"><span class="frac"><span class="num">4 + 12</span><span class="den">2</span></span> = 8 m/s</span>. Multiplying by <span class="math">5 s</span> gives <span class="math"><var>d</var> = 8 &middot; 5 = 40 m</span>.`
+        },
+        {
+          id: 10,
+          questionHtml: `What does a negative value for acceleration (<span class="math">&minus;3 m/s<sup>2</sup></span>) tell you about a forward-moving object?`,
+          diagram: svgBrakeSign(),
+          options: [
+            { key: "a", html: `The object is moving backward at constant speed` },
+            { key: "b", html: `The object is speeding up` },
+            { key: "c", html: `The object is slowing down (decelerating)` },
+            { key: "d", html: `The object has stopped moving` }
+          ],
+          correct: "c",
+          explanation: `When a forward-moving object has negative acceleration, the acceleration opposes its motion, causing it to slow down (decelerate).`
+        }
+      ];
+
+      /* =========================================================
+         PART 2 DATA: 4 FILL-IN-THE-BLANKS PROBLEMS (3-LINE RULE)
+      ========================================================= */
+      const TILE_LABELS = {
+        vf: `<span class="math"><var>v</var><sub>f</sub></span>`,
+        vi: `<span class="math"><var>v</var><sub>i</sub></span>`,
+        a: `<span class="math"><var>a</var></span>`,
+        t: `<span class="math"><var>t</var></span>`,
+        t2: `<span class="math"><var>t</var><sup>2</sup></span>`,
+        d: `<span class="math"><var>d</var></span>`,
+        neg_a: `<span class="math">&minus;<var>a</var></span>`,
+        neg_vi: `<span class="math">&minus;<var>v</var><sub>i</sub></span>`,
+        neg_vf: `<span class="math">&minus;<var>v</var><sub>f</sub></span>`,
+        a2: `<span class="math"><var>a</var><sup>2</sup></span>`,
+        two_t: `<span class="math">2<var>t</var></span>`,
+        two_a: `<span class="math">2<var>a</var></span>`,
+        vf2: `<span class="math"><var>v</var><sub>f</sub><sup>2</sup></span>`,
+        vi2: `<span class="math"><var>v</var><sub>i</sub><sup>2</sup></span>`,
+        dv: `<span class="math">&Delta;<var>v</var></span>`,
+        half_t: `<span class="math"><span class="frac"><span class="num">1</span><span class="den">2</span></span><var>t</var></span>`,
+        v_avg: `<span class="math"><var>v</var><sub>avg</sub></span>`
+      };
+
+      const PROBLEMS = [
+        {
+          id: 1,
+          title: "Problem 1",
+          promptHtml: `A motorcycle starts from rest (<span class="math">0 m/s</span>) and reaches a final velocity of <span class="math">24 m/s</span> in <span class="math">6 seconds</span>. Calculate the motorcycle's constant acceleration.`,
+          diagram: svgLinearMotion({ objLabel: "Moto", viText: "vi = 0 m/s", vfText: "vf = 24 m/s", aText: "a = ?", tText: "t = 6 s" }),
+          tiles: ["vf", "vi", "a", "t", "d", "t2", "dv", "neg_vf", "neg_vi", "vf2", "two_a", "v_avg", "a2", "two_t"],
+          line1: {
+            expected: "vf",
+            correctHtml: TILE_LABELS.vf,
+            render: (slotHtml) => `
+              <span class="math"><var>a</var> =</span>
+              <span class="frac">
+                <span class="num">${slotHtml} <span class="math">&minus; <var>v</var><sub>i</sub></span></span>
+                <span class="den"><span class="math"><var>t</var></span></span>
+              </span>
+            `
+          },
+          line2: {
+            expected: 6,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>a</var> =</span>
+              <span class="frac">
+                <span class="num"><span class="math">24 &minus; 0</span></span>
+                <span class="den">${inputHtml}</span>
+              </span>
+            `
+          },
+          line3: {
+            expected: 4,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>a</var> =</span>
+              ${inputHtml}
+              <span class="math">(m/s<sup>2</sup>)</span>
+            `
+          }
+        },
+        {
+          id: 2,
+          title: "Problem 2",
+          promptHtml: `A skater is moving at an initial velocity of <span class="math">5 m/s</span> and accelerates at a constant rate of <span class="math">3 m/s<sup>2</sup></span> for <span class="math">4 seconds</span>. Calculate the skater's final velocity.`,
+          diagram: svgLinearMotion({ objLabel: "Skater", viText: "vi = 5 m/s", vfText: "vf = ?", aText: "a = 3 m/s²", tText: "t = 4 s" }),
+          tiles: ["a", "neg_a", "d", "t", "t2", "vf", "vi", "two_a", "a2", "dv", "v_avg", "half_t", "two_t", "vi2"],
+          line1: {
+            expected: "a",
+            correctHtml: TILE_LABELS.a,
+            render: (slotHtml) => `
+              <span class="math"><var>v</var><sub>f</sub> = <var>v</var><sub>i</sub> +</span>
+              ${slotHtml}
+              <span class="math">&middot; <var>t</var></span>
+            `
+          },
+          line2: {
+            expected: 4,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>v</var><sub>f</sub> = 5 + 3 &middot;</span>
+              ${inputHtml}
+            `
+          },
+          line3: {
+            expected: 17,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>v</var><sub>f</sub> =</span>
+              ${inputHtml}
+              <span class="math">(m/s)</span>
+            `
+          }
+        },
+        {
+          id: 3,
+          title: "Problem 3",
+          promptHtml: `A go-kart starts from rest (<span class="math">0 m/s</span>) and accelerates along a straight track at a constant rate of <span class="math">4 m/s<sup>2</sup></span> for <span class="math">5 seconds</span>. Calculate the displacement (<span class="math"><var>d</var></span>) of the go-kart.`,
+          diagram: svgLinearMotion({ objLabel: "Go-Kart", viText: "vi = 0 m/s", vfText: "d = ?", aText: "a = 4 m/s²", tText: "t = 5 s" }),
+          tiles: ["t2", "t", "two_t", "a", "a2", "vf", "vi", "d", "half_t", "vf2", "vi2", "neg_a", "dv", "v_avg"],
+          line1: {
+            expected: "t2",
+            correctHtml: TILE_LABELS.t2,
+            render: (slotHtml) => `
+              <span class="math"><var>d</var> =
+                <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+                &middot; <var>a</var> &middot;
+              </span>
+              ${slotHtml}
+            `
+          },
+          line2: {
+            expected: 4,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>d</var> =
+                <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+                &middot;
+              </span>
+              ${inputHtml}
+              <span class="math">&middot; 5<sup>2</sup></span>
+            `
+          },
+          line3: {
+            expected: 50,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>d</var> =</span>
+              ${inputHtml}
+              <span class="math">(m)</span>
+            `
+          }
+        },
+        {
+          id: 4,
+          title: "Problem 4",
+          promptHtml: `A car traveling at an initial velocity of <span class="math">20 m/s</span> applies its brakes and comes to a complete stop (<span class="math">0 m/s</span>) in <span class="math">4 seconds</span>. Calculate the car's acceleration.`,
+          diagram: svgLinearMotion({ objLabel: "Car", viText: "vi = 20 m/s", vfText: "vf = 0 m/s", aText: "a = ?", tText: "t = 4 s", slowing: true }),
+          tiles: ["vi", "vf", "neg_vi", "neg_vf", "a", "t", "d", "t2", "dv", "vi2", "vf2", "two_a", "v_avg", "neg_a"],
+          line1: {
+            expected: "vi",
+            correctHtml: TILE_LABELS.vi,
+            render: (slotHtml) => `
+              <span class="math"><var>a</var> =</span>
+              <span class="frac">
+                <span class="num"><span class="math"><var>v</var><sub>f</sub> &minus;</span> ${slotHtml}</span>
+                <span class="den"><span class="math"><var>t</var></span></span>
+              </span>
+            `
+          },
+          line2: {
+            expected: 4,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>a</var> =</span>
+              <span class="frac">
+                <span class="num"><span class="math">0 &minus; 20</span></span>
+                <span class="den">${inputHtml}</span>
+              </span>
+            `
+          },
+          line3: {
+            expected: -5,
+            step: 1,
+            render: (inputHtml) => `
+              <span class="math"><var>a</var> =</span>
+              ${inputHtml}
+              <span class="math">(m/s<sup>2</sup>)</span>
+            `
+          }
+        }
+      ];
+
+      /* =========================================================
+         QUIZ STATE
+      ========================================================= */
+      const state = {
+        graded: false,
+        mcqAnswers: {}, // { [id]: "a"|"b"|"c"|"d" }
+        probAnswers: {
+          1: { l1: null, l2: "", l3: "" },
+          2: { l1: null, l2: "", l3: "" },
+          3: { l1: null, l2: "", l3: "" },
+          4: { l1: null, l2: "", l3: "" }
+        },
+        activeSlotProbId: null,
+        results: null
+      };
+
+      /* =========================================================
+         DOM REFERENCES
+      ========================================================= */
+      const mcqContainer = document.getElementById("mcqContainer");
+      const problemsContainer = document.getElementById("problemsContainer");
+      const trackerBadge = document.getElementById("trackerBadge");
+      const studentNameInput = document.getElementById("studentNameInput");
+      const soundToggleBtn = document.getElementById("soundToggleBtn");
+      const openHintsBtn = document.getElementById("openHintsBtn");
+      const finishQuizBtn = document.getElementById("finishQuizBtn");
+      const validationBanner = document.getElementById("validationBanner");
+      const reportSection = document.getElementById("reportSection");
+      const reportStudentName = document.getElementById("reportStudentName");
+      const reportTotalScore = document.getElementById("reportTotalScore");
+      const reportTierBadge = document.getElementById("reportTierBadge");
+      const reportBreakdownGrid = document.getElementById("reportBreakdownGrid");
+      const submitTeacherBtn = document.getElementById("submitTeacherBtn");
+      const shareParentBtn = document.getElementById("shareParentBtn");
+      const printReportBtn = document.getElementById("printReportBtn");
+      const retakeQuizBtn = document.getElementById("retakeQuizBtn");
+      const hintsModal = document.getElementById("hintsModal");
+      const shareModal = document.getElementById("shareModal");
+      const certCanvas = document.getElementById("certCanvas");
+      const certPreviewImg = document.getElementById("certPreviewImg");
+      const nativeShareBtn = document.getElementById("nativeShareBtn");
+      const whatsappShareBtn = document.getElementById("whatsappShareBtn");
+      const emailShareBtn = document.getElementById("emailShareBtn");
+      const downloadCertBtn = document.getElementById("downloadCertBtn");
+      const copySummaryBtn = document.getElementById("copySummaryBtn");
+
+      /* =========================================================
+         RENDER PART 1 (MCQs)
+      ========================================================= */
+      function renderMCQs() {
+        mcqContainer.innerHTML = MCQS.map((q) => {
+          const diagramHtml = q.diagram ? `<div class="diagram-box">${q.diagram}</div>` : "";
+          const optsHtml = q.options.map((opt) => `
+            <button
+              type="button"
+              class="opt-btn"
+              data-mcq-id="${q.id}"
+              data-opt-key="${opt.key}"
+            >
+              <span class="opt-letter">${opt.key.toUpperCase()}</span>
+              <span>${opt.html}</span>
+            </button>
+          `).join("");
+
+          return `
+            <article class="q-card" id="mcq-card-${q.id}">
+              <div class="q-top">
+                <span class="q-num">Question ${q.id} of 10</span>
+                <span class="q-status-pill" id="mcq-status-${q.id}"></span>
+              </div>
+              <p class="q-text">${q.questionHtml}</p>
+              ${diagramHtml}
+              <div class="options-grid">${optsHtml}</div>
+              <div class="explanation-box" id="mcq-exp-${q.id}">
+                <strong>Scientific Explanation:</strong> ${q.explanation}
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        mcqContainer.querySelectorAll(".opt-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.graded) return;
+            const id = Number(btn.dataset.mcqId);
+            const key = btn.dataset.optKey;
+            state.mcqAnswers[id] = key;
+            playClick();
+
+            const card = document.getElementById(`mcq-card-${id}`);
+            card.classList.remove("missing-highlight");
+            card.querySelectorAll(".opt-btn").forEach((b) => {
+              b.classList.toggle("selected", b.dataset.optKey === key);
+            });
+            updateProgressTracker();
+          });
+        });
+      }
+
+      /* =========================================================
+         RENDER PART 2 (3-LINE MATH RULE PROBLEMS)
+      ========================================================= */
+      function makeNumericStepperHtml(probId, lineKey, step) {
+        return `
+          <span class="num-stepper" id="stepper-p${probId}-${lineKey}">
+            <button type="button" class="step-btn" data-step-dir="-1" data-prob="${probId}" data-line="${lineKey}" data-step="${step}" aria-label="Decrease value">▼</button>
+            <input
+              type="number"
+              step="${step}"
+              inputmode="decimal"
+              class="num-input"
+              id="num-p${probId}-${lineKey}"
+              data-prob="${probId}"
+              data-line="${lineKey}"
+              placeholder="?"
+              aria-label="Numeric answer for Problem ${probId} ${lineKey}"
+            />
+            <button type="button" class="step-btn" data-step-dir="1" data-prob="${probId}" data-line="${lineKey}" data-step="${step}" aria-label="Increase value">▲</button>
+          </span>
+        `;
+      }
+
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function renderProblems() {
+        problemsContainer.innerHTML = PROBLEMS.map((p) => {
+          const shuffledTiles = shuffleArray(p.tiles);
+          const slotHtml = `
+            <span
+              class="sym-slot"
+              id="slot-p${p.id}-l1"
+              data-prob="${p.id}"
+              tabindex="0"
+              role="button"
+              aria-label="Formula blank for ${p.title}. Tap to select or drag a tile here."
+            >Tap / Drop</span>
+          `;
+          const l2Input = makeNumericStepperHtml(p.id, "l2", p.line2.step);
+          const l3Input = makeNumericStepperHtml(p.id, "l3", p.line3.step);
+
+          const tilesHtml = shuffledTiles.map((tileKey) => `
+            <button
+              type="button"
+              class="tile-item"
+              draggable="true"
+              data-prob="${p.id}"
+              data-tile-key="${tileKey}"
+            >${TILE_LABELS[tileKey]}</button>
+          `).join("");
+
+          return `
+            <article class="q-card" id="prob-card-${p.id}">
+              <div class="q-top">
+                <span class="q-num">${p.title} of 4 • 3-Line Math Rule (10 pts)</span>
+                <span class="q-status-pill" id="prob-status-${p.id}"></span>
+              </div>
+              <p class="q-text">${p.promptHtml}</p>
+              <div class="diagram-box">${p.diagram}</div>
+
+              <div class="problem-lines">
+                <div class="math-line-box">
+                  <div class="line-label">
+                    <span>Line 1: Law / Formula (Symbolic Tile)</span>
+                    <span>3 pts</span>
+                  </div>
+                  <div class="line-eq">${p.line1.render(slotHtml)}</div>
+                  <div class="correction-note" id="corr-p${p.id}-l1"></div>
+                </div>
+
+                <div class="math-line-box">
+                  <div class="line-label">
+                    <span>Line 2: Substitution (Numeric)</span>
+                    <span>3 pts</span>
+                  </div>
+                  <div class="line-eq">${p.line2.render(l2Input)}</div>
+                  <div class="correction-note" id="corr-p${p.id}-l2"></div>
+                </div>
+
+                <div class="math-line-box">
+                  <div class="line-label">
+                    <span>Line 3: Final Answer with Units (Numeric)</span>
+                    <span>4 pts</span>
+                  </div>
+                  <div class="line-eq">${p.line3.render(l3Input)}</div>
+                  <div class="correction-note" id="corr-p${p.id}-l3"></div>
+                </div>
+              </div>
+
+              <div class="tile-bank-wrap">
+                <div class="tile-bank-header">
+                  <span>🧩 Formula Tile Bank (14 Options)</span>
+                  <span>Drag a tile or tap to place in Line 1</span>
+                </div>
+                <div class="tile-bank" id="bank-p${p.id}">${tilesHtml}</div>
+              </div>
+
+              <div class="problem-footer">
+                <button type="button" class="btn-reset-prob" data-reset-prob="${p.id}">
+                  ↺ Reset Problem
+                </button>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        attachProblemInteractions();
+      }
+
+      function setSymbolicTile(probId, tileKey) {
+        if (state.graded) return;
+        state.probAnswers[probId].l1 = tileKey;
+        const slot = document.getElementById(`slot-p${probId}-l1`);
+        const bank = document.getElementById(`bank-p${probId}`);
+        const card = document.getElementById(`prob-card-${probId}`);
+
+        card.classList.remove("missing-highlight");
+        slot.classList.remove("slot-missing", "active-slot");
+        state.activeSlotProbId = null;
+
+        bank.querySelectorAll(".tile-item").forEach((btn) => {
+          btn.classList.toggle("used", btn.dataset.tileKey === tileKey);
+        });
+
+        if (tileKey) {
+          slot.innerHTML = TILE_LABELS[tileKey];
+          slot.classList.add("filled");
+          playPlace();
+        } else {
+          slot.textContent = "Tap / Drop";
+          slot.classList.remove("filled");
+          playClick();
+        }
+        updateProgressTracker();
+      }
+
+      function attachProblemInteractions() {
+        // Slot tap & drag-drop
+        PROBLEMS.forEach((p) => {
+          const slot = document.getElementById(`slot-p${p.id}-l1`);
+
+          slot.addEventListener("click", () => {
+            if (state.graded) return;
+            if (state.probAnswers[p.id].l1) {
+              // Tapping a filled slot returns tile to bank
+              setSymbolicTile(p.id, null);
+              return;
+            }
+            // Toggle active highlight
+            const wasActive = state.activeSlotProbId === p.id;
+            document.querySelectorAll(".sym-slot").forEach((s) => s.classList.remove("active-slot"));
+            if (!wasActive) {
+              state.activeSlotProbId = p.id;
+              slot.classList.add("active-slot");
+              playClick();
+            } else {
+              state.activeSlotProbId = null;
+            }
+          });
+
+          slot.addEventListener("dragover", (e) => {
+            if (state.graded) return;
+            e.preventDefault();
+            slot.classList.add("drag-over");
+          });
+
+          slot.addEventListener("dragleave", () => {
+            slot.classList.remove("drag-over");
+          });
+
+          slot.addEventListener("drop", (e) => {
+            if (state.graded) return;
+            e.preventDefault();
+            slot.classList.remove("drag-over");
+            const dataProb = Number(e.dataTransfer.getData("text/prob"));
+            const tileKey = e.dataTransfer.getData("text/tile");
+            if (dataProb === p.id && tileKey) {
+              setSymbolicTile(p.id, tileKey);
+            }
+          });
+        });
+
+        // Tile click & dragstart
+        problemsContainer.querySelectorAll(".tile-item").forEach((tileBtn) => {
+          tileBtn.addEventListener("dragstart", (e) => {
+            if (state.graded || tileBtn.classList.contains("used")) {
+              e.preventDefault();
+              return;
+            }
+            e.dataTransfer.setData("text/prob", tileBtn.dataset.prob);
+            e.dataTransfer.setData("text/tile", tileBtn.dataset.tileKey);
+          });
+
+          tileBtn.addEventListener("click", () => {
+            if (state.graded || tileBtn.classList.contains("used")) return;
+            const probId = Number(tileBtn.dataset.prob);
+            const tileKey = tileBtn.dataset.tileKey;
+            setSymbolicTile(probId, tileKey);
+          });
+        });
+
+        // Numeric inputs
+        problemsContainer.querySelectorAll(".num-input").forEach((inp) => {
+          inp.addEventListener("input", () => {
+            if (state.graded) return;
+            const probId = Number(inp.dataset.prob);
+            const lineKey = inp.dataset.line;
+            state.probAnswers[probId][lineKey] = inp.value.trim();
+            document.getElementById(`stepper-p${probId}-${lineKey}`).classList.remove("num-missing");
+            document.getElementById(`prob-card-${probId}`).classList.remove("missing-highlight");
+            updateProgressTracker();
+          });
+        });
+
+        // Numeric stepper buttons
+        problemsContainer.querySelectorAll(".step-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.graded) return;
+            const probId = Number(btn.dataset.prob);
+            const lineKey = btn.dataset.line;
+            const dir = Number(btn.dataset.stepDir);
+            const step = Number(btn.dataset.step);
+            const inp = document.getElementById(`num-p${probId}-${lineKey}`);
+            let current = inp.value.trim() === "" ? 0 : parseFloat(inp.value);
+            if (Number.isNaN(current)) current = 0;
+            const nextVal = Math.round((current + dir * step) * 100) / 100;
+            inp.value = String(nextVal);
+            state.probAnswers[probId][lineKey] = String(nextVal);
+            document.getElementById(`stepper-p${probId}-${lineKey}`).classList.remove("num-missing");
+            document.getElementById(`prob-card-${probId}`).classList.remove("missing-highlight");
+            playClick();
+            updateProgressTracker();
+          });
+        });
+
+        // Reset problem button
+        problemsContainer.querySelectorAll(".btn-reset-prob").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.graded) return;
+            const probId = Number(btn.dataset.resetProb);
+            setSymbolicTile(probId, null);
+            ["l2", "l3"].forEach((lk) => {
+              state.probAnswers[probId][lk] = "";
+              const inp = document.getElementById(`num-p${probId}-${lk}`);
+              inp.value = "";
+              document.getElementById(`stepper-p${probId}-${lk}`).classList.remove("num-missing");
+            });
+            updateProgressTracker();
+          });
+        });
+      }
+
+      /* =========================================================
+         PROGRESS TRACKER (NO SCORES REVEALED WHILE SOLVING)
+      ========================================================= */
+      function countAnswered() {
+        let count = 0;
+        MCQS.forEach((q) => {
+          if (state.mcqAnswers[q.id]) count++;
+        });
+        PROBLEMS.forEach((p) => {
+          const ans = state.probAnswers[p.id];
+          if (ans.l1 && ans.l2 !== "" && ans.l3 !== "") count++;
+        });
+        return count;
+      }
+
+      function updateProgressTracker() {
+        if (state.graded && state.results) {
+          trackerBadge.textContent = `Score: ${state.results.totalScore} / 100`;
+          trackerBadge.classList.add("graded");
+        } else {
+          trackerBadge.textContent = `Answered: ${countAnswered()} / 14`;
+          trackerBadge.classList.remove("graded");
+        }
+      }
+
+      /* =========================================================
+         DEFERRED GRADING & VALIDATION
+      ========================================================= */
+      function getTierLabel(score) {
+        if (score >= 90) return "🏆 Master Physicist";
+        if (score >= 80) return "⭐ Senior Kinematics Analyst";
+        if (score >= 70) return "🚀 Motion Specialist";
+        if (score >= 60) return "⚡ Physics Apprentice";
+        return "📘 Developing Physicist";
+      }
+
+      function validateAllComplete() {
+        const missingItems = [];
+        let firstMissingEl = null;
+
+        MCQS.forEach((q) => {
+          const card = document.getElementById(`mcq-card-${q.id}`);
+          if (!state.mcqAnswers[q.id]) {
+            missingItems.push(`MCQ #${q.id}`);
+            card.classList.add("missing-highlight");
+            if (!firstMissingEl) firstMissingEl = card;
+          } else {
+            card.classList.remove("missing-highlight");
+          }
+        });
+
+        PROBLEMS.forEach((p) => {
+          const ans = state.probAnswers[p.id];
+          const card = document.getElementById(`prob-card-${p.id}`);
+          let probMissing = false;
+
+          if (!ans.l1) {
+            probMissing = true;
+            document.getElementById(`slot-p${p.id}-l1`).classList.add("slot-missing");
+          }
+          if (ans.l2 === "" || Number.isNaN(parseFloat(ans.l2))) {
+            probMissing = true;
+            document.getElementById(`stepper-p${p.id}-l2`).classList.add("num-missing");
+          }
+          if (ans.l3 === "" || Number.isNaN(parseFloat(ans.l3))) {
+            probMissing = true;
+            document.getElementById(`stepper-p${p.id}-l3`).classList.add("num-missing");
+          }
+
+          if (probMissing) {
+            missingItems.push(`Problem ${p.id}`);
+            card.classList.add("missing-highlight");
+            if (!firstMissingEl) firstMissingEl = card;
+          } else {
+            card.classList.remove("missing-highlight");
+          }
+        });
+
+        return { missingItems, firstMissingEl };
+      }
+
+      function gradeEntireQuiz() {
+        if (state.graded) return;
+
+        const { missingItems, firstMissingEl } = validateAllComplete();
+        if (missingItems.length > 0) {
+          playError();
+          validationBanner.textContent = `Please complete all remaining items before grading (${missingItems.length} incomplete): ${missingItems.join(", ")}.`;
+          validationBanner.classList.add("show");
+          if (firstMissingEl) {
+            firstMissingEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
+
+        validationBanner.classList.remove("show");
+        state.graded = true;
+
+        // Grade Part 1: MCQs
+        let mcqScore = 0;
+        MCQS.forEach((q) => {
+          const chosen = state.mcqAnswers[q.id];
+          const isCorrect = chosen === q.correct;
+          if (isCorrect) mcqScore += 6;
+
+          const card = document.getElementById(`mcq-card-${q.id}`);
+          const pill = document.getElementById(`mcq-status-${q.id}`);
+          const exp = document.getElementById(`mcq-exp-${q.id}`);
+
+          card.classList.add(isCorrect ? "graded-correct" : "graded-wrong");
+          pill.textContent = isCorrect ? "✓ Correct (+6 pts)" : "✕ Incorrect (0 pts)";
+          pill.classList.add("show", isCorrect ? "correct" : "wrong");
+          exp.classList.add("show");
+
+          card.querySelectorAll(".opt-btn").forEach((btn) => {
+            btn.disabled = true;
+            const k = btn.dataset.optKey;
+            if (k === q.correct) btn.classList.add("reveal-correct");
+            else if (k === chosen && !isCorrect) btn.classList.add("reveal-wrong");
+          });
+        });
+
+        // Grade Part 2: Problems
+        const pScores = [];
+        PROBLEMS.forEach((p) => {
+          const ans = state.probAnswers[p.id];
+          let pts = 0;
+
+          const l1Ok = ans.l1 === p.line1.expected;
+          const l2Val = parseFloat(ans.l2);
+          const l3Val = parseFloat(ans.l3);
+          const l2Ok = Math.abs(l2Val - p.line2.expected) < 0.001;
+          const l3Ok = Math.abs(l3Val - p.line3.expected) < 0.001;
+
+          if (l1Ok) pts += 3;
+          if (l2Ok) pts += 3;
+          if (l3Ok) pts += 4;
+          pScores.push(pts);
+
+          // Lock & highlight slots / steppers / buttons
+          const slot = document.getElementById(`slot-p${p.id}-l1`);
+          slot.classList.add(l1Ok ? "slot-correct" : "slot-wrong");
+          slot.classList.remove("active-slot");
+
+          const st2 = document.getElementById(`stepper-p${p.id}-l2`);
+          st2.classList.add(l2Ok ? "num-correct" : "num-wrong");
+          const st3 = document.getElementById(`stepper-p${p.id}-l3`);
+          st3.classList.add(l3Ok ? "num-correct" : "num-wrong");
+
+          const card = document.getElementById(`prob-card-${p.id}`);
+          card.querySelectorAll("input, button").forEach((el) => {
+            el.disabled = true;
+          });
+          card.querySelectorAll(".tile-item").forEach((t) => {
+            t.setAttribute("draggable", "false");
+          });
+
+          if (!l1Ok) {
+            const c1 = document.getElementById(`corr-p${p.id}-l1`);
+            c1.innerHTML = `Your answer: ${TILE_LABELS[ans.l1] || "—"} &nbsp;|&nbsp; Correct answer: ${p.line1.correctHtml}`;
+            c1.classList.add("show");
+          }
+          if (!l2Ok) {
+            const c2 = document.getElementById(`corr-p${p.id}-l2`);
+            c2.innerHTML = `Your answer: <strong>${ans.l2}</strong> &nbsp;|&nbsp; Correct answer: <strong>${p.line2.expected}</strong>`;
+            c2.classList.add("show");
+          }
+          if (!l3Ok) {
+            const c3 = document.getElementById(`corr-p${p.id}-l3`);
+            c3.innerHTML = `Your answer: <strong>${ans.l3}</strong> &nbsp;|&nbsp; Correct answer: <strong>${p.line3.expected}</strong>`;
+            c3.classList.add("show");
+          }
+
+          const pill = document.getElementById(`prob-status-${p.id}`);
+          if (pts === 10) {
+            card.classList.add("graded-correct");
+            pill.textContent = `✓ Full Credit (10 / 10 pts)`;
+            pill.classList.add("show", "correct");
+          } else if (pts > 0) {
+            card.classList.add("graded-partial");
+            pill.textContent = `◐ Partial Credit (${pts} / 10 pts)`;
+            pill.classList.add("show", "partial");
+          } else {
+            card.classList.add("graded-wrong");
+            pill.textContent = `✕ Incorrect (0 / 10 pts)`;
+            pill.classList.add("show", "wrong");
+          }
+        });
+
+        const totalScore = mcqScore + pScores.reduce((a, b) => a + b, 0);
+        const tier = getTierLabel(totalScore);
+        const breakdown = `MCQ:${mcqScore}/60 | P1:${pScores[0]} | P2:${pScores[1]} | P3:${pScores[2]} | P4:${pScores[3]}`;
+
+        state.results = { mcqScore, pScores, totalScore, tier, breakdown };
+
+        finishQuizBtn.disabled = true;
+        finishQuizBtn.textContent = "✅ Quiz Graded — Review Results Below";
+        updateProgressTracker();
+        renderReport();
+        playFanfare();
+
+        reportSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function renderReport() {
+        const r = state.results;
+        const sName = studentNameInput.value.trim() || "Not Entered Yet (Enter in Top Bar)";
+        reportStudentName.textContent = `Student: ${sName}`;
+        reportTotalScore.textContent = `${r.totalScore} / 100`;
+        reportTierBadge.textContent = r.tier;
+
+        reportBreakdownGrid.innerHTML = `
+          <div class="bd-card"><div class="bd-label">Part 1: MCQs</div><div class="bd-val">${r.mcqScore} / 60</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 1</div><div class="bd-val">${r.pScores[0]} / 10</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 2</div><div class="bd-val">${r.pScores[1]} / 10</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 3</div><div class="bd-val">${r.pScores[2]} / 10</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 4</div><div class="bd-val">${r.pScores[3]} / 10</div></div>
+        `;
+        reportSection.classList.add("show");
+      }
+
+      studentNameInput.addEventListener("input", () => {
+        if (state.graded && state.results) {
+          const sName = studentNameInput.value.trim() || "Not Entered Yet (Enter in Top Bar)";
+          reportStudentName.textContent = `Student: ${sName}`;
+        }
+      });
+
+      /* =========================================================
+         SUBMIT SCORE TO TEACHER (EXACT REQUIRED PAYLOAD)
+      ========================================================= */
+      submitTeacherBtn.addEventListener("click", async () => {
+        const studentName = studentNameInput.value.trim();
+        if (!studentName) {
+          playError();
+          alert("Please enter your full name in the top bar before submitting!");
+          studentNameInput.focus();
+          return;
+        }
+        if (!state.results) return;
+
+        submitTeacherBtn.disabled = true;
+        submitTeacherBtn.textContent = "⏳ Sending...";
+
+        const payload = {
+          studentName: studentName,
+          labCode: LAB_CODE,
+          totalScore: `${state.results.totalScore} / 100`,
+          breakdown: state.results.breakdown,
+          tier: state.results.tier
+        };
+
+        try {
+          await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          playFanfare();
+          submitTeacherBtn.textContent = "✅ Submitted to Teacher!";
+          submitTeacherBtn.classList.add("submitted");
+        } catch (err) {
+          playError();
+          alert("Could not submit score. Please check your internet connection and try again.");
+          submitTeacherBtn.disabled = false;
+          submitTeacherBtn.textContent = "🚀 Submit Score to Teacher";
+        }
+      });
+
+      /* =========================================================
+         OFFICIAL 1200x675 PNG CERTIFICATE GENERATOR + SHARE MODAL
+      ========================================================= */
+      function generateCertificateDataUrl(studentName) {
+        const ctx = certCanvas.getContext("2d");
+        const W = 1200;
+        const H = 675;
+        const r = state.results;
+        const dateStr = new Date().toLocaleDateString(undefined, {
+          year: "numeric", month: "long", day: "numeric"
+        });
+
+        // White canvas background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, W, H);
+
+        // Outer navy border & inner accent border
+        ctx.strokeStyle = "#0f172a";
+        ctx.lineWidth = 14;
+        ctx.strokeRect(24, 24, W - 48, H - 48);
+
+        ctx.strokeStyle = "#1d4ed8";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(44, 44, W - 88, H - 88);
+
+        // Top Header Band
+        ctx.fillStyle = "#eff6ff";
+        ctx.fillRect(48, 48, W - 96, 118);
+
+        ctx.fillStyle = "#1d4ed8";
+        ctx.font = "800 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(`OFFICIAL PHYSICS LAB CERTIFICATE  •  ${GRADE_LABEL.toUpperCase()}  •  ${LAB_CODE}`, W / 2, 92);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "900 42px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText(QUIZ_TITLE, W / 2, 144);
+
+        // Student Name
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText("AWARDED TO", W / 2, 222);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "900 46px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText(studentName, W / 2, 276);
+
+        // Divider
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(220, 298);
+        ctx.lineTo(W - 220, 298);
+        ctx.stroke();
+
+        // Score & Tier Box
+        ctx.fillStyle = "#f8fafc";
+        ctx.fillRect(140, 326, W - 280, 148);
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(140, 326, W - 280, 148);
+
+        ctx.fillStyle = "#1d4ed8";
+        ctx.font = "900 64px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText(`${r.totalScore} / 100`, W / 2, 400);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "800 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText(r.tier, W / 2, 448);
+
+        // Breakdown
+        ctx.fillStyle = "#334155";
+        ctx.font = "700 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText(`Breakdown: ${r.breakdown}`, W / 2, 522);
+
+        // Footer Signatures
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(`Instructor: ${TEACHER_NAME}`, 84, 594);
+
+        ctx.textAlign = "right";
+        ctx.fillText(`Date: ${dateStr}`, W - 84, 594);
+
+        return certCanvas.toDataURL("image/png");
+      }
+
+      function buildSummaryText(studentName) {
+        const r = state.results;
+        const dateStr = new Date().toLocaleDateString();
+        return [
+          `📘 ${QUIZ_TITLE} (${LAB_CODE})`,
+          `👤 Student: ${studentName}`,
+          `🎯 Total Score: ${r.totalScore} / 100`,
+          `🏅 Earned Tier: ${r.tier}`,
+          `📊 Breakdown: ${r.breakdown}`,
+          `👨‍🏫 ${TEACHER_NAME} | 📅 ${dateStr}`
+        ].join("\n");
+      }
+
+      shareParentBtn.addEventListener("click", () => {
+        const studentName = studentNameInput.value.trim();
+        if (!studentName) {
+          playError();
+          alert("Please enter your full name in the top bar before sharing your certificate!");
+          studentNameInput.focus();
+          return;
+        }
+        if (!state.results) return;
+
+        const dataUrl = generateCertificateDataUrl(studentName);
+        certPreviewImg.src = dataUrl;
+        const summaryText = buildSummaryText(studentName);
+
+        whatsappShareBtn.href = `https://wa.me/?text=${encodeURIComponent(summaryText)}`;
+        emailShareBtn.href = `mailto:?subject=${encodeURIComponent(`${QUIZ_TITLE} Result — ${studentName}`)}&body=${encodeURIComponent(summaryText)}`;
+
+        // Show native Web Share API if available
+        if (navigator.share) {
+          nativeShareBtn.style.display = "inline-flex";
+          nativeShareBtn.onclick = async () => {
+            try {
+              const res = await fetch(dataUrl);
+              const blob = await res.blob();
+              const file = new File([blob], `${LAB_CODE}-${studentName.replace(/\s+/g, "_")}.png`, { type: "image/png" });
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  title: `${QUIZ_TITLE} — ${studentName}`,
+                  text: summaryText,
+                  files: [file]
+                });
+              } else {
+                await navigator.share({
+                  title: `${QUIZ_TITLE} — ${studentName}`,
+                  text: summaryText
+                });
+              }
+            } catch (e) {
+              // User cancelled share
+            }
+          };
+        } else {
+          nativeShareBtn.style.display = "none";
+        }
+
+        downloadCertBtn.onclick = () => {
+          const link = document.createElement("a");
+          link.download = `${LAB_CODE}-${studentName.replace(/\s+/g, "_")}-Certificate.png`;
+          link.href = dataUrl;
+          link.click();
+          playClick();
+        };
+
+        copySummaryBtn.textContent = "📋 Copy Result Summary";
+        copySummaryBtn.onclick = async () => {
+          try {
+            await navigator.clipboard.writeText(summaryText);
+            copySummaryBtn.textContent = "✅ Summary Copied!";
+            playPlace();
+            setTimeout(() => {
+              copySummaryBtn.textContent = "📋 Copy Result Summary";
+            }, 2200);
+          } catch (e) {
+            alert(summaryText);
+          }
+        };
+
+        playClick();
+        shareModal.classList.add("open");
+      });
+
+      /* =========================================================
+         RETAKE FULL QUIZ & PRINT
+      ========================================================= */
+      retakeQuizBtn.addEventListener("click", () => {
+        playClick();
+        state.graded = false;
+        state.mcqAnswers = {};
+        state.probAnswers = {
+          1: { l1: null, l2: "", l3: "" },
+          2: { l1: null, l2: "", l3: "" },
+          3: { l1: null, l2: "", l3: "" },
+          4: { l1: null, l2: "", l3: "" }
+        };
+        state.activeSlotProbId = null;
+        state.results = null;
+
+        finishQuizBtn.disabled = false;
+        finishQuizBtn.textContent = "✅ Finish & Check All Answers";
+        validationBanner.classList.remove("show");
+        reportSection.classList.remove("show");
+
+        submitTeacherBtn.disabled = false;
+        submitTeacherBtn.classList.remove("submitted");
+        submitTeacherBtn.textContent = "🚀 Submit Score to Teacher";
+
+        renderMCQs();
+        renderProblems();
+        updateProgressTracker();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      printReportBtn.addEventListener("click", () => {
+        window.print();
+      });
+
+      /* =========================================================
+         TOP BAR & MODAL CONTROLS
+      ========================================================= */
+      soundToggleBtn.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        soundToggleBtn.textContent = soundEnabled ? "🔊 Sound" : "🔇 Muted";
+        soundToggleBtn.classList.toggle("muted", !soundEnabled);
+        if (soundEnabled) playClick();
+      });
+
+      openHintsBtn.addEventListener("click", () => {
+        playClick();
+        hintsModal.classList.add("open");
+      });
+
+      document.querySelectorAll("[data-close-modal]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const modalId = btn.dataset.closeModal;
+          document.getElementById(modalId).classList.remove("open");
+          playClick();
+        });
+      });
+
+      [hintsModal, shareModal].forEach((backdrop) => {
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) {
+            backdrop.classList.remove("open");
+          }
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          hintsModal.classList.remove("open");
+          shareModal.classList.remove("open");
+        }
+      });
+
+      finishQuizBtn.addEventListener("click", gradeEntireQuiz);
+
+      /* =========================================================
+         INITIALIZE APP
+      ========================================================= */
+      renderMCQs();
+      renderProblems();
+      updateProgressTracker();
+    })();
+  </script>
+</body>
+</html>

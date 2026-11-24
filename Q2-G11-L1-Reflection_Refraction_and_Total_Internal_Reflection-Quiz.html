@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz: Reflection, Refraction, and Total Internal Reflection | Q2-G11-L1</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --primary: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #3b82f6;
+      --success: #047857;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #ef4444;
+      --amber: #d97706;
+      --amber-hover: #b45309;
+      --emerald: #059669;
+      --radius: 14px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+      --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Sticky Top Navigation Bar */
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      padding: 10px 14px;
+    }
+
+    .sticky-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sticky-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .quiz-badge {
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .nav-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sticky-row-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .name-input-wrap {
+      flex: 1 1 200px;
+      min-width: 170px;
+    }
+
+    .name-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      background: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .name-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+    }
+
+    .tracker-pill {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border-radius: 10px;
+      background: var(--surface-soft);
+      border: 2px solid var(--border);
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .tracker-pill.graded {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .icon-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-soft);
+      border-color: var(--border-strong);
+    }
+
+    .hints-btn {
+      background: #fefce8;
+      border-color: #eab308;
+      color: #854d0e;
+    }
+
+    .hints-btn:hover {
+      background: #fef9c3;
+      border-color: #ca8a04;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 20px 14px 64px;
+    }
+
+    /* Hero Header */
+    .hero-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .meta-tag.code {
+      background: var(--primary-soft);
+      border-color: #bfdbfe;
+      color: var(--primary);
+    }
+
+    .hero-title {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      line-height: 1.28;
+      font-weight: 900;
+      color: var(--text);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-title .quiz-prefix {
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 1rem;
+      padding: 4px 12px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-rules {
+      margin: 0;
+      padding: 12px 14px;
+      background: var(--surface-soft);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin: 30px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #0f172a;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .section-points {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Question Cards */
+    .q-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .q-card.missing-alert {
+      border-color: var(--danger-border);
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.16);
+    }
+
+    .q-card.graded-correct {
+      border-color: var(--success-border);
+    }
+
+    .q-card.graded-wrong {
+      border-color: var(--danger-border);
+    }
+
+    .q-card.graded-partial {
+      border-color: #f59e0b;
+    }
+
+    .q-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .q-num {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .q-pts-badge {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .q-pts-badge.earned-full {
+      color: var(--success);
+      background: var(--success-bg);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .q-pts-badge.earned-zero {
+      color: var(--danger);
+      background: var(--danger-bg);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .q-pts-badge.earned-partial {
+      color: #b45309;
+      background: #fffbeb;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .q-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 14px;
+      color: var(--text);
+    }
+
+    /* SVG Diagram Container */
+    .diagram-box {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px;
+      margin: 0 0 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .diagram-box svg {
+      width: 100%;
+      max-width: 440px;
+      height: auto;
+      display: block;
+    }
+
+    /* Math Typography */
+    .math {
+      font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+      font-size: 1.08em;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      vertical-align: middle;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      line-height: 1.1;
+      font-size: 0.94em;
+    }
+
+    .frac .num {
+      border-bottom: 1.8px solid currentColor;
+      padding: 0 4px 2px;
+      text-align: center;
+    }
+
+    .frac .den {
+      padding: 2px 4px 0;
+      text-align: center;
+    }
+
+    sub {
+      font-size: 0.72em;
+      line-height: 0;
+    }
+
+    sup {
+      font-size: 0.72em;
+      line-height: 0;
+    }
+
+    /* MCQ Options */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      min-height: 50px;
+      text-align: left;
+      padding: 12px 14px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.98rem;
+      font-weight: 500;
+      line-height: 1.45;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--primary-border);
+      background: #f8fafc;
+    }
+
+    .opt-letter {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      flex-shrink: 0;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .opt-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      font-weight: 700;
+    }
+
+    .opt-btn.selected .opt-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .opt-btn.correct-reveal {
+      border-color: var(--success-border);
+      background: var(--success-bg);
+      color: #064e3b;
+      font-weight: 700;
+    }
+
+    .opt-btn.correct-reveal .opt-letter {
+      background: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+
+    .opt-btn.wrong-reveal {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: #7f1d1d;
+      font-weight: 700;
+    }
+
+    .opt-btn.wrong-reveal .opt-letter {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #ffffff;
+    }
+
+    .opt-btn:disabled {
+      cursor: default;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .explanation-box.show {
+      display: block;
+    }
+
+    .explanation-box.is-correct {
+      background: var(--success-bg);
+      border: 1.5px solid var(--success-border);
+      color: #064e3b;
+    }
+
+    .explanation-box.is-wrong {
+      background: var(--danger-bg);
+      border: 1.5px solid var(--danger-border);
+      color: #7f1d1d;
+    }
+
+    /* Part 2: 3-Line Math Rule Challenges */
+    .math-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .math-line-row {
+      background: var(--surface-soft);
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .line-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .line-equation {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .unit-tag {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-family: inherit;
+    }
+
+    /* Drop / Tap Slot for Symbolic & Fraction Blanks */
+    .drop-slot {
+      min-width: 78px;
+      min-height: 46px;
+      padding: 6px 12px;
+      border: 2.5px dashed var(--primary-border);
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .drop-slot.active-slot {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+    }
+
+    .drop-slot.filled {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--text);
+    }
+
+    .drop-slot.slot-correct {
+      border-style: solid;
+      border-color: var(--success-border);
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .drop-slot.slot-wrong {
+      border-style: solid;
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .drop-slot.missing-blank {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+    }
+
+    /* Numeric Stepper Control */
+    .num-stepper {
+      display: inline-flex;
+      align-items: stretch;
+      border: 2px solid var(--border-strong);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+      min-height: 46px;
+    }
+
+    .num-stepper.stepper-correct {
+      border-color: var(--success-border);
+      background: var(--success-bg);
+    }
+
+    .num-stepper.stepper-wrong {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+    }
+
+    .num-stepper.missing-blank {
+      border-color: var(--danger-border);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+    }
+
+    .step-btn {
+      width: 44px;
+      min-height: 44px;
+      border: none;
+      background: var(--surface-soft);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .step-btn:hover:not(:disabled) {
+      background: #e2e8f0;
+    }
+
+    .step-btn:active:not(:disabled) {
+      background: #cbd5e1;
+    }
+
+    .step-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .num-input {
+      width: 108px;
+      min-height: 44px;
+      border: none;
+      border-left: 1.5px solid var(--border);
+      border-right: 1.5px solid var(--border);
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      background: transparent;
+      padding: 4px 6px;
+    }
+
+    .num-input:focus {
+      outline: none;
+      background: var(--primary-soft);
+    }
+
+    .blank-correction {
+      display: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .blank-correction.show {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .blank-correction.ok {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .blank-correction.fix {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    /* Tile Bank */
+    .tile-bank-wrap {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .tile-bank-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tile-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tile-chip {
+      min-height: 44px;
+      min-width: 54px;
+      padding: 6px 12px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: grab;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .tile-chip:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      transform: translateY(-1px);
+    }
+
+    .tile-chip.used {
+      opacity: 0.35;
+      pointer-events: none;
+      border-style: dashed;
+    }
+
+    .tile-chip:disabled {
+      cursor: default;
+      opacity: 0.55;
+    }
+
+    .problem-actions {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .reset-prob-btn {
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .reset-prob-btn:hover:not(:disabled) {
+      border-color: var(--text);
+      color: var(--text);
+      background: var(--surface-soft);
+    }
+
+    .reset-prob-btn:disabled {
+      display: none;
+    }
+
+    /* Master Submit Bar */
+    .master-submit-area {
+      margin: 32px 0 24px;
+      text-align: center;
+    }
+
+    .validation-banner {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--danger-bg);
+      border: 2px solid var(--danger-border);
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    .validation-banner.show {
+      display: block;
+    }
+
+    .master-btn {
+      width: 100%;
+      max-width: 480px;
+      min-height: 58px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 14px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 1.12rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(29, 78, 216, 0.25);
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .master-btn:hover:not(:disabled) {
+      background: #1e40af;
+      transform: translateY(-1px);
+    }
+
+    .master-btn:disabled {
+      background: #94a3b8;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    /* Final Lab Report / Certificate */
+    .report-section {
+      display: none;
+      margin-top: 28px;
+      background: #ffffff;
+      border: 3px solid #0f172a;
+      border-radius: 18px;
+      padding: 24px 18px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .report-section.show {
+      display: block;
+    }
+
+    .report-header {
+      text-align: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .report-kicker {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .report-title {
+      margin: 0 0 6px;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .report-student {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 4px 0;
+    }
+
+    .report-score-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .big-score-box {
+      padding: 14px 24px;
+      border-radius: 14px;
+      background: var(--primary-soft);
+      border: 2px solid var(--primary);
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .big-score-val {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .big-score-lbl {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .tier-badge {
+      padding: 14px 22px;
+      border-radius: 14px;
+      background: #fefce8;
+      border: 2px solid #eab308;
+      color: #854d0e;
+      font-size: 1.08rem;
+      font-weight: 900;
+      text-align: center;
+      min-width: 210px;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .bd-card {
+      background: var(--surface-soft);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .bd-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .bd-val {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .report-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .action-btn {
+      min-height: 50px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.96rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover:not(:disabled) {
+      background: var(--surface-soft);
+      border-color: var(--text);
+    }
+
+    .action-btn.btn-amber {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: #ffffff;
+    }
+
+    .action-btn.btn-amber:hover:not(:disabled) {
+      background: var(--amber-hover);
+      border-color: var(--amber-hover);
+    }
+
+    .action-btn.btn-emerald {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #ffffff;
+    }
+
+    .action-btn.btn-share {
+      background: #0f172a;
+      border-color: #0f172a;
+      color: #ffffff;
+    }
+
+    .action-btn.btn-share:hover:not(:disabled) {
+      background: #1e293b;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.85;
+      cursor: default;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      background: #ffffff;
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+    }
+
+    .modal-head {
+      padding: 14px 18px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .modal-close {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 900;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .modal-body {
+      padding: 18px;
+      overflow-y: auto;
+      font-size: 0.96rem;
+    }
+
+    .hint-block {
+      background: var(--surface-soft);
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .hint-block h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+
+    .hint-block ul {
+      margin: 6px 0 0;
+      padding-left: 20px;
+    }
+
+    .hint-block li {
+      margin-bottom: 5px;
+    }
+
+    .cert-preview-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+
+    .share-btn {
+      min-height: 48px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .share-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .share-btn.whatsapp {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #ffffff;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      padding: 20px 14px 36px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* Responsive Tweaks */
+    @media (min-width: 720px) {
+      .sticky-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .hero-title {
+        font-size: 1.85rem;
+      }
+      .q-card {
+        padding: 22px 22px;
+      }
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      .sticky-bar,
+      .tile-bank-wrap,
+      .problem-actions,
+      .master-submit-area,
+      .report-actions,
+      .modal-backdrop {
+        display: none !important;
+      }
+      body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 12pt;
+      }
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+      .q-card,
+      .hero-card,
+      .report-section {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1.5px solid #334155;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Bar -->
+  <header class="sticky-bar">
+    <div class="sticky-inner">
+      <div class="sticky-row-top">
+        <div class="nav-brand">
+          <span class="quiz-badge">Quiz</span>
+          <span class="nav-title">Reflection, Refraction, and Total Internal Reflection</span>
+        </div>
+      </div>
+      <div class="sticky-row-controls">
+        <div class="name-input-wrap">
+          <input
+            type="text"
+            id="studentNameInput"
+            class="name-input"
+            placeholder="Student Full Name..."
+            aria-label="Student Full Name"
+            autocomplete="name"
+          />
+        </div>
+        <div id="trackerPill" class="tracker-pill" aria-live="polite">Answered: 0 / 14</div>
+        <button type="button" id="soundToggleBtn" class="icon-btn" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">
+          🔊 Sound: On
+        </button>
+        <button type="button" id="openHintsBtn" class="icon-btn hints-btn">
+          💡 Lesson Hints &amp; Formulas
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Title Card -->
+    <section class="hero-card">
+      <div class="hero-meta">
+        <span class="meta-tag code">Lab Code: Q2-G11-L1</span>
+        <span class="meta-tag">Grade 11 Physics</span>
+        <span class="meta-tag">Teacher Assem Alatrash</span>
+        <span class="meta-tag">OpenStax Ch. 25 (25.2–25.4)</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="quiz-prefix">Quiz</span>
+        <span>Reflection, Refraction, and Total Internal Reflection</span>
+      </h1>
+      <p class="hero-subtitle">
+        Complete all 10 Multiple Choice Questions and all 4 interactive 3-Line Math Rule Problems. You may freely review and change any answer before clicking <strong>Finish &amp; Check All Answers</strong> at the bottom.
+      </p>
+      <p class="hero-rules">
+        <strong>3-Line Math Rule:</strong> Line 1: Formula &rarr; Line 2: Substitution &rarr; Line 3: Final Answer with units in parentheses. Use clean fractions like <span class="math"><span class="frac"><span class="num">1</span><span class="den">2</span></span></span> and multiplication dots (<span class="math">&middot;</span>).
+      </p>
+    </section>
+
+    <!-- Part 1: MCQs -->
+    <div class="section-header">
+      <h2>Part 1: Multiple Choice Questions</h2>
+      <span class="section-points">60 Points (6 pts each)</span>
+    </div>
+    <div id="mcqContainer"></div>
+
+    <!-- Part 2: 3-Line Math Rule Problems -->
+    <div class="section-header">
+      <h2>Part 2: 3-Line Math Rule Challenges</h2>
+      <span class="section-points">40 Points (10 pts each)</span>
+    </div>
+    <div id="problemsContainer"></div>
+
+    <!-- Master Grade Button -->
+    <section class="master-submit-area">
+      <div id="validationBanner" class="validation-banner" role="alert"></div>
+      <button type="button" id="finishQuizBtn" class="master-btn">
+        ✅ Finish &amp; Check All Answers
+      </button>
+    </section>
+
+    <!-- Final Lab Report / Certificate -->
+    <section id="reportSection" class="report-section" aria-live="polite">
+      <div class="report-header">
+        <div class="report-kicker">Official Physics Lab Report &amp; Certificate &bull; Q2-G11-L1</div>
+        <h2 class="report-title">Quiz: Reflection, Refraction, and Total Internal Reflection</h2>
+        <div id="reportStudentName" class="report-student">Student: —</div>
+        <div style="font-size:0.88rem; color:#475569;">Instructor: Teacher Assem Alatrash &bull; Grade 11 Physics</div>
+      </div>
+
+      <div class="report-score-row">
+        <div class="big-score-box">
+          <div id="reportScoreVal" class="big-score-val">0 / 100</div>
+          <div class="big-score-lbl">Final Score</div>
+        </div>
+        <div id="reportTierBadge" class="tier-badge">Rank: —</div>
+      </div>
+
+      <div id="breakdownGrid" class="breakdown-grid"></div>
+
+      <div class="report-actions">
+        <button type="button" id="retakeQuizBtn" class="action-btn">
+          🔄 Retake Full Quiz
+        </button>
+        <button type="button" id="printPdfBtn" class="action-btn">
+          🖨️ Print / Save PDF
+        </button>
+        <button type="button" id="submitTeacherBtn" class="action-btn btn-amber">
+          🚀 Submit Score to Teacher
+        </button>
+        <button type="button" id="shareParentBtn" class="action-btn btn-share">
+          📤 Share Result with Parent
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Grade 11 Physics &bull; Lab Code <strong>Q2-G11-L1</strong> &bull; Created for <strong>Teacher Assem Alatrash</strong>
+  </footer>
+
+  <!-- Lesson Hints & Formulas Modal -->
+  <div id="hintsModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="hintsModalTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <h3 id="hintsModalTitle">💡 Lesson Hints &amp; Formulas</h3>
+        <button type="button" class="modal-close" data-close-modal="hintsModal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="hint-block">
+          <h4>1. The Normal Line &amp; Law of Reflection</h4>
+          <ul>
+            <li>The <strong>Normal Line</strong> is perpendicular (<strong>90°</strong>) to the mirror or boundary surface.</li>
+            <li><strong>Golden Rule:</strong> Always measure angles from the Normal Line—never from the surface! If an angle is given from the surface, subtract it from <strong>90°</strong>.</li>
+            <li><strong>Law of Reflection:</strong> <span class="math">&theta;<sub>i</sub> = &theta;<sub>r</sub></span></li>
+          </ul>
+        </div>
+
+        <div class="hint-block">
+          <h4>2. Index of Refraction (<span class="math">n</span>)</h4>
+          <ul>
+            <li>Measures how much a transparent material slows down light compared to vacuum (<span class="math">c = 300,000 km/s</span>).</li>
+            <li><span class="math">n = <span class="frac"><span class="num">c</span><span class="den">v</span></span></span> &nbsp; and &nbsp; <span class="math">v = <span class="frac"><span class="num">c</span><span class="den">n</span></span></span></li>
+            <li><span class="math">n</span> is <strong>unitless</strong> and always &ge; 1 (<span class="math">n<sub>air</sub> = 1</span>). Higher <span class="math">n</span> means <strong>slower</strong> light!</li>
+          </ul>
+        </div>
+
+        <div class="hint-block">
+          <h4>3. Refraction &amp; Snell's Law</h4>
+          <ul>
+            <li><strong>Fast &rarr; Slow (<span class="math">n<sub>1</sub> &lt; n<sub>2</sub></span>, e.g., Air to Water/Glass):</strong> Light slows down and bends <strong>TOWARD</strong> the normal (<span class="math">&theta;<sub>2</sub> &lt; &theta;<sub>1</sub></span>).</li>
+            <li><strong>Slow &rarr; Fast (<span class="math">n<sub>1</sub> &gt; n<sub>2</sub></span>, e.g., Water/Glass to Air):</strong> Light speeds up and bends <strong>AWAY</strong> from the normal (<span class="math">&theta;<sub>2</sub> &gt; &theta;<sub>1</sub></span>).</li>
+            <li><strong>Snell's Law:</strong> <span class="math">n<sub>1</sub> &middot; sin &theta;<sub>1</sub> = n<sub>2</sub> &middot; sin &theta;<sub>2</sub></span></li>
+            <li>Rearranged forms: <span class="math">n<sub>2</sub> = <span class="frac"><span class="num">n<sub>1</sub> &middot; sin &theta;<sub>1</sub></span><span class="den">sin &theta;<sub>2</sub></span></span></span> &nbsp; and &nbsp; <span class="math">sin &theta;<sub>2</sub> = <span class="frac"><span class="num">n<sub>1</sub> &middot; sin &theta;<sub>1</sub></span><span class="den">n<sub>2</sub></span></span></span></li>
+          </ul>
+        </div>
+
+        <div class="hint-block">
+          <h4>4. Total Internal Reflection (TIR) &amp; Critical Angle (<span class="math">&theta;<sub>c</sub></span>)</h4>
+          <ul>
+            <li>TIR can <strong>ONLY</strong> happen when light goes from a <strong>higher index (<span class="math">n<sub>1</sub></span>)</strong> to a <strong>lower index (<span class="math">n<sub>2</sub></span>)</strong>, so <span class="math">n<sub>1</sub> &gt; n<sub>2</sub></span> (e.g., fiber-optic core to cladding, or glass to air).</li>
+            <li>At the exact critical angle (<span class="math">&theta;<sub>c</sub></span>), the refracted ray skims the surface at <span class="math">&theta;<sub>2</sub> = 90&deg;</span>.</li>
+            <li><strong>Critical Angle Formula:</strong> <span class="math">sin &theta;<sub>c</sub> = <span class="frac"><span class="num">n<sub>2</sub></span><span class="den">n<sub>1</sub></span></span></span></li>
+            <li>If <span class="math">&theta;<sub>1</sub> &gt; &theta;<sub>c</sub></span>, <strong>100% of the light reflects back inside</strong>!</li>
+          </ul>
+        </div>
+
+        <div class="hint-block">
+          <h4>5. Student-Friendly Trig Values &amp; 3-Line Math Rule</h4>
+          <ul>
+            <li><span class="math">sin(30&deg;) = <span class="frac"><span class="num">1</span><span class="den">2</span></span></span> &nbsp;|&nbsp; <span class="math">sin(90&deg;) = 1</span> &nbsp;|&nbsp; 3-4-5 Triangle: <span class="math"><span class="frac"><span class="num">3</span><span class="den">5</span></span></span>, <span class="math"><span class="frac"><span class="num">4</span><span class="den">5</span></span></span></li>
+            <li><strong>Line 1:</strong> Law / Formula &rarr; <strong>Line 2:</strong> Substitution &rarr; <strong>Line 3:</strong> Final Answer (units)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Result with Parent Modal -->
+  <div id="shareModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <h3 id="shareModalTitle">📤 Share Result with Parent</h3>
+        <button type="button" class="modal-close" data-close-modal="shareModal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="certPreviewImg" class="cert-preview-img" alt="Official Quiz Certificate Preview" />
+        <canvas id="certCanvas" width="1200" height="675" style="display:none;"></canvas>
+        <div class="share-grid">
+          <button type="button" id="nativeShareBtn" class="share-btn primary" style="display:none;">
+            📲 Share Certificate
+          </button>
+          <a id="whatsappShareLink" class="share-btn whatsapp" target="_blank" rel="noopener noreferrer">
+            💬 WhatsApp
+          </a>
+          <a id="emailShareLink" class="share-btn">
+            ✉️ Email
+          </a>
+          <button type="button" id="downloadCertBtn" class="share-btn">
+            ⬇️ Download PNG
+          </button>
+          <button type="button" id="copySummaryBtn" class="share-btn">
+            📋 Copy Summary
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ============================================================
+         METADATA & CONSTANTS
+      ============================================================ */
+      const LAB_CODE = "Q2-G11-L1";
+      const QUIZ_TITLE = "Quiz: Reflection, Refraction, and Total Internal Reflection";
+      const TEACHER_NAME = "Teacher Assem Alatrash";
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsoVYIuvk6RL_JiLCTtqGWcDfWH46uDeqRSnOPe7trrM3nOHhDfiwPH4i7XQReNAgUiA/exec";
+
+      /* ============================================================
+         WEB AUDIO API SYNTHESIZED SOUND EFFECTS
+      ============================================================ */
+      let soundEnabled = true;
+      let audioCtx = null;
+
+      function getAudioCtx() {
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) audioCtx = new Ctx();
+        }
+        if (audioCtx && audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playTone(freq, duration, type = "sine", vol = 0.08, delay = 0) {
+        if (!soundEnabled) return;
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+        gain.gain.setValueAtTime(0.001, ctx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(vol, ctx.currentTime + delay + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + delay);
+        osc.stop(ctx.currentTime + delay + duration + 0.02);
+      }
+
+      function playClickSound() {
+        playTone(540, 0.06, "triangle", 0.05);
+      }
+
+      function playErrorSound() {
+        playTone(240, 0.16, "sawtooth", 0.07, 0);
+        playTone(185, 0.22, "sawtooth", 0.07, 0.14);
+      }
+
+      function playVictorySound() {
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((n, i) => playTone(n, 0.22, "triangle", 0.09, i * 0.1));
+      }
+
+      /* ============================================================
+         MATH HTML HELPERS
+      ============================================================ */
+      function frac(num, den) {
+        return `<span class="math"><span class="frac"><span class="num">${num}</span><span class="den">${den}</span></span></span>`;
+      }
+
+      /* ============================================================
+         CUSTOM INLINE SVG DIAGRAMS (PURE WHITE, HIGH CONTRAST)
+      ============================================================ */
+      const SVGS = {
+        mcq1: `<svg viewBox="0 0 360 155" aria-label="Light ray striking a flat mirror at 25 degrees from the mirror surface">
+          <rect x="0" y="0" width="360" height="155" fill="#ffffff"/>
+          <!-- Mirror Surface -->
+          <line x1="30" y1="125" x2="330" y2="125" stroke="#0f172a" stroke-width="4"/>
+          <path d="M40 125 l-8 10 M65 125 l-8 10 M90 125 l-8 10 M115 125 l-8 10 M140 125 l-8 10 M165 125 l-8 10 M190 125 l-8 10 M215 125 l-8 10 M240 125 l-8 10 M265 125 l-8 10 M290 125 l-8 10 M315 125 l-8 10" stroke="#64748b" stroke-width="1.5"/>
+          <!-- Normal Line -->
+          <line x1="180" y1="18" x2="180" y2="125" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="188" y="28" font-size="12" font-weight="700" fill="#475569">Normal (90°)</text>
+          <!-- Incident Ray -->
+          <line x1="55" y1="67" x2="180" y2="125" stroke="#dc2626" stroke-width="3"/>
+          <polygon points="118,96 105,84 100,94" fill="#dc2626"/>
+          <!-- Reflected Ray -->
+          <line x1="180" y1="125" x2="305" y2="67" stroke="#2563eb" stroke-width="3"/>
+          <polygon points="245,95 230,94 235,104" fill="#2563eb"/>
+          <!-- 25 deg arc from surface -->
+          <path d="M125 125 A 55 55 0 0 1 130 102" fill="none" stroke="#dc2626" stroke-width="2"/>
+          <text x="86" y="118" font-size="13" font-weight="800" fill="#dc2626">25°</text>
+          <!-- Unknown reflected angle from normal -->
+          <path d="M180 82 A 43 43 0 0 1 219 107" fill="none" stroke="#2563eb" stroke-width="2"/>
+          <text x="195" y="78" font-size="14" font-weight="800" fill="#2563eb">θᵣ = ?</text>
+        </svg>`,
+
+        mcq2: `<svg viewBox="0 0 360 120" aria-label="Index of refraction speed ratio diagram">
+          <rect x="0" y="0" width="360" height="120" fill="#ffffff"/>
+          <rect x="20" y="22" width="135" height="76" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+          <text x="87" y="48" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">Vacuum (c)</text>
+          <text x="87" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8">km/s</text>
+          <text x="180" y="66" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">÷</text>
+          <rect x="205" y="22" width="135" height="76" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+          <text x="272" y="48" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">Medium (v)</text>
+          <text x="272" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8">km/s</text>
+        </svg>`,
+
+        mcq3: `<svg viewBox="0 0 360 135" aria-label="Comparison of Material A with n equals 2 and Material B with n equals 3">
+          <rect x="0" y="0" width="360" height="135" fill="#ffffff"/>
+          <rect x="20" y="20" width="145" height="95" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+          <text x="92" y="46" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">Material A</text>
+          <text x="92" y="70" text-anchor="middle" font-size="16" font-weight="900" fill="#1d4ed8">n = 2</text>
+          <text x="92" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Speed = vₐ</text>
+
+          <rect x="195" y="20" width="145" height="95" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+          <text x="267" y="46" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">Material B</text>
+          <text x="267" y="70" text-anchor="middle" font-size="16" font-weight="900" fill="#0f172a">n = 3</text>
+          <text x="267" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Speed = vᵦ</text>
+        </svg>`,
+
+        mcq4: `<svg viewBox="0 0 360 160" aria-label="Light ray exiting water into air">
+          <rect x="0" y="0" width="360" height="80" fill="#ffffff"/>
+          <rect x="0" y="80" width="360" height="80" fill="#e0f2fe"/>
+          <line x1="20" y1="80" x2="340" y2="80" stroke="#0284c7" stroke-width="2.5"/>
+          <line x1="180" y1="12" x2="180" y2="148" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="32" y="30" font-size="13" font-weight="800" fill="#0f172a">Air (n₂ = 1)</text>
+          <text x="32" y="140" font-size="13" font-weight="800" fill="#0369a1">Water (n₁ &gt; 1)</text>
+          <line x1="125" y1="145" x2="180" y2="80" stroke="#dc2626" stroke-width="3"/>
+          <polygon points="154,111 142,115 151,122" fill="#dc2626"/>
+          <line x1="180" y1="80" x2="235" y2="15" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4"/>
+          <text x="242" y="46" font-size="14" font-weight="800" fill="#1d4ed8">Which way</text>
+          <text x="242" y="64" font-size="14" font-weight="800" fill="#1d4ed8">does it bend?</text>
+        </svg>`,
+
+        mcq5: `<svg viewBox="0 0 360 150" aria-label="Straight straw in a glass of water appearing shifted at the surface">
+          <rect x="0" y="0" width="360" height="150" fill="#ffffff"/>
+          <!-- Glass -->
+          <path d="M125 25 L138 135 L222 135 L235 25" fill="none" stroke="#0f172a" stroke-width="3"/>
+          <!-- Water -->
+          <polygon points="131,72 229,72 222,135 138,135" fill="#bae6fd" opacity="0.7"/>
+          <line x1="131" y1="72" x2="229" y2="72" stroke="#0284c7" stroke-width="2.5"/>
+          <!-- Straw upper -->
+          <line x1="150" y1="12" x2="178" y2="72" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+          <!-- Straw apparent lower shifted -->
+          <line x1="188" y1="74" x2="208" y2="128" stroke="#dc2626" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+          <text x="252" y="55" font-size="12" font-weight="700" fill="#475569">Air</text>
+          <text x="252" y="108" font-size="12" font-weight="700" fill="#0369a1">Water</text>
+          <text x="30" y="76" font-size="12" font-weight="800" fill="#dc2626">Looks bent!</text>
+        </svg>`,
+
+        mcq6: `<svg viewBox="0 0 360 160" aria-label="Light ray entering medium of index 3 from air">
+          <rect x="0" y="0" width="360" height="80" fill="#ffffff"/>
+          <rect x="0" y="80" width="360" height="80" fill="#f1f5f9"/>
+          <line x1="20" y1="80" x2="340" y2="80" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="180" y1="10" x2="180" y2="150" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="26" y="28" font-size="13" font-weight="800" fill="#0f172a">Air (n₁ = 1)</text>
+          <text x="26" y="142" font-size="13" font-weight="800" fill="#0f172a">Medium (n₂ = 3)</text>
+          <line x1="95" y1="22" x2="180" y2="80" stroke="#dc2626" stroke-width="3"/>
+          <text x="90" y="64" font-size="13" font-weight="800" fill="#dc2626">sin θ₁ = 3/5</text>
+          <line x1="180" y1="80" x2="205" y2="146" stroke="#2563eb" stroke-width="3"/>
+          <text x="215" y="128" font-size="13" font-weight="800" fill="#2563eb">sin θ₂ = ?</text>
+        </svg>`,
+
+        mcq7: `<svg viewBox="0 0 360 155" aria-label="Light ray hitting boundary at the exact critical angle">
+          <rect x="0" y="0" width="360" height="78" fill="#ffffff"/>
+          <rect x="0" y="78" width="360" height="77" fill="#eff6ff"/>
+          <line x1="20" y1="78" x2="340" y2="78" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="180" y1="12" x2="180" y2="146" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="26" y="28" font-size="12" font-weight="800" fill="#475569">Lower index (n₂)</text>
+          <text x="26" y="140" font-size="12" font-weight="800" fill="#1d4ed8">Higher index (n₁)</text>
+          <line x1="110" y1="142" x2="180" y2="78" stroke="#dc2626" stroke-width="3"/>
+          <text x="148" y="132" font-size="13" font-weight="800" fill="#dc2626">θc</text>
+          <line x1="180" y1="78" x2="325" y2="78" stroke="#2563eb" stroke-width="4"/>
+          <polygon points="285,78 273,72 273,84" fill="#2563eb"/>
+          <text x="215" y="54" font-size="13" font-weight="800" fill="#2563eb">θ₂ = ? (from normal)</text>
+        </svg>`,
+
+        mcq8: `<svg viewBox="0 0 360 155" aria-label="Critical angle between n1 equals 3 and n2 equals 3/2">
+          <rect x="0" y="0" width="360" height="78" fill="#ffffff"/>
+          <rect x="0" y="78" width="360" height="77" fill="#e2e8f0"/>
+          <line x1="20" y1="78" x2="340" y2="78" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="180" y1="12" x2="180" y2="146" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="26" y="30" font-size="13" font-weight="800" fill="#0f172a">Medium 2 (n₂ = 3/2)</text>
+          <text x="26" y="140" font-size="13" font-weight="800" fill="#0f172a">Medium 1 (n₁ = 3)</text>
+          <line x1="125" y1="142" x2="180" y2="78" stroke="#dc2626" stroke-width="3"/>
+          <text x="145" y="128" font-size="13" font-weight="800" fill="#dc2626">θc = ?</text>
+          <line x1="180" y1="78" x2="320" y2="78" stroke="#2563eb" stroke-width="3.5"/>
+        </svg>`,
+
+        mcq9: `<svg viewBox="0 0 360 155" aria-label="Laser ray inside glass hitting boundary at 45 degrees when critical angle is 30 degrees">
+          <rect x="0" y="0" width="360" height="75" fill="#ffffff"/>
+          <rect x="0" y="75" width="360" height="80" fill="#eff6ff"/>
+          <line x1="20" y1="75" x2="340" y2="75" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="180" y1="12" x2="180" y2="146" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="26" y="28" font-size="13" font-weight="800" fill="#0f172a">Air</text>
+          <text x="26" y="140" font-size="13" font-weight="800" fill="#1d4ed8">Glass (θc = 30°)</text>
+          <line x1="108" y1="147" x2="180" y2="75" stroke="#dc2626" stroke-width="3"/>
+          <text x="122" y="114" font-size="13" font-weight="800" fill="#dc2626">θ₁ = 45°</text>
+          <text x="215" y="114" font-size="14" font-weight="800" fill="#0f172a">What happens?</text>
+        </svg>`,
+
+        mcq10: `<svg viewBox="0 0 360 130" aria-label="Fiber-optic cable showing inner core and outer cladding">
+          <rect x="0" y="0" width="360" height="130" fill="#ffffff"/>
+          <!-- Cladding -->
+          <rect x="25" y="18" width="310" height="94" rx="14" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+          <!-- Inner Core -->
+          <rect x="25" y="42" width="310" height="46" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+          <!-- Bouncing Laser -->
+          <polyline points="30,68 95,43 175,87 255,43 328,82" fill="none" stroke="#dc2626" stroke-width="3"/>
+          <text x="180" y="34" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">Outer Cladding (n₂)</text>
+          <text x="180" y="69" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">Inner Core (n₁)</text>
+        </svg>`,
+
+        p1: `<svg viewBox="0 0 360 130" aria-label="Light slowing down from vacuum into a plastic block">
+          <rect x="0" y="0" width="360" height="130" fill="#ffffff"/>
+          <rect x="175" y="18" width="160" height="94" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+          <line x1="25" y1="65" x2="175" y2="65" stroke="#dc2626" stroke-width="3.5"/>
+          <polygon points="120,65 108,59 108,71" fill="#dc2626"/>
+          <line x1="175" y1="65" x2="320" y2="65" stroke="#2563eb" stroke-width="3.5" stroke-dasharray="8,5"/>
+          <text x="98" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#dc2626">Vacuum: c = 300,000 km/s</text>
+          <text x="255" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">Plastic Block (n = ?)</text>
+          <text x="255" y="96" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">v = 150,000 km/s</text>
+        </svg>`,
+
+        p2: `<svg viewBox="0 0 360 130" aria-label="Light entering a transparent crystal with n equals 3">
+          <rect x="0" y="0" width="360" height="130" fill="#ffffff"/>
+          <rect x="175" y="18" width="160" height="94" rx="10" fill="#f1f5f9" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="25" y1="65" x2="175" y2="65" stroke="#dc2626" stroke-width="3.5"/>
+          <polygon points="120,65 108,59 108,71" fill="#dc2626"/>
+          <line x1="175" y1="65" x2="320" y2="65" stroke="#0f172a" stroke-width="3.5" stroke-dasharray="6,6"/>
+          <text x="98" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#dc2626">c = 300,000 km/s</text>
+          <text x="255" y="44" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">Crystal (n = 3)</text>
+          <text x="255" y="96" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">v = ? (km/s)</text>
+        </svg>`,
+
+        p3: `<svg viewBox="0 0 360 160" aria-label="Light ray bending from air into a clear resin block">
+          <rect x="0" y="0" width="360" height="80" fill="#ffffff"/>
+          <rect x="0" y="80" width="360" height="80" fill="#eff6ff"/>
+          <line x1="20" y1="80" x2="340" y2="80" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="180" y1="10" x2="180" y2="150" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="24" y="28" font-size="13" font-weight="800" fill="#0f172a">Air (n₁ = 1)</text>
+          <text x="24" y="142" font-size="13" font-weight="800" fill="#1d4ed8">Resin Block (n₂ = ?)</text>
+          <line x1="75" y1="22" x2="180" y2="80" stroke="#dc2626" stroke-width="3"/>
+          <text x="72" y="64" font-size="13" font-weight="800" fill="#dc2626">sin θ₁ = 4/5</text>
+          <line x1="180" y1="80" x2="220" y2="148" stroke="#2563eb" stroke-width="3"/>
+          <text x="226" y="128" font-size="13" font-weight="800" fill="#2563eb">sin θ₂ = 2/5</text>
+        </svg>`,
+
+        p4: `<svg viewBox="0 0 360 155" aria-label="Light inside glass prism of n1 equals 2 approaching air boundary n2 equals 1">
+          <rect x="0" y="0" width="360" height="75" fill="#ffffff"/>
+          <rect x="0" y="75" width="360" height="80" fill="#eff6ff"/>
+          <line x1="20" y1="75" x2="340" y2="75" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="180" y1="12" x2="180" y2="146" stroke="#475569" stroke-width="2" stroke-dasharray="6,5"/>
+          <text x="24" y="28" font-size="13" font-weight="800" fill="#0f172a">Air (n₂ = 1)</text>
+          <text x="24" y="140" font-size="13" font-weight="800" fill="#1d4ed8">Glass Prism (n₁ = 2)</text>
+          <line x1="125" y1="142" x2="180" y2="75" stroke="#dc2626" stroke-width="3"/>
+          <text x="145" y="126" font-size="13" font-weight="800" fill="#dc2626">θc = ?</text>
+          <line x1="180" y1="75" x2="322" y2="75" stroke="#2563eb" stroke-width="3.5"/>
+          <text x="220" y="56" font-size="12" font-weight="800" fill="#2563eb">θ₂ = 90°</text>
+        </svg>`
+      };
+
+      /* ============================================================
+         QUIZ DATA — STRICT FIDELITY TO SOURCE FILE
+      ============================================================ */
+      const MCQS = [
+        {
+          id: "mcq1",
+          question: `If the angle between an incoming light ray and a flat mirror surface is <strong>25°</strong>, what is the angle of reflection (<span class="math">&theta;<sub>r</sub></span>) measured from the normal line?`,
+          svg: SVGS.mcq1,
+          options: ["25°", "50°", "65°", "90°"],
+          correct: 2,
+          explanation: `Angles are always measured from the Normal Line (90° to the surface), so <span class="math">&theta;<sub>i</sub> = 90&deg; &minus; 25&deg; = 65&deg;</span>. By the Law of Reflection (<span class="math">&theta;<sub>i</sub> = &theta;<sub>r</sub></span>), <span class="math">&theta;<sub>r</sub> = 65&deg;</span>.`
+        },
+        {
+          id: "mcq2",
+          question: `What is the unit of the Index of Refraction (<span class="math">n</span>)?`,
+          svg: SVGS.mcq2,
+          options: ["m/s", "degrees", "Newtons (N)", "It is unitless (a pure ratio of speeds)"],
+          correct: 3,
+          explanation: `Because <span class="math">n = ${frac("c", "v")}</span> divides one speed by another speed, the units cancel out completely—making <span class="math">n</span> a pure unitless ratio.`
+        },
+        {
+          id: "mcq3",
+          question: `If Material A has <span class="math">n = 2</span> and Material B has <span class="math">n = 3</span>, in which material does light travel faster?`,
+          svg: SVGS.mcq3,
+          options: [
+            "Material A, because a lower index of refraction means less slowing down of light",
+            "Material B, because a higher index means faster light",
+            "Light travels at the exact same speed in both",
+            "Light stops completely in Material B"
+          ],
+          correct: 0,
+          explanation: `Since <span class="math">v = ${frac("c", "n")}</span>, a higher index of refraction means slower light. Therefore, light travels faster in Material A (<span class="math">n = 2</span>).`
+        },
+        {
+          id: "mcq4",
+          question: `When a light ray exits water (<span class="math">n<sub>1</sub> &gt; 1</span>) into air (<span class="math">n<sub>2</sub> = 1</span>) at an angle, how does the ray bend?`,
+          svg: SVGS.mcq4,
+          options: [
+            "Toward the normal line",
+            "Away from the normal line",
+            "Straight back along its own path",
+            "In a complete circle"
+          ],
+          correct: 1,
+          explanation: `Moving from a slower, higher-index medium (water) into a faster, lower-index medium (air) causes light to speed up and bend <strong>away</strong> from the normal line.`
+        },
+        {
+          id: "mcq5",
+          question: `Why does a straight straw in a glass of water look bent at the water's surface?`,
+          svg: SVGS.mcq5,
+          options: [
+            "Because water dissolves the plastic straw",
+            "Because light rays coming from the underwater part of the straw refract (bend) as they exit the water into air",
+            "Because of Total Internal Reflection inside the straw",
+            "Because gravity pulls the light rays sideways"
+          ],
+          correct: 1,
+          explanation: `Light rays traveling from the submerged part of the straw refract (bend away from the normal) as they exit water into air, creating the bent-straw illusion.`
+        },
+        {
+          id: "mcq6",
+          question: `A light ray travels from air (<span class="math">n<sub>1</sub> = 1</span>) at an angle where <span class="math">sin &theta;<sub>1</sub> = ${frac("3", "5")}</span> into a medium of index <span class="math">n<sub>2</sub> = 3</span>. Using <span class="math">sin &theta;<sub>2</sub> = ${frac("n<sub>1</sub> &middot; sin &theta;<sub>1</sub>", "n<sub>2</sub>")}</span>, what is <span class="math">sin &theta;<sub>2</sub></span>?`,
+          svg: SVGS.mcq6,
+          options: [frac("1", "5"), frac("3", "5"), "1", frac("9", "5")],
+          correct: 0,
+          explanation: `Substituting into Snell's Law gives <span class="math">sin &theta;<sub>2</sub> = ${frac(`1 &middot; ${frac("3", "5")}`, "3")} = ${frac("1", "5")}</span>.`
+        },
+        {
+          id: "mcq7",
+          question: `At the exact Critical Angle (<span class="math">&theta;<sub>c</sub></span>), what is the angle of refraction (<span class="math">&theta;<sub>2</sub></span>) in the second medium?`,
+          svg: SVGS.mcq7,
+          options: ["0°", "30°", "45°", "90°"],
+          correct: 3,
+          explanation: `By definition, at the critical angle the refracted ray skims right along the boundary surface, which is <span class="math">&theta;<sub>2</sub> = 90&deg;</span> from the normal line.`
+        },
+        {
+          id: "mcq8",
+          question: `Light inside a dense medium of index <span class="math">n<sub>1</sub> = 3</span> approaches a boundary with a medium of index <span class="math">n<sub>2</sub> = ${frac("3", "2")}</span>. Using <span class="math">sin &theta;<sub>c</sub> = ${frac("n<sub>2</sub>", "n<sub>1</sub>")}</span> (where <span class="math">sin(30&deg;) = ${frac("1", "2")}</span>), what is the critical angle (<span class="math">&theta;<sub>c</sub></span>)?`,
+          svg: SVGS.mcq8,
+          options: ["15°", "30°", "45°", "60°"],
+          correct: 1,
+          explanation: `<span class="math">sin &theta;<sub>c</sub> = ${frac(frac("3", "2"), "3")} = ${frac("1", "2")}</span>. Since <span class="math">sin(30&deg;) = ${frac("1", "2")}</span>, the critical angle is <span class="math">&theta;<sub>c</sub> = 30&deg;</span>.`
+        },
+        {
+          id: "mcq9",
+          question: `Suppose the critical angle for a glass-air boundary is <span class="math">&theta;<sub>c</sub> = 30&deg;</span>. If a laser ray inside the glass hits the boundary at an angle of <span class="math">&theta;<sub>1</sub> = 45&deg;</span>, what happens to the ray?`,
+          svg: SVGS.mcq9,
+          options: [
+            "It passes straight into the air without bending",
+            "It undergoes Total Internal Reflection (100% reflects back into the glass)",
+            "It bends toward the normal line",
+            "It slows down to 0 km/s"
+          ],
+          correct: 1,
+          explanation: `Because light travels from glass to air (<span class="math">n<sub>1</sub> &gt; n<sub>2</sub></span>) and <span class="math">&theta;<sub>1</sub> = 45&deg; &gt; &theta;<sub>c</sub> = 30&deg;</span>, 100% of the laser beam reflects back inside via Total Internal Reflection.`
+        },
+        {
+          id: "mcq10",
+          question: `In a fiber-optic cable, how does the index of refraction of the inner core (<span class="math">n<sub>1</sub></span>) compare to the outer cladding (<span class="math">n<sub>2</sub></span>)?`,
+          svg: SVGS.mcq10,
+          options: [
+            `The inner core must have a higher index of refraction than the cladding (<span class="math">n<sub>1</sub> &gt; n<sub>2</sub></span>)`,
+            `The inner core must have a lower index of refraction than the cladding (<span class="math">n<sub>1</sub> &lt; n<sub>2</sub></span>)`,
+            `Both must have <span class="math">n = 0</span>`,
+            `Both must be made of opaque metal`
+          ],
+          correct: 0,
+          explanation: `Total Internal Reflection only happens when light moves from a higher index to a lower index, so the inner core must satisfy <span class="math">n<sub>1</sub> &gt; n<sub>2</sub></span> to trap light.`
+        }
+      ];
+
+      /* 4 Interactive 3-Line Math Rule Problems (10 pts each: Line1=3, Line2=3, Line3=4) */
+      const PROBLEMS = [
+        {
+          id: "p1",
+          title: "Problem 1",
+          prompt: `Light travels in a vacuum at <span class="math">c = 300,000 km/s</span> and slows down to <span class="math">v = 150,000 km/s</span> inside a transparent plastic block. Calculate the index of refraction (<span class="math">n</span>) of the plastic block.`,
+          svg: SVGS.p1,
+          tiles: [
+            { id: "v", html: `<span class="math">v</span>` },
+            { id: "c", html: `<span class="math">c</span>` },
+            { id: "n", html: `<span class="math">n</span>` },
+            { id: "v2", html: `<span class="math">v<sup>2</sup></span>` },
+            { id: "c2", html: `<span class="math">c<sup>2</sup></span>` },
+            { id: "n1", html: `<span class="math">n<sub>1</sub></span>` },
+            { id: "n2", html: `<span class="math">n<sub>2</sub></span>` },
+            { id: "sint1", html: `<span class="math">sin &theta;<sub>1</sub></span>` },
+            { id: "sint2", html: `<span class="math">sin &theta;<sub>2</sub></span>` },
+            { id: "sintc", html: `<span class="math">sin &theta;<sub>c</sub></span>` },
+            { id: "ti", html: `<span class="math">&theta;<sub>i</sub></span>` },
+            { id: "tr", html: `<span class="math">&theta;<sub>r</sub></span>` },
+            { id: "f", html: `<span class="math">f</span>` },
+            { id: "lambda", html: `<span class="math">&lambda;</span>` }
+          ],
+          lines: [
+            {
+              key: "l1",
+              label: "Line 1 (Formula)",
+              points: 3,
+              type: "tile",
+              answer: "v",
+              answerDisplay: `<span class="math">v</span>`,
+              before: `<span class="math">n =</span> <span class="math"><span class="frac"><span class="num">c</span><span class="den">`,
+              after: `</span></span></span>`
+            },
+            {
+              key: "l2",
+              label: "Line 2 (Substitution)",
+              points: 3,
+              type: "number",
+              answer: 150000,
+              step: 50000,
+              answerDisplay: "150,000",
+              before: `<span class="math">n = 300,000 &divide;</span>`,
+              after: ``
+            },
+            {
+              key: "l3",
+              label: "Line 3 (Final Answer)",
+              points: 4,
+              type: "number",
+              answer: 2,
+              step: 1,
+              answerDisplay: "2",
+              before: `<span class="math">n =</span>`,
+              after: `<span class="unit-tag">(unitless)</span>`
+            }
+          ]
+        },
+        {
+          id: "p2",
+          title: "Problem 2",
+          prompt: `A transparent crystal has an index of refraction of <span class="math">n = 3</span>. Using <span class="math">c = 300,000 km/s</span>, calculate the speed of light (<span class="math">v</span>) inside this crystal.`,
+          svg: SVGS.p2,
+          tiles: [
+            { id: "c", html: `<span class="math">c</span>` },
+            { id: "v", html: `<span class="math">v</span>` },
+            { id: "n", html: `<span class="math">n</span>` },
+            { id: "n1", html: `<span class="math">n<sub>1</sub></span>` },
+            { id: "n2", html: `<span class="math">n<sub>2</sub></span>` },
+            { id: "c2", html: `<span class="math">c<sup>2</sup></span>` },
+            { id: "v2", html: `<span class="math">v<sup>2</sup></span>` },
+            { id: "cn", html: `<span class="math">c &middot; n</span>` },
+            { id: "sint1", html: `<span class="math">sin &theta;<sub>1</sub></span>` },
+            { id: "sint2", html: `<span class="math">sin &theta;<sub>2</sub></span>` },
+            { id: "sintc", html: `<span class="math">sin &theta;<sub>c</sub></span>` },
+            { id: "ti", html: `<span class="math">&theta;<sub>i</sub></span>` },
+            { id: "t", html: `<span class="math">t</span>` },
+            { id: "d", html: `<span class="math">d</span>` }
+          ],
+          lines: [
+            {
+              key: "l1",
+              label: "Line 1 (Formula)",
+              points: 3,
+              type: "tile",
+              answer: "c",
+              answerDisplay: `<span class="math">c</span>`,
+              before: `<span class="math">v =</span> <span class="math"><span class="frac"><span class="num">`,
+              after: `</span><span class="den">n</span></span></span>`
+            },
+            {
+              key: "l2",
+              label: "Line 2 (Substitution)",
+              points: 3,
+              type: "number",
+              answer: 3,
+              step: 1,
+              answerDisplay: "3",
+              before: `<span class="math">v = 300,000 &divide;</span>`,
+              after: ``
+            },
+            {
+              key: "l3",
+              label: "Line 3 (Final Answer)",
+              points: 4,
+              type: "number",
+              answer: 100000,
+              step: 50000,
+              answerDisplay: "100,000",
+              before: `<span class="math">v =</span>`,
+              after: `<span class="unit-tag">(km/s)</span>`
+            }
+          ]
+        },
+        {
+          id: "p3",
+          title: "Problem 3",
+          prompt: `A light ray in air (<span class="math">n<sub>1</sub> = 1</span>) enters a clear resin block at an angle where <span class="math">sin &theta;<sub>1</sub> = ${frac("4", "5")}</span>. Inside the block, the refracted angle satisfies <span class="math">sin &theta;<sub>2</sub> = ${frac("2", "5")}</span>. Calculate the index of refraction (<span class="math">n<sub>2</sub></span>) of the resin block.`,
+          svg: SVGS.p3,
+          tiles: [
+            { id: "sint1", html: `<span class="math">sin &theta;<sub>1</sub></span>` },
+            { id: "sint2", html: `<span class="math">sin &theta;<sub>2</sub></span>` },
+            { id: "sintc", html: `<span class="math">sin &theta;<sub>c</sub></span>` },
+            { id: "cost1", html: `<span class="math">cos &theta;<sub>1</sub></span>` },
+            { id: "n1", html: `<span class="math">n<sub>1</sub></span>` },
+            { id: "n2", html: `<span class="math">n<sub>2</sub></span>` },
+            { id: "t1", html: `<span class="math">&theta;<sub>1</sub></span>` },
+            { id: "t2", html: `<span class="math">&theta;<sub>2</sub></span>` },
+            { id: "f_2_5", html: frac("2", "5") },
+            { id: "f_4_5", html: frac("4", "5") },
+            { id: "f_3_5", html: frac("3", "5") },
+            { id: "f_1_5", html: frac("1", "5") },
+            { id: "f_1_2", html: frac("1", "2") },
+            { id: "f_5_2", html: frac("5", "2") }
+          ],
+          lines: [
+            {
+              key: "l1",
+              label: "Line 1 (Formula)",
+              points: 3,
+              type: "tile",
+              answer: "sint1",
+              answerDisplay: `<span class="math">sin &theta;<sub>1</sub></span>`,
+              before: `<span class="math">n<sub>2</sub> = (n<sub>1</sub> &middot;</span>`,
+              after: `<span class="math">) &divide; sin &theta;<sub>2</sub></span>`
+            },
+            {
+              key: "l2",
+              label: "Line 2 (Substitution)",
+              points: 3,
+              type: "tile",
+              answer: "f_2_5",
+              answerDisplay: frac("2", "5"),
+              before: `<span class="math">n<sub>2</sub> = (1 &middot; ${frac("4", "5")}) &divide;</span>`,
+              after: ``
+            },
+            {
+              key: "l3",
+              label: "Line 3 (Final Answer)",
+              points: 4,
+              type: "number",
+              answer: 2,
+              step: 1,
+              answerDisplay: "2",
+              before: `<span class="math">n<sub>2</sub> =</span>`,
+              after: `<span class="unit-tag">(unitless)</span>`
+            }
+          ]
+        },
+        {
+          id: "p4",
+          title: "Problem 4",
+          prompt: `Light inside a glass prism with index <span class="math">n<sub>1</sub> = 2</span> approaches the boundary with air (<span class="math">n<sub>2</sub> = 1</span>). Given that <span class="math">sin(30&deg;) = ${frac("1", "2")}</span>, calculate the critical angle (<span class="math">&theta;<sub>c</sub></span>) for Total Internal Reflection.`,
+          svg: SVGS.p4,
+          tiles: [
+            { id: "n1", html: `<span class="math">n<sub>1</sub></span>` },
+            { id: "n2", html: `<span class="math">n<sub>2</sub></span>` },
+            { id: "c", html: `<span class="math">c</span>` },
+            { id: "v", html: `<span class="math">v</span>` },
+            { id: "sint1", html: `<span class="math">sin &theta;<sub>1</sub></span>` },
+            { id: "sint2", html: `<span class="math">sin &theta;<sub>2</sub></span>` },
+            { id: "sintc", html: `<span class="math">sin &theta;<sub>c</sub></span>` },
+            { id: "tc", html: `<span class="math">&theta;<sub>c</sub></span>` },
+            { id: "t1", html: `<span class="math">&theta;<sub>1</sub></span>` },
+            { id: "t2", html: `<span class="math">&theta;<sub>2</sub></span>` },
+            { id: "n1_sq", html: `<span class="math">n<sub>1</sub><sup>2</sup></span>` },
+            { id: "n2_sq", html: `<span class="math">n<sub>2</sub><sup>2</sup></span>` },
+            { id: "sin90", html: `<span class="math">sin 90&deg;</span>` },
+            { id: "one", html: `<span class="math">1</span>` }
+          ],
+          lines: [
+            {
+              key: "l1",
+              label: "Line 1 (Formula)",
+              points: 3,
+              type: "tile",
+              answer: "n1",
+              answerDisplay: `<span class="math">n<sub>1</sub></span>`,
+              before: `<span class="math">sin &theta;<sub>c</sub> =</span> <span class="math"><span class="frac"><span class="num">n<sub>2</sub></span><span class="den">`,
+              after: `</span></span></span>`
+            },
+            {
+              key: "l2",
+              label: "Line 2 (Substitution)",
+              points: 3,
+              type: "number",
+              answer: 2,
+              step: 1,
+              answerDisplay: "2",
+              before: `<span class="math">sin &theta;<sub>c</sub> = 1 &divide;</span>`,
+              after: ``
+            },
+            {
+              key: "l3",
+              label: "Line 3 (Final Answer)",
+              points: 4,
+              type: "number",
+              answer: 30,
+              step: 5,
+              answerDisplay: "30",
+              before: `<span class="math">&theta;<sub>c</sub> =</span>`,
+              after: `<span class="unit-tag">(degrees)</span>`
+            }
+          ]
+        }
+      ];
+
+      /* ============================================================
+         APPLICATION STATE
+      ============================================================ */
+      const state = {
+        graded: false,
+        mcqAnswers: {},       // { mcq1: 2, ... }
+        problemAnswers: {},   // { p1: { l1: "v", l2: "150000", l3: "2" }, ... }
+        activeSlot: null,     // { probId, lineKey }
+        lastResult: null
+      };
+
+      function initEmptyProblemState() {
+        PROBLEMS.forEach((p) => {
+          state.problemAnswers[p.id] = {};
+          p.lines.forEach((l) => {
+            state.problemAnswers[p.id][l.key] = "";
+          });
+        });
+      }
+
+      /* Deterministic Shuffle per session for Tile Banks */
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      /* ============================================================
+         RENDERING PART 1: MCQS
+      ============================================================ */
+      function renderMCQs() {
+        const container = document.getElementById("mcqContainer");
+        container.innerHTML = "";
+        const letters = ["A", "B", "C", "D"];
+
+        MCQS.forEach((q, idx) => {
+          const card = document.createElement("article");
+          card.className = "q-card";
+          card.id = `card-${q.id}`;
+
+          const optionsHtml = q.options
+            .map((opt, oIdx) => `
+              <button type="button" class="opt-btn" data-qid="${q.id}" data-oidx="${oIdx}">
+                <span class="opt-letter">${letters[oIdx]}</span>
+                <span>${opt}</span>
+              </button>
+            `)
+            .join("");
+
+          card.innerHTML = `
+            <div class="q-top">
+              <span class="q-num">Question ${idx + 1} of 10</span>
+              <span class="q-pts-badge" id="pts-${q.id}">6 pts</span>
+            </div>
+            <p class="q-text">${q.question}</p>
+            <div class="diagram-box">${q.svg}</div>
+            <div class="options-list">${optionsHtml}</div>
+            <div class="explanation-box" id="exp-${q.id}"></div>
+          `;
+
+          container.appendChild(card);
+        });
+
+        container.querySelectorAll(".opt-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.graded) return;
+            const qid = btn.dataset.qid;
+            const oidx = Number(btn.dataset.oidx);
+            state.mcqAnswers[qid] = oidx;
+            playClickSound();
+
+            const card = document.getElementById(`card-${qid}`);
+            card.classList.remove("missing-alert");
+            card.querySelectorAll(".opt-btn").forEach((b) => {
+              b.classList.toggle("selected", Number(b.dataset.oidx) === oidx);
+            });
+            updateProgressTracker();
+          });
+        });
+      }
+
+      /* ============================================================
+         RENDERING PART 2: 3-LINE MATH RULE PROBLEMS
+      ============================================================ */
+      function renderProblems() {
+        const container = document.getElementById("problemsContainer");
+        container.innerHTML = "";
+
+        PROBLEMS.forEach((p, idx) => {
+          const card = document.createElement("article");
+          card.className = "q-card";
+          card.id = `card-${p.id}`;
+
+          const linesHtml = p.lines
+            .map((line) => {
+              let inputHtml = "";
+              if (line.type === "tile") {
+                inputHtml = `<button type="button" class="drop-slot" id="slot-${p.id}-${line.key}" data-prob="${p.id}" data-line="${line.key}" aria-label="${p.title} ${line.label} blank">Tap or Drop</button>`;
+              } else {
+                inputHtml = `
+                  <div class="num-stepper" id="stepper-${p.id}-${line.key}">
+                    <button type="button" class="step-btn" data-step-dir="-1" data-prob="${p.id}" data-line="${line.key}" aria-label="Decrease value">▼</button>
+                    <input type="text" inputmode="decimal" class="num-input" id="num-${p.id}-${line.key}" data-prob="${p.id}" data-line="${line.key}" placeholder="?" autocomplete="off" aria-label="${p.title} ${line.label} numeric input" />
+                    <button type="button" class="step-btn" data-step-dir="1" data-prob="${p.id}" data-line="${line.key}" aria-label="Increase value">▲</button>
+                  </div>
+                `;
+              }
+
+              return `
+                <div class="math-line-row">
+                  <div class="line-label">${line.label} (${line.points} pts)</div>
+                  <div class="line-equation">
+                    ${line.before}
+                    ${inputHtml}
+                    ${line.after}
+                    <span class="blank-correction" id="corr-${p.id}-${line.key}"></span>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+
+          const shuffledTiles = shuffleArray(p.tiles);
+          const tilesHtml = shuffledTiles
+            .map(
+              (t) => `
+              <button type="button" class="tile-chip" draggable="true" data-prob="${p.id}" data-tile-id="${t.id}">
+                ${t.html}
+              </button>
+            `
+            )
+            .join("");
+
+          card.innerHTML = `
+            <div class="q-top">
+              <span class="q-num">${p.title} of 4 (3-Line Math Rule)</span>
+              <span class="q-pts-badge" id="pts-${p.id}">10 pts</span>
+            </div>
+            <p class="q-text">${p.prompt}</p>
+            <div class="diagram-box">${p.svg}</div>
+            <div class="math-lines">${linesHtml}</div>
+            <div class="tile-bank-wrap">
+              <div class="tile-bank-title">
+                <span>Formula / Symbol Tile Bank (14 Options)</span>
+                <span>Tap a blank then tap a tile, or drag &amp; drop</span>
+              </div>
+              <div class="tile-bank" id="bank-${p.id}">${tilesHtml}</div>
+            </div>
+            <div class="problem-actions">
+              <button type="button" class="reset-prob-btn" data-reset-prob="${p.id}">↺ Reset Problem</button>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+
+        bindProblemInteractions();
+      }
+
+      function bindProblemInteractions() {
+        // Tap / Drop Slots
+        document.querySelectorAll(".drop-slot").forEach((slot) => {
+          slot.addEventListener("click", () => {
+            if (state.graded) return;
+            const probId = slot.dataset.prob;
+            const lineKey = slot.dataset.line;
+
+            // If already filled, tapping returns tile to bank
+            if (state.problemAnswers[probId][lineKey]) {
+              state.problemAnswers[probId][lineKey] = "";
+              playClickSound();
+              refreshProblemUI(probId);
+              setActiveSlot(probId, lineKey);
+              updateProgressTracker();
+              return;
+            }
+            playClickSound();
+            setActiveSlot(probId, lineKey);
+          });
+
+          slot.addEventListener("dragover", (e) => {
+            if (state.graded) return;
+            e.preventDefault();
+            slot.classList.add("active-slot");
+          });
+
+          slot.addEventListener("dragleave", () => {
+            if (!state.activeSlot || state.activeSlot.probId !== slot.dataset.prob || state.activeSlot.lineKey !== slot.dataset.line) {
+              slot.classList.remove("active-slot");
+            }
+          });
+
+          slot.addEventListener("drop", (e) => {
+            if (state.graded) return;
+            e.preventDefault();
+            const raw = e.dataTransfer.getData("text/plain");
+            if (!raw) return;
+            const [srcProb, tileId] = raw.split("::");
+            const targetProb = slot.dataset.prob;
+            const targetLine = slot.dataset.line;
+            if (srcProb !== targetProb) return;
+            placeTile(targetProb, targetLine, tileId);
+          });
+        });
+
+        // Tile Bank Chips (Tap & Drag)
+        document.querySelectorAll(".tile-chip").forEach((chip) => {
+          chip.addEventListener("dragstart", (e) => {
+            if (state.graded) {
+              e.preventDefault();
+              return;
+            }
+            e.dataTransfer.setData("text/plain", `${chip.dataset.prob}::${chip.dataset.tileId}`);
+          });
+
+          chip.addEventListener("click", () => {
+            if (state.graded) return;
+            const probId = chip.dataset.prob;
+            const tileId = chip.dataset.tileId;
+
+            // Determine target slot: active slot in same problem, or first empty tile slot in this problem
+            let targetLine = null;
+            if (state.activeSlot && state.activeSlot.probId === probId) {
+              targetLine = state.activeSlot.lineKey;
+            } else {
+              const prob = PROBLEMS.find((p) => p.id === probId);
+              const tileLines = prob.lines.filter((l) => l.type === "tile");
+              const firstEmpty = tileLines.find((l) => !state.problemAnswers[probId][l.key]);
+              targetLine = firstEmpty ? firstEmpty.key : tileLines[0].key;
+            }
+
+            if (targetLine) {
+              placeTile(probId, targetLine, tileId);
+            }
+          });
+        });
+
+        // Numeric Inputs & Steppers
+        document.querySelectorAll(".num-input").forEach((inp) => {
+          inp.addEventListener("input", () => {
+            if (state.graded) return;
+            const probId = inp.dataset.prob;
+            const lineKey = inp.dataset.line;
+            state.problemAnswers[probId][lineKey] = inp.value.trim();
+            document.getElementById(`card-${probId}`).classList.remove("missing-alert");
+            document.getElementById(`stepper-${probId}-${lineKey}`).classList.remove("missing-blank");
+            updateProgressTracker();
+          });
+        });
+
+        document.querySelectorAll(".step-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.graded) return;
+            const probId = btn.dataset.prob;
+            const lineKey = btn.dataset.line;
+            const dir = Number(btn.dataset.stepDir);
+            const prob = PROBLEMS.find((p) => p.id === probId);
+            const line = prob.lines.find((l) => l.key === lineKey);
+            const inp = document.getElementById(`num-${probId}-${lineKey}`);
+
+            const cleaned = inp.value.replace(/,/g, "").trim();
+            let current = cleaned === "" || isNaN(Number(cleaned)) ? 0 : Number(cleaned);
+            let nextVal = current + dir * line.step;
+            if (nextVal < 0) nextVal = 0;
+
+            inp.value = String(nextVal);
+            state.problemAnswers[probId][lineKey] = String(nextVal);
+            playClickSound();
+            document.getElementById(`card-${probId}`).classList.remove("missing-alert");
+            document.getElementById(`stepper-${probId}-${lineKey}`).classList.remove("missing-blank");
+            updateProgressTracker();
+          });
+        });
+
+        // Reset Problem Buttons
+        document.querySelectorAll(".reset-prob-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.graded) return;
+            const probId = btn.dataset.resetProb;
+            playClickSound();
+            const prob = PROBLEMS.find((p) => p.id === probId);
+            prob.lines.forEach((l) => {
+              state.problemAnswers[probId][l.key] = "";
+              if (l.type === "number") {
+                const inp = document.getElementById(`num-${probId}-${l.key}`);
+                if (inp) inp.value = "";
+              }
+            });
+            if (state.activeSlot && state.activeSlot.probId === probId) {
+              state.activeSlot = null;
+            }
+            refreshProblemUI(probId);
+            updateProgressTracker();
+          });
+        });
+      }
+
+      function setActiveSlot(probId, lineKey) {
+        document.querySelectorAll(".drop-slot").forEach((s) => s.classList.remove("active-slot"));
+        state.activeSlot = { probId, lineKey };
+        const slot = document.getElementById(`slot-${probId}-${lineKey}`);
+        if (slot) slot.classList.add("active-slot");
+      }
+
+      function placeTile(probId, lineKey, tileId) {
+        state.problemAnswers[probId][lineKey] = tileId;
+        playClickSound();
+        document.getElementById(`card-${probId}`).classList.remove("missing-alert");
+        refreshProblemUI(probId);
+
+        // Auto-advance active slot to next empty tile slot in this problem if any
+        const prob = PROBLEMS.find((p) => p.id === probId);
+        const nextEmpty = prob.lines.find((l) => l.type === "tile" && !state.problemAnswers[probId][l.key]);
+        if (nextEmpty) {
+          setActiveSlot(probId, nextEmpty.key);
+        } else {
+          document.querySelectorAll(".drop-slot").forEach((s) => s.classList.remove("active-slot"));
+          state.activeSlot = null;
+        }
+        updateProgressTracker();
+      }
+
+      function refreshProblemUI(probId) {
+        const prob = PROBLEMS.find((p) => p.id === probId);
+        const usedIds = new Set();
+
+        prob.lines.forEach((l) => {
+          if (l.type === "tile") {
+            const val = state.problemAnswers[probId][l.key];
+            const slot = document.getElementById(`slot-${probId}-${l.key}`);
+            slot.classList.remove("missing-blank");
+            if (val) {
+              usedIds.add(val);
+              const tileObj = prob.tiles.find((t) => t.id === val);
+              slot.innerHTML = tileObj ? tileObj.html : val;
+              slot.classList.add("filled");
+            } else {
+              slot.textContent = "Tap or Drop";
+              slot.classList.remove("filled");
+            }
+          }
+        });
+
+        const bank = document.getElementById(`bank-${probId}`);
+        bank.querySelectorAll(".tile-chip").forEach((chip) => {
+          chip.classList.toggle("used", usedIds.has(chip.dataset.tileId));
+        });
+      }
+
+      /* ============================================================
+         PROGRESS TRACKER (NO SCORE REVEAL UNTIL GRADED)
+      ============================================================ */
+      function countAnsweredQuestions() {
+        let count = 0;
+        MCQS.forEach((q) => {
+          if (typeof state.mcqAnswers[q.id] === "number") count++;
+        });
+        PROBLEMS.forEach((p) => {
+          const allFilled = p.lines.every((l) => String(state.problemAnswers[p.id][l.key] || "").trim() !== "");
+          if (allFilled) count++;
+        });
+        return count;
+      }
+
+      function updateProgressTracker() {
+        const pill = document.getElementById("trackerPill");
+        if (!state.graded) {
+          pill.classList.remove("graded");
+          pill.textContent = `Answered: ${countAnsweredQuestions()} / 14`;
+        }
+      }
+
+      /* ============================================================
+         STRICT DEFERRED GRADING
+      ============================================================ */
+      function parseNumericInput(str) {
+        const cleaned = String(str || "").replace(/,/g, "").trim();
+        if (cleaned === "") return NaN;
+        return Number(cleaned);
+      }
+
+      function getTier(score) {
+        if (score >= 95) return "🏆 Master of Optics";
+        if (score >= 85) return "🌟 Refraction Specialist";
+        if (score >= 75) return "🔬 Physics Scholar";
+        if (score >= 60) return "📘 Optics Apprentice";
+        return "🧭 Keep Practicing";
+      }
+
+      function finishAndGradeAll() {
+        if (state.graded) return;
+
+        // 1. Validate completeness across all 10 MCQs and all 12 blanks
+        const missingList = [];
+        let firstMissingEl = null;
+
+        document.querySelectorAll(".missing-alert").forEach((el) => el.classList.remove("missing-alert"));
+        document.querySelectorAll(".missing-blank").forEach((el) => el.classList.remove("missing-blank"));
+
+        MCQS.forEach((q, idx) => {
+          if (typeof state.mcqAnswers[q.id] !== "number") {
+            missingList.push(`MCQ ${idx + 1}`);
+            const card = document.getElementById(`card-${q.id}`);
+            card.classList.add("missing-alert");
+            if (!firstMissingEl) firstMissingEl = card;
+          }
+        });
+
+        PROBLEMS.forEach((p, idx) => {
+          let probMissing = false;
+          p.lines.forEach((l) => {
+            const val = String(state.problemAnswers[p.id][l.key] || "").trim();
+            if (val === "") {
+              probMissing = true;
+              const target =
+                l.type === "tile"
+                  ? document.getElementById(`slot-${p.id}-${l.key}`)
+                  : document.getElementById(`stepper-${p.id}-${l.key}`);
+              if (target) target.classList.add("missing-blank");
+            }
+          });
+          if (probMissing) {
+            missingList.push(`Problem ${idx + 1}`);
+            const card = document.getElementById(`card-${p.id}`);
+            card.classList.add("missing-alert");
+            if (!firstMissingEl) firstMissingEl = card;
+          }
+        });
+
+        const banner = document.getElementById("validationBanner");
+        if (missingList.length > 0) {
+          playErrorSound();
+          banner.innerHTML = `⚠️ Please complete all items before grading. Missing: <strong>${missingList.join(", ")}</strong>.`;
+          banner.classList.add("show");
+          if (firstMissingEl) {
+            firstMissingEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
+
+        banner.classList.remove("show");
+        state.graded = true;
+
+        // 2. Lock all inputs & grade MCQs (60 pts)
+        let mcqScore = 0;
+        MCQS.forEach((q) => {
+          const chosen = state.mcqAnswers[q.id];
+          const isCorrect = chosen === q.correct;
+          if (isCorrect) mcqScore += 6;
+
+          const card = document.getElementById(`card-${q.id}`);
+          card.classList.add(isCorrect ? "graded-correct" : "graded-wrong");
+
+          const ptsBadge = document.getElementById(`pts-${q.id}`);
+          ptsBadge.textContent = isCorrect ? "6 / 6 pts ✓" : "0 / 6 pts ✗";
+          ptsBadge.classList.add(isCorrect ? "earned-full" : "earned-zero");
+
+          card.querySelectorAll(".opt-btn").forEach((btn) => {
+            const oidx = Number(btn.dataset.oidx);
+            btn.disabled = true;
+            btn.classList.remove("selected");
+            if (oidx === q.correct) {
+              btn.classList.add("correct-reveal");
+            } else if (oidx === chosen && !isCorrect) {
+              btn.classList.add("wrong-reveal");
+            }
+          });
+
+          const exp = document.getElementById(`exp-${q.id}`);
+          exp.innerHTML = `<strong>${isCorrect ? "✅ Correct!" : "❌ Incorrect."}</strong> ${q.explanation}`;
+          exp.classList.add("show", isCorrect ? "is-correct" : "is-wrong");
+        });
+
+        // 3. Grade 4 Problems (40 pts)
+        const probScores = {};
+        let totalProbScore = 0;
+
+        PROBLEMS.forEach((p) => {
+          let pScore = 0;
+          const card = document.getElementById(`card-${p.id}`);
+
+          p.lines.forEach((l) => {
+            const rawVal = state.problemAnswers[p.id][l.key];
+            let isCorrect = false;
+
+            if (l.type === "tile") {
+              isCorrect = rawVal === l.answer;
+              const slot = document.getElementById(`slot-${p.id}-${l.key}`);
+              slot.disabled = true;
+              slot.classList.remove("active-slot", "filled");
+              slot.classList.add(isCorrect ? "slot-correct" : "slot-wrong");
+            } else {
+              const numVal = parseNumericInput(rawVal);
+              isCorrect = !isNaN(numVal) && Math.abs(numVal - l.answer) < 0.001;
+              const stepper = document.getElementById(`stepper-${p.id}-${l.key}`);
+              stepper.classList.add(isCorrect ? "stepper-correct" : "stepper-wrong");
+              stepper.querySelectorAll("button, input").forEach((el) => (el.disabled = true));
+            }
+
+            if (isCorrect) pScore += l.points;
+
+            const corr = document.getElementById(`corr-${p.id}-${l.key}`);
+            if (isCorrect) {
+              corr.innerHTML = `✓ +${l.points} pts`;
+              corr.classList.add("show", "ok");
+            } else {
+              corr.innerHTML = `✗ Correct: ${l.answerDisplay}`;
+              corr.classList.add("show", "fix");
+            }
+          });
+
+          // Lock tile bank & reset button
+          card.querySelectorAll(".tile-chip, .reset-prob-btn").forEach((el) => (el.disabled = true));
+
+          probScores[p.id] = pScore;
+          totalProbScore += pScore;
+
+          const ptsBadge = document.getElementById(`pts-${p.id}`);
+          if (pScore === 10) {
+            card.classList.add("graded-correct");
+            ptsBadge.textContent = "10 / 10 pts ✓";
+            ptsBadge.classList.add("earned-full");
+          } else if (pScore > 0) {
+            card.classList.add("graded-partial");
+            ptsBadge.textContent = `${pScore} / 10 pts`;
+            ptsBadge.classList.add("earned-partial");
+          } else {
+            card.classList.add("graded-wrong");
+            ptsBadge.textContent = "0 / 10 pts ✗";
+            ptsBadge.classList.add("earned-zero");
+          }
+        });
+
+        // 4. Compute Final Score & Display Report
+        const totalScore = mcqScore + totalProbScore;
+        const tier = getTier(totalScore);
+        const breakdown = `MCQ:${mcqScore}/60 | P1:${probScores.p1} | P2:${probScores.p2} | P3:${probScores.p3} | P4:${probScores.p4}`;
+
+        state.lastResult = {
+          totalScore,
+          mcqScore,
+          probScores,
+          tier,
+          breakdown
+        };
+
+        const pill = document.getElementById("trackerPill");
+        pill.classList.add("graded");
+        pill.textContent = `Score: ${totalScore} / 100`;
+
+        const finishBtn = document.getElementById("finishQuizBtn");
+        finishBtn.disabled = true;
+        finishBtn.textContent = "✅ Quiz Graded — Review Results Below";
+
+        renderFinalReport();
+        playVictorySound();
+
+        document.getElementById("reportSection").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function renderFinalReport() {
+        const res = state.lastResult;
+        const nameVal = document.getElementById("studentNameInput").value.trim() || "Student Name Not Entered";
+
+        document.getElementById("reportStudentName").textContent = `Student: ${nameVal}`;
+        document.getElementById("reportScoreVal").textContent = `${res.totalScore} / 100`;
+        document.getElementById("reportTierBadge").textContent = res.tier;
+
+        const grid = document.getElementById("breakdownGrid");
+        grid.innerHTML = `
+          <div class="bd-card"><div class="bd-label">MCQs (1–10)</div><div class="bd-val">${res.mcqScore} / 60</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 1</div><div class="bd-val">${res.probScores.p1} / 10</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 2</div><div class="bd-val">${res.probScores.p2} / 10</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 3</div><div class="bd-val">${res.probScores.p3} / 10</div></div>
+          <div class="bd-card"><div class="bd-label">Problem 4</div><div class="bd-val">${res.probScores.p4} / 10</div></div>
+        `;
+
+        // Reset submit button state on fresh grade
+        const submitBtn = document.getElementById("submitTeacherBtn");
+        submitBtn.disabled = false;
+        submitBtn.className = "action-btn btn-amber";
+        submitBtn.textContent = "🚀 Submit Score to Teacher";
+
+        document.getElementById("reportSection").classList.add("show");
+      }
+
+      // Live-update student name in certificate if edited after grading
+      document.getElementById("studentNameInput").addEventListener("input", (e) => {
+        if (state.graded) {
+          const val = e.target.value.trim() || "Student Name Not Entered";
+          document.getElementById("reportStudentName").textContent = `Student: ${val}`;
+        }
+      });
+
+      /* ============================================================
+         RETAKE FULL QUIZ
+      ============================================================ */
+      function retakeFullQuiz() {
+        playClickSound();
+        state.graded = false;
+        state.mcqAnswers = {};
+        state.activeSlot = null;
+        state.lastResult = null;
+        initEmptyProblemState();
+
+        renderMCQs();
+        renderProblems();
+        updateProgressTracker();
+
+        const finishBtn = document.getElementById("finishQuizBtn");
+        finishBtn.disabled = false;
+        finishBtn.textContent = "✅ Finish & Check All Answers";
+
+        document.getElementById("validationBanner").classList.remove("show");
+        document.getElementById("reportSection").classList.remove("show");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      /* ============================================================
+         SUBMIT SCORE TO TEACHER (GOOGLE APPS SCRIPT)
+      ============================================================ */
+      async function submitScoreToTeacher() {
+        const nameInput = document.getElementById("studentNameInput");
+        const studentName = nameInput.value.trim();
+
+        if (!studentName) {
+          playErrorSound();
+          alert("Please enter your full name in the top bar before submitting!");
+          nameInput.focus();
+          return;
+        }
+
+        const btn = document.getElementById("submitTeacherBtn");
+        const res = state.lastResult;
+        if (!res) return;
+
+        btn.disabled = true;
+        btn.textContent = "⏳ Sending...";
+
+        const payload = {
+          studentName: studentName,
+          labCode: LAB_CODE,
+          totalScore: `${res.totalScore} / 100`,
+          breakdown: res.breakdown,
+          tier: res.tier
+        };
+
+        try {
+          await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          playVictorySound();
+          btn.textContent = "✅ Submitted to Teacher!";
+          btn.classList.remove("btn-amber");
+          btn.classList.add("btn-emerald");
+        } catch (err) {
+          playErrorSound();
+          alert("Could not submit score. Please check your internet connection and try again.");
+          btn.disabled = false;
+          btn.textContent = "🚀 Submit Score to Teacher";
+        }
+      }
+
+      /* ============================================================
+         SHARE RESULT WITH PARENT (CANVAS PNG + SMART MODAL)
+      ============================================================ */
+      function generateCertificateCanvas(studentName, res) {
+        const canvas = document.getElementById("certCanvas");
+        const ctx = canvas.getContext("2d");
+        const W = 1200;
+        const H = 675;
+
+        // Pure White Background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, W, H);
+
+        // Outer & Inner Borders
+        ctx.strokeStyle = "#0f172a";
+        ctx.lineWidth = 10;
+        ctx.strokeRect(24, 24, W - 48, H - 48);
+
+        ctx.strokeStyle = "#1d4ed8";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(42, 42, W - 84, H - 84);
+
+        // Header Ribbon
+        ctx.fillStyle = "#eff6ff";
+        ctx.fillRect(46, 46, W - 92, 115);
+
+        ctx.fillStyle = "#1d4ed8";
+        ctx.font = "800 22px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(`GRADE 11 PHYSICS  •  LAB CODE: ${LAB_CODE}  •  OFFICIAL CERTIFICATE`, W / 2, 92);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "900 32px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText(QUIZ_TITLE, W / 2, 138);
+
+        // Student Name
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 22px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText("Awarded To", W / 2, 215);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "900 46px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText(studentName, W / 2, 272);
+
+        // Score & Tier Boxes
+        // Left box: Score
+        ctx.fillStyle = "#eff6ff";
+        ctx.strokeStyle = "#1d4ed8";
+        ctx.lineWidth = 3;
+        roundRect(ctx, 190, 315, 360, 120, 16, true, true);
+
+        ctx.fillStyle = "#1d4ed8";
+        ctx.font = "900 50px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText(`${res.totalScore} / 100`, 370, 382);
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 18px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText("FINAL SCORE", 370, 415);
+
+        // Right box: Tier
+        ctx.fillStyle = "#fefce8";
+        ctx.strokeStyle = "#eab308";
+        ctx.lineWidth = 3;
+        roundRect(ctx, 650, 315, 360, 120, 16, true, true);
+
+        ctx.fillStyle = "#854d0e";
+        ctx.font = "900 28px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText(res.tier, 830, 380);
+        ctx.fillStyle = "#713f12";
+        ctx.font = "700 18px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText("EARNED RANK", 830, 415);
+
+        // Breakdown Bar
+        ctx.fillStyle = "#f8fafc";
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 2;
+        roundRect(ctx, 120, 470, 960, 66, 12, true, true);
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "800 23px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.fillText(`Breakdown:  ${res.breakdown}`, W / 2, 511);
+
+        // Footer: Instructor & Date
+        const dateStr = new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+        ctx.fillStyle = "#475569";
+        ctx.font = "700 20px -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(`Instructor: ${TEACHER_NAME}`, 80, 595);
+
+        ctx.textAlign = "right";
+        ctx.fillText(`Date: ${dateStr}`, W - 80, 595);
+
+        return canvas;
+      }
+
+      function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+        if (fill) ctx.fill();
+        if (stroke) ctx.stroke();
+      }
+
+      function openShareModal() {
+        const nameInput = document.getElementById("studentNameInput");
+        const studentName = nameInput.value.trim();
+        if (!studentName) {
+          playErrorSound();
+          alert("Please enter your full name in the top bar before sharing your certificate!");
+          nameInput.focus();
+          return;
+        }
+
+        const res = state.lastResult;
+        if (!res) return;
+
+        playClickSound();
+        const canvas = generateCertificateCanvas(studentName, res);
+        const dataUrl = canvas.toDataURL("image/png");
+        document.getElementById("certPreviewImg").src = dataUrl;
+
+        const summaryText =
+          `${QUIZ_TITLE} (${LAB_CODE})\n` +
+          `Student: ${studentName}\n` +
+          `Score: ${res.totalScore} / 100\n` +
+          `Rank: ${res.tier}\n` +
+          `Breakdown: ${res.breakdown}\n` +
+          `Instructor: ${TEACHER_NAME}`;
+
+        // WhatsApp Link
+        document.getElementById("whatsappShareLink").href =
+          `https://wa.me/?text=${encodeURIComponent(summaryText)}`;
+
+        // Email Link
+        const subject = `Physics Quiz Result (${LAB_CODE}) - ${studentName}`;
+        document.getElementById("emailShareLink").href =
+          `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summaryText)}`;
+
+        // Download PNG
+        document.getElementById("downloadCertBtn").onclick = () => {
+          const a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = `${LAB_CODE}-${studentName.replace(/\s+/g, "_")}-Certificate.png`;
+          a.click();
+        };
+
+        // Copy Summary
+        const copyBtn = document.getElementById("copySummaryBtn");
+        copyBtn.textContent = "📋 Copy Summary";
+        copyBtn.onclick = async () => {
+          try {
+            await navigator.clipboard.writeText(summaryText);
+            copyBtn.textContent = "✅ Copied!";
+            playClickSound();
+            setTimeout(() => (copyBtn.textContent = "📋 Copy Summary"), 2000);
+          } catch {
+            alert(summaryText);
+          }
+        };
+
+        // Native Web Share API (with PNG file if supported)
+        const nativeBtn = document.getElementById("nativeShareBtn");
+        if (navigator.share) {
+          nativeBtn.style.display = "inline-flex";
+          nativeBtn.onclick = async () => {
+            try {
+              const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+              const file = new File([blob], `${LAB_CODE}-Certificate.png`, { type: "image/png" });
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  title: QUIZ_TITLE,
+                  text: summaryText,
+                  files: [file]
+                });
+              } else {
+                await navigator.share({
+                  title: QUIZ_TITLE,
+                  text: summaryText
+                });
+              }
+            } catch (e) {
+              // User cancelled share sheet
+            }
+          };
+        } else {
+          nativeBtn.style.display = "none";
+        }
+
+        document.getElementById("shareModal").classList.add("open");
+      }
+
+      /* ============================================================
+         GLOBAL UI EVENT LISTENERS
+      ============================================================ */
+      document.getElementById("soundToggleBtn").addEventListener("click", (e) => {
+        soundEnabled = !soundEnabled;
+        e.currentTarget.textContent = soundEnabled ? "🔊 Sound: On" : "🔇 Sound: Off";
+        if (soundEnabled) playClickSound();
+      });
+
+      document.getElementById("openHintsBtn").addEventListener("click", () => {
+        playClickSound();
+        document.getElementById("hintsModal").classList.add("open");
+      });
+
+      document.querySelectorAll("[data-close-modal]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          playClickSound();
+          document.getElementById(btn.dataset.closeModal).classList.remove("open");
+        });
+      });
+
+      document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) backdrop.classList.remove("open");
+        });
+      });
+
+      document.getElementById("finishQuizBtn").addEventListener("click", finishAndGradeAll);
+      document.getElementById("retakeQuizBtn").addEventListener("click", retakeFullQuiz);
+      document.getElementById("printPdfBtn").addEventListener("click", () => window.print());
+      document.getElementById("submitTeacherBtn").addEventListener("click", submitScoreToTeacher);
+      document.getElementById("shareParentBtn").addEventListener("click", openShareModal);
+
+      /* ============================================================
+         INITIALIZE APP
+      ============================================================ */
+      initEmptyProblemState();
+      renderMCQs();
+      renderProblems();
+      updateProgressTracker();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physics — Interactive Virtual Labs (Grades 9–12)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --cyan: #0284c7;
+      --cyan-dark: #0369a1;
+      --cyan-soft: #f0f9ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 32px 16px;
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 26px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    }
+    .header h1 {
+      margin: 0 0 6px;
+      font-size: 1.55rem;
+      color: var(--cyan);
+    }
+    .header p {
+      margin: 0;
+      color: var(--text-sub);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover {
+      border-color: var(--cyan);
+      color: var(--cyan-dark);
+    }
+    .filter-btn.active {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.22);
+    }
+    .lab-grid { display: grid; gap: 14px; }
+    .lab-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+    .lab-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.12);
+    }
+    .badges {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .grade-badge {
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .lab-badge {
+      background: var(--cyan-soft);
+      color: var(--cyan-dark);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .lab-title { font-size: 1.06rem; font-weight: 700; margin: 0; }
+    .start-btn {
+      background: var(--cyan);
+      color: #ffffff;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .empty-msg {
+      background: var(--surface);
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .lab-card { flex-direction: column; align-items: flex-start; }
+      .start-btn { width: 100%; text-align: center; }
+    }

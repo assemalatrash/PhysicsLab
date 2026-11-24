@@ -1,0 +1,4188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G11 - L1: Optics Mission Lab — Reflection, Refraction &amp; TIR</title>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & BRIGHT WHITE SCIENTIFIC OPTICS LAB THEME (100% OFFLINE CSS3)
+       ========================================================================== */
+    :root {
+      --bg-page: #ffffff;
+      --bg-panel: #ffffff;
+      --bg-card: #f8fafc;
+      --bg-card-hover: #f1f5f9;
+      --bg-subtle: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --border-glow: rgba(2, 132, 199, 0.45);
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+
+      --cyan: #0284c7;
+      --cyan-light: #e0f2fe;
+      --cyan-dark: #0369a1;
+      --emerald: #059669;
+      --emerald-light: #d1fae5;
+      --emerald-dark: #047857;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+      --amber-dark: #b45309;
+      --rose: #e11d48;
+      --rose-light: #ffe4e6;
+      --rose-dark: #be123c;
+      --indigo: #4f46e5;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --shadow-soft: 0 4px 14px rgba(15, 23, 42, 0.05);
+      --font-sans: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'Cascadia Code', 'Fira Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .lab-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+      padding: 0.75rem 1.25rem;
+    }
+
+    .header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e0f2fe, #eef2ff);
+      border: 1px solid #bae6fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.14);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .student-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.84rem;
+    }
+
+    .student-badge input {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      width: 128px;
+      outline: none;
+      font-size: 0.85rem;
+    }
+
+    .student-badge input:focus {
+      border-bottom: 1.5px solid var(--cyan);
+    }
+
+    .score-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: #f0fdf4;
+      border: 1px solid #a7f3d0;
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+    }
+
+    .score-value {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--emerald);
+      font-size: 0.92rem;
+    }
+
+    .progress-track {
+      width: 86px;
+      height: 8px;
+      background: #d1fae5;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald));
+      border-radius: 999px;
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.56rem 1.02rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.87rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.14s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.24);
+    }
+
+    .btn-cyan:hover:not(:disabled) {
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.36);
+      filter: brightness(1.06);
+    }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.24);
+    }
+
+    .btn-emerald:hover:not(:disabled) {
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.36);
+      filter: brightness(1.06);
+    }
+
+    .btn-amber {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.24);
+    }
+
+    .btn-amber:hover:not(:disabled) {
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.34);
+      filter: brightness(1.05);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      border-color: var(--cyan);
+      background: #f0f9ff;
+      color: var(--cyan-dark);
+    }
+
+    .btn-sound {
+      background: #f0f9ff;
+      color: var(--cyan-dark);
+      border-color: #bae6fd;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+
+    .btn-sound:hover {
+      background: #e0f2fe;
+      border-color: var(--cyan);
+    }
+
+    .btn-sound.muted {
+      background: #f8fafc;
+      color: var(--text-muted);
+      border-color: var(--border-strong);
+    }
+
+    .btn-danger {
+      background: #fff1f2;
+      color: var(--rose-dark);
+      border-color: #fecdd3;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #ffe4e6;
+      border-color: var(--rose);
+    }
+
+    /* Mission Tabs */
+    .mission-nav-wrap {
+      max-width: 1240px;
+      margin: 1rem auto 0;
+      padding: 0 1.25rem;
+    }
+
+    .mission-tabs {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .mission-tab {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.72rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mission-tab:hover {
+      border-color: var(--cyan);
+      color: var(--text-primary);
+      background: #f8fafc;
+    }
+
+    .mission-tab.active {
+      background: linear-gradient(145deg, #f0f9ff, #ffffff);
+      border-color: var(--cyan);
+      color: var(--text-primary);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.14);
+    }
+
+    .mission-tab.completed {
+      border-color: #34d399;
+      background: linear-gradient(145deg, #f0fdf4, #ffffff);
+    }
+
+    .mission-tab.active.completed {
+      border-color: var(--cyan);
+    }
+
+    .tab-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tab-pts {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.1rem 0.42rem;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    .mission-tab.active .tab-pts {
+      background: #e0f2fe;
+      color: var(--cyan-dark);
+    }
+
+    .mission-tab.completed .tab-pts {
+      background: #d1fae5;
+      color: var(--emerald-dark);
+    }
+
+    .tab-title {
+      font-size: 0.83rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       MAIN LAB CONTAINER & PANELS
+       ========================================================================== */
+    .lab-main {
+      max-width: 1240px;
+      margin: 1rem auto 2.5rem;
+      padding: 0 1.25rem;
+    }
+
+    .mission-section {
+      display: none;
+      animation: fadeSlideIn 0.28s ease;
+    }
+
+    .mission-section.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mission-banner {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem 1.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--cyan-dark);
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 0.35rem;
+    }
+
+    .mission-banner h2 {
+      font-size: 1.38rem;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+    }
+
+    .mission-banner p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .subchallenge-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .sub-pill {
+      padding: 0.44rem 0.88rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .sub-pill:hover {
+      border-color: var(--cyan);
+      color: var(--cyan-dark);
+      background: #f0f9ff;
+    }
+
+    .sub-pill.active {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(2, 132, 199, 0.24);
+    }
+
+    .sub-pill.done {
+      border-color: #10b981;
+      background: #ecfdf5;
+      color: var(--emerald-dark);
+    }
+
+    .sub-pill.done.active {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #ffffff;
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.38fr) minmax(0, 1fr);
+      gap: 1.1rem;
+      align-items: start;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-strong);
+      overflow: hidden;
+      box-shadow: inset 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .canvas-wrapper canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      background: #ffffff;
+    }
+
+    .canvas-hud {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+      padding: 0.7rem 0.9rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.84rem;
+    }
+
+    .readout-chip {
+      font-family: var(--font-mono);
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      padding: 0.26rem 0.64rem;
+      border-radius: 6px;
+      color: var(--cyan-dark);
+      font-weight: 700;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .readout-chip.amber {
+      color: var(--amber-dark);
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+
+    .readout-chip.emerald {
+      color: var(--emerald-dark);
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+
+    .readout-chip.rose {
+      color: var(--rose-dark);
+      background: #fff1f2;
+      border-color: #fecdd3;
+    }
+
+    /* Controls & Sliders */
+    .control-group {
+      margin-top: 0.9rem;
+      padding: 0.95rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+      color: var(--text-primary);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #cbd5e1;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.45);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.45);
+      cursor: pointer;
+    }
+
+    /* Challenge Panel */
+    .challenge-title {
+      font-size: 1.06rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .pts-badge {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: var(--amber-dark);
+      border: 1px solid #fcd34d;
+      white-space: nowrap;
+      font-weight: 800;
+    }
+
+    .challenge-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .challenge-desc strong {
+      color: var(--text-primary);
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .choice-grid.single-col {
+      grid-template-columns: 1fr;
+    }
+
+    .choice-btn {
+      background: #ffffff;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 0.78rem 0.9rem;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .choice-btn:hover:not(:disabled) {
+      border-color: var(--cyan);
+      background: #f0f9ff;
+    }
+
+    .choice-btn.selected {
+      border-color: var(--cyan);
+      background: #e0f2fe;
+      color: var(--cyan-dark);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14);
+    }
+
+    .choice-btn.correct {
+      border-color: var(--emerald);
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .choice-btn.wrong {
+      border-color: var(--rose);
+      background: #ffe4e6;
+      color: #9f1239;
+    }
+
+    /* Feedback & 3-Line Solution Box */
+    .feedback-box {
+      margin-top: 0.95rem;
+      padding: 0.95rem 1.05rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      display: none;
+      animation: fadeSlideIn 0.22s ease;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.success {
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .feedback-box.error {
+      background: #fff1f2;
+      border: 1px solid #fda4af;
+      color: #9f1239;
+    }
+
+    .feedback-box.info {
+      background: #f0f9ff;
+      border: 1px solid #7dd3fc;
+      color: #075985;
+    }
+
+    .three-line-box {
+      margin-top: 0.7rem;
+      padding: 0.75rem 0.95rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--cyan);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: #0f172a;
+    }
+
+    .three-line-box .step-lbl {
+      color: var(--amber-dark);
+      font-weight: 800;
+      margin-right: 0.4rem;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+
+    /* Material Selector Buttons */
+    .mat-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+
+    .mat-pill {
+      padding: 0.42rem 0.76rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .mat-pill:hover {
+      border-color: var(--cyan);
+      color: var(--cyan-dark);
+      background: #f0f9ff;
+    }
+
+    .mat-pill.active {
+      border-color: var(--cyan);
+      background: var(--cyan);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+
+    /* ==========================================================================
+       TOOLKIT SLIDE-OVER DRAWER
+       ========================================================================== */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      backdrop-filter: blur(4px);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toolkit-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(440px, 94vw);
+      height: 100%;
+      background: #ffffff;
+      border-left: 1px solid var(--border-strong);
+      box-shadow: -12px 0 36px rgba(15, 23, 42, 0.15);
+      z-index: 65;
+      transform: translateX(100%);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toolkit-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-body {
+      padding: 1.1rem 1.25rem 2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .toolkit-item {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1rem;
+    }
+
+    .toolkit-item h4 {
+      color: var(--cyan-dark);
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .formula-bar {
+      font-family: var(--font-mono);
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: #0f172a;
+      background: #ffffff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      margin: 0.35rem 0;
+      border: 1px solid #bae6fd;
+    }
+
+    .toolkit-note {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.48;
+    }
+
+    .toolkit-warn {
+      color: var(--amber-dark);
+      font-weight: 800;
+    }
+
+    /* ==========================================================================
+       MODALS (WELCOME & RESET CONFIRM) & TOAST
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.42);
+      backdrop-filter: blur(6px);
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal-card {
+      width: min(520px, 100%);
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: 0 24px 54px rgba(15, 23, 42, 0.2);
+    }
+
+    .modal-card h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      color: var(--text-primary);
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-strong);
+      background: #f8fafc;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0.65rem 0 1rem;
+      outline: none;
+    }
+
+    .modal-input:focus {
+      background: #ffffff;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.16);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(24px);
+      background: #0f172a;
+      border: 1px solid #10b981;
+      color: #ffffff;
+      padding: 0.72rem 1.3rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.26);
+      z-index: 95;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==========================================================================
+       FINAL REPORT CARD
+       ========================================================================== */
+    .report-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-card);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .report-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 1.3rem;
+    }
+
+    .mastery-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ecfdf5, #e0f2fe);
+      border: 1.5px solid var(--emerald);
+      color: var(--emerald-dark);
+      font-weight: 800;
+      font-size: 0.96rem;
+    }
+
+    .report-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+    }
+
+    .meta-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .meta-val {
+      font-size: 1.04rem;
+      font-weight: 800;
+      margin-top: 0.2rem;
+      color: var(--text-primary);
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .report-table th, .report-table td {
+      padding: 0.8rem 0.9rem;
+      border-bottom: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+
+    .report-table th {
+      color: var(--cyan-dark);
+      background: #f8fafc;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS & PRINT STYLES
+       ========================================================================== */
+    @media (max-width: 980px) {
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+      .mission-tabs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .mission-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-inner {
+        justify-content: center;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .lab-header, .mission-nav-wrap, .no-print, .drawer-backdrop, .toolkit-drawer, .modal-overlay, .toast {
+        display: none !important;
+      }
+      .mission-section {
+        display: none !important;
+      }
+      #mission-report {
+        display: block !important;
+      }
+      .report-card {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        border: 2px solid #0f172a !important;
+        box-shadow: none !important;
+        padding: 1rem !important;
+      }
+      .meta-box {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+      .meta-val, .report-table th, .report-table td, h2, h3, p {
+        color: #0f172a !important;
+      }
+      .mastery-badge {
+        background: #ecfdf5 !important;
+        color: #065f46 !important;
+        border-color: #059669 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========================================================================
+       WELCOME MODAL (STUDENT NAME ENTRY)
+       ======================================================================== -->
+  <div id="welcome-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="mission-tag">Grade 11 Physics • Interactive Assessment</div>
+      <h1>Optics Mission Lab</h1>
+      <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0.7rem;">
+        <strong style="color: var(--text-primary);">Reflection, Refraction &amp; Total Internal Reflection</strong><br>
+        Teacher Assem Alatrash • Reference: OpenStax College Physics, Ch. 25 (Sections 25.2, 25.3 &amp; 25.4)
+      </p>
+      <p style="color: var(--text-secondary); font-size: 0.88rem;">
+        Complete all <strong style="color: var(--text-primary);">5 Interactive Missions</strong> (20 points each = 100 points total). Use the <strong style="color: var(--text-primary);">Optics Toolkit</strong> anytime for formulas, magic angle fractions, and the 3-Line Method!
+      </p>
+      <label for="welcome-name-input" style="display:block; margin-top: 1rem; font-size: 0.84rem; font-weight: 700; color: var(--cyan-dark);">
+        Enter Your Full Name to Begin:
+      </label>
+      <input id="welcome-name-input" class="modal-input" type="text" placeholder="e.g., Layla Mansour" autocomplete="name">
+      <div class="action-row" style="justify-content: flex-end;">
+        <button id="start-lab-btn" class="btn btn-cyan" style="width: 100%; padding: 0.82rem; font-size: 0.95rem;">
+          Launch Optics Lab &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       RESET CONFIRMATION MODAL (NO NATIVE confirm())
+       ======================================================================== -->
+  <div id="reset-modal" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width: 420px;">
+      <h2 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--rose);">Reset Lab Progress?</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem;">
+        This will clear all mission scores and let you replay all 5 challenges from scratch. Your student name will be kept.
+      </p>
+      <div class="action-row" style="justify-content: flex-end;">
+        <button id="cancel-reset-btn" class="btn btn-outline">Cancel</button>
+        <button id="confirm-reset-btn" class="btn btn-danger">Yes, Reset Lab</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       TOP HEADER BAR
+       ======================================================================== -->
+  <header class="lab-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-icon" aria-hidden="true">
+          <!-- Inline SVG Prism & Laser Icon -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon points="12,3 21,19 3,19" stroke="#0284c7" stroke-width="2.1" fill="rgba(2,132,199,0.12)"/>
+            <line x1="1" y1="14" x2="8.5" y2="11.5" stroke="#e11d48" stroke-width="2.3" stroke-linecap="round"/>
+            <line x1="8.5" y1="11.5" x2="16" y2="13" stroke="#d97706" stroke-width="2.1" stroke-linecap="round"/>
+            <line x1="16" y1="13" x2="23" y2="16.5" stroke="#059669" stroke-width="2.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">G11 - L1: Optics Mission Lab</div>
+          <div class="brand-subtitle">Grade 11 Physics • Teacher Assem Alatrash</div>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="student-badge" title="Click to edit your name">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <input id="header-student-name" type="text" value="Student" aria-label="Student Name">
+        </div>
+
+        <div class="score-pill" aria-live="polite">
+          <span style="font-size: 0.76rem; color: var(--emerald-dark); font-weight: 800;">SCORE</span>
+          <span id="header-score" class="score-value">0 / 100</span>
+          <div class="progress-track">
+            <div id="header-progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <button id="sound-toggle-btn" class="btn btn-sound" type="button" aria-pressed="true" title="Toggle interactive lab sound effects">
+          <svg id="sound-icon-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+          <svg id="sound-icon-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <span id="sound-toggle-label">Sound ON</span>
+        </button>
+
+        <button id="open-toolkit-btn" class="btn btn-amber" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          Optics Toolkit
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MISSION NAVIGATION TABS
+       ======================================================================== -->
+  <nav class="mission-nav-wrap" aria-label="Lab Missions">
+    <div class="mission-tabs">
+      <button class="mission-tab active" data-target="mission-1" id="tab-m1">
+        <div class="tab-top"><span>Mission 1</span><span class="tab-pts" id="pts-m1">0/20</span></div>
+        <div class="tab-title">Mirror Mastery</div>
+      </button>
+      <button class="mission-tab" data-target="mission-2" id="tab-m2">
+        <div class="tab-top"><span>Mission 2</span><span class="tab-pts" id="pts-m2">0/20</span></div>
+        <div class="tab-title">Speedometer &amp; n</div>
+      </button>
+      <button class="mission-tab" data-target="mission-3" id="tab-m3">
+        <div class="tab-top"><span>Mission 3</span><span class="tab-pts" id="pts-m3">0/20</span></div>
+        <div class="tab-title">Snell's Ray Bender</div>
+      </button>
+      <button class="mission-tab" data-target="mission-4" id="tab-m4">
+        <div class="tab-top"><span>Mission 4</span><span class="tab-pts" id="pts-m4">0/20</span></div>
+        <div class="tab-title">Escape or Trap!</div>
+      </button>
+      <button class="mission-tab" data-target="mission-5" id="tab-m5">
+        <div class="tab-top"><span>Mission 5</span><span class="tab-pts" id="pts-m5">0/20</span></div>
+        <div class="tab-title">Fiber-Optic Engineer</div>
+      </button>
+      <button class="mission-tab" data-target="mission-report" id="tab-report">
+        <div class="tab-top"><span>Summary</span><span class="tab-pts" id="pts-total-tab">0%</span></div>
+        <div class="tab-title">Lab Report Card</div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       MAIN CONTENT AREA
+       ======================================================================== -->
+  <main class="lab-main">
+
+    <!-- ======================================================================
+         MISSION 1: MIRROR MASTERY (20 PTS)
+         ====================================================================== -->
+    <section id="mission-1" class="mission-section active">
+      <div class="mission-banner">
+        <div>
+          <span class="mission-tag">Section 25.2 • Law of Reflection</span>
+          <h2>Mission 1: Mirror Mastery</h2>
+          <p>Master the Normal Line and the Law of Reflection (θᵢ = θᵣ) across three laser-alignment challenges.</p>
+        </div>
+        <div class="subchallenge-pills">
+          <button class="sub-pill active" id="m1-pill-a" onclick="selectM1Sub('A', true)">1A: Laser Aim (7 pts)</button>
+          <button class="sub-pill" id="m1-pill-b" onclick="selectM1Sub('B', true)">1B: Surface Trap (6 pts)</button>
+          <button class="sub-pill" id="m1-pill-c" onclick="selectM1Sub('C', true)">1C: Double Mirror (7 pts)</button>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <div class="card">
+          <div class="canvas-wrapper">
+            <canvas id="canvas-m1"></canvas>
+          </div>
+          <div class="canvas-hud" id="m1-hud">
+            <span class="readout-chip">θᵢ = <span id="m1-read-ti">25°</span></span>
+            <span class="readout-chip emerald">θᵣ = <span id="m1-read-tr">25°</span></span>
+            <span class="readout-chip amber" id="m1-read-status">Target Sensor: 42°</span>
+          </div>
+          <!-- Slider for 1A / 1C -->
+          <div class="control-group" id="m1-slider-box">
+            <div class="control-label">
+              <span id="m1-slider-title">Laser Incident Angle (θᵢ from Normal)</span>
+              <span id="m1-slider-val" style="color: var(--cyan-dark); font-family: var(--font-mono);">25°</span>
+            </div>
+            <input type="range" id="m1-slider" min="5" max="75" step="0.5" value="25">
+            <div style="font-size: 0.77rem; color: var(--text-secondary); margin-top: 0.4rem;" id="m1-slider-hint">
+              Tip: You can also drag the slider smoothly to align the reflected beam with the glowing sensor.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Sub-challenge 1A -->
+          <div id="m1-panel-a">
+            <div class="challenge-title">
+              <span>Challenge 1A: Interactive Laser Aim</span>
+              <span class="pts-badge">7 pts</span>
+            </div>
+            <p class="challenge-desc">
+              Adjust the incident laser angle <strong>θᵢ</strong> (measured from the dashed <strong>Normal Line</strong>) so that the reflected ray hits the glowing target sensor positioned at <strong>θᵣ = 42°</strong> (tolerance ±2°).
+            </p>
+            <div class="action-row">
+              <button class="btn btn-cyan" id="m1a-check-btn" onclick="checkM1A()">Fire &amp; Lock Target</button>
+              <button class="btn btn-outline" onclick="selectM1Sub('B', true)">Next: 1B &rarr;</button>
+            </div>
+            <div id="m1a-feedback" class="feedback-box"></div>
+          </div>
+
+          <!-- Sub-challenge 1B -->
+          <div id="m1-panel-b" style="display:none;">
+            <div class="challenge-title">
+              <span>Challenge 1B: The Surface-Angle Trap!</span>
+              <span class="pts-badge">6 pts</span>
+            </div>
+            <p class="challenge-desc">
+              Look closely at the canvas! The laser strikes the flat mirror making a <strong>35° angle WITH THE MIRROR SURFACE</strong> (highlighted in amber).<br><br>
+              <strong>What is the angle of reflection θᵣ?</strong>
+            </p>
+            <div class="choice-grid" id="m1b-choices">
+              <button class="choice-btn" onclick="checkM1B(35, this)">A) 35°</button>
+              <button class="choice-btn" onclick="checkM1B(55, this)">B) 55°</button>
+              <button class="choice-btn" onclick="checkM1B(70, this)">C) 70°</button>
+              <button class="choice-btn" onclick="checkM1B(90, this)">D) 90°</button>
+            </div>
+            <div class="action-row">
+              <button class="btn btn-outline" onclick="selectM1Sub('C', true)">Next: 1C &rarr;</button>
+            </div>
+            <div id="m1b-feedback" class="feedback-box"></div>
+          </div>
+
+          <!-- Sub-challenge 1C -->
+          <div id="m1-panel-c" style="display:none;">
+            <div class="challenge-title">
+              <span>Challenge 1C: Double-Mirror Relay</span>
+              <span class="pts-badge">7 pts</span>
+            </div>
+            <p class="challenge-desc">
+              The laser hits fixed <strong>Mirror 1 (45°)</strong> and reflects straight down onto <strong>Mirror 2</strong>. Rotate Mirror 2 using the slider to steer the laser beam cleanly through the barrier opening into the glowing <strong>Receiver</strong>!
+            </p>
+            <div class="action-row">
+              <button class="btn btn-cyan" id="m1c-check-btn" onclick="checkM1C()">Fire &amp; Check Relay</button>
+              <button class="btn btn-emerald" onclick="switchMission('mission-2', true)">Go to Mission 2 &rarr;</button>
+            </div>
+            <div id="m1c-feedback" class="feedback-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISSION 2: SPEEDOMETER & INDEX INSPECTOR (20 PTS)
+         ====================================================================== -->
+    <section id="mission-2" class="mission-section">
+      <div class="mission-banner">
+        <div>
+          <span class="mission-tag">Section 25.3 • Index of Refraction</span>
+          <h2>Mission 2: Speedometer &amp; Index Inspector</h2>
+          <p>Compare how fast light races in transparent media using n = c / v and v = c / n, where c = 300,000 (km/s).</p>
+        </div>
+        <div class="subchallenge-pills">
+          <button class="sub-pill active" id="m2-pill-1" onclick="selectM2Q(1, true)">Q1 (5 pts)</button>
+          <button class="sub-pill" id="m2-pill-2" onclick="selectM2Q(2, true)">Q2 (5 pts)</button>
+          <button class="sub-pill" id="m2-pill-3" onclick="selectM2Q(3, true)">Q3 (5 pts)</button>
+          <button class="sub-pill" id="m2-pill-4" onclick="selectM2Q(4, true)">Q4 (5 pts)</button>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <div class="card">
+          <div class="canvas-wrapper">
+            <canvas id="canvas-m2"></canvas>
+          </div>
+          <div class="canvas-hud">
+            <span class="readout-chip">Vacuum / Air: c = 300,000 (km/s)</span>
+            <span class="readout-chip amber" id="m2-sim-v">Medium: v = 150,000 (km/s)</span>
+            <button class="btn btn-outline" style="padding: 0.34rem 0.72rem; font-size: 0.78rem;" onclick="replayM2Race(true)">&#8635; Replay Race</button>
+          </div>
+          <div class="control-group">
+            <div class="control-label">
+              <span>Test Material in Light-Speed Race &amp; Speedometer</span>
+              <span id="m2-mat-n-label" style="color: var(--emerald-dark); font-family: var(--font-mono);">n = 2</span>
+            </div>
+            <div class="mat-pills" id="m2-mat-pills">
+              <button class="mat-pill" data-n="1" data-label="1" data-name="Air" onclick="setM2Material(1, '1', 'Air', this, true)">Air (n = 1)</button>
+              <button class="mat-pill" data-n="1.333333" data-label="4/3" data-name="Water" onclick="setM2Material(4/3, '4/3', 'Water', this, true)">Water (n = 4/3)</button>
+              <button class="mat-pill" data-n="1.5" data-label="3/2" data-name="Glass" onclick="setM2Material(3/2, '3/2', 'Glass', this, true)">Glass (n = 3/2)</button>
+              <button class="mat-pill active" data-n="2" data-label="2" data-name="Mystery Crystal" onclick="setM2Material(2, '2', 'Mystery Crystal', this, true)">Crystal (n = 2)</button>
+              <button class="mat-pill" data-n="2.5" data-label="5/2" data-name="Diamond-Like" onclick="setM2Material(5/2, '5/2', 'Diamond-Like', this, true)">Diamond-Like (n = 5/2)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="challenge-title">
+            <span id="m2-q-title">Question 1 of 4: Crystal Speed</span>
+            <span class="pts-badge">5 pts</span>
+          </div>
+          <p class="challenge-desc" id="m2-q-desc"></p>
+          <div class="choice-grid" id="m2-choices"></div>
+          <div class="action-row">
+            <button class="btn btn-outline" id="m2-prev-btn" onclick="stepM2(-1)">&larr; Prev</button>
+            <button class="btn btn-cyan" id="m2-next-btn" onclick="stepM2(1)">Next Question &rarr;</button>
+            <button class="btn btn-emerald" id="m2-go-m3-btn" style="display:none;" onclick="switchMission('mission-3', true)">Go to Mission 3 &rarr;</button>
+          </div>
+          <div id="m2-feedback" class="feedback-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISSION 3: SNELL'S RAY BENDER (20 PTS)
+         ====================================================================== -->
+    <section id="mission-3" class="mission-section">
+      <div class="mission-banner">
+        <div>
+          <span class="mission-tag">Section 25.3 • Snell's Law</span>
+          <h2>Mission 3: Snell's Ray Bender</h2>
+          <p>Predict bending direction and solve clean-math refraction problems using n₁ · sin(θ₁) = n₂ · sin(θ₂).</p>
+        </div>
+        <div class="subchallenge-pills">
+          <button class="sub-pill active" id="m3-pill-a" onclick="selectM3Sub('A', true)">3A: Direction (6 pts)</button>
+          <button class="sub-pill" id="m3-pill-b" onclick="selectM3Sub('B', true)">3B: Target Lock (7 pts)</button>
+          <button class="sub-pill" id="m3-pill-c" onclick="selectM3Sub('C', true)">3C: Snell's Math (7 pts)</button>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <div class="card">
+          <div class="canvas-wrapper">
+            <canvas id="canvas-m3"></canvas>
+          </div>
+          <div class="canvas-hud">
+            <span class="readout-chip">n₁ = <span id="m3-read-n1">1</span> | θ₁ = <span id="m3-read-t1">45°</span></span>
+            <span class="readout-chip emerald">n₂ = <span id="m3-read-n2">3/2</span> | θ₂ = <span id="m3-read-t2">?</span></span>
+          </div>
+          <div class="control-group" id="m3-slider-box" style="display:none;">
+            <div class="control-label">
+              <span>Adjust Unknown Liquid Index (n₂)</span>
+              <span id="m3-n2-val" style="color: var(--cyan-dark); font-family: var(--font-mono);">n₂ = 1</span>
+            </div>
+            <input type="range" id="m3-n2-slider" min="1.00" max="2.40" step="0.02" value="1.00">
+            <div style="font-size: 0.77rem; color: var(--text-secondary); margin-top: 0.4rem;">
+              Watch the refracted ray bend toward the normal as n₂ increases. Aim directly into the glowing sensor at θ₂ = 30°!
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- 3A -->
+          <div id="m3-panel-a">
+            <div class="challenge-title">
+              <span id="m3a-round-title">Challenge 3A — Round 1 of 2</span>
+              <span class="pts-badge">6 pts total</span>
+            </div>
+            <p class="challenge-desc" id="m3a-desc">
+              A laser beam travels from <strong>Air (n₁ = 1)</strong> into <strong>Glass (n₂ = 3/2)</strong> at θ₁ = 45°. Before firing the laser, predict what happens to the light ray!
+            </p>
+            <div style="font-size: 0.82rem; font-weight: 800; color: var(--cyan-dark); margin-bottom: 0.4rem;">1. Speed of Light:</div>
+            <div class="choice-grid" id="m3a-speed-choices">
+              <button class="choice-btn" onclick="pickM3A('speed', 'slow', this)">Slows Down (Fast → Slow)</button>
+              <button class="choice-btn" onclick="pickM3A('speed', 'fast', this)">Speeds Up (Slow → Fast)</button>
+            </div>
+            <div style="font-size: 0.82rem; font-weight: 800; color: var(--cyan-dark); margin-bottom: 0.4rem;">2. Bending Direction:</div>
+            <div class="choice-grid" id="m3a-bend-choices">
+              <button class="choice-btn" onclick="pickM3A('bend', 'toward', this)">Bends TOWARD Normal</button>
+              <button class="choice-btn" onclick="pickM3A('bend', 'away', this)">Bends AWAY from Normal</button>
+            </div>
+            <div class="action-row">
+              <button class="btn btn-cyan" id="m3a-fire-btn" onclick="checkM3A()">Fire Laser &amp; Verify</button>
+              <button class="btn btn-outline" id="m3a-next-round-btn" style="display:none;" onclick="nextM3ARound()">Start Round 2 &rarr;</button>
+              <button class="btn btn-outline" onclick="selectM3Sub('B', true)">Next: 3B &rarr;</button>
+            </div>
+            <div id="m3a-feedback" class="feedback-box"></div>
+          </div>
+
+          <!-- 3B -->
+          <div id="m3-panel-b" style="display:none;">
+            <div class="challenge-title">
+              <span>Challenge 3B: Interactive Target Lock</span>
+              <span class="pts-badge">7 pts</span>
+            </div>
+            <p class="challenge-desc">
+              Light travels from <strong>Air (n₁ = 1)</strong> into a tank of unknown liquid. The laser is fixed at <strong>θ₁ = 53°</strong> where <strong>sin(θ₁) = 4/5</strong>.<br><br>
+              Use the <strong>n₂ slider</strong> below the tank to bend the ray directly onto the underwater sensor at <strong>θ₂ = 30°</strong> (where <strong>sin(θ₂) = 1/2</strong>).
+            </p>
+            <div class="action-row">
+              <button class="btn btn-cyan" onclick="checkM3B()">Lock Underwater Target</button>
+              <button class="btn btn-outline" onclick="selectM3Sub('C', true)">Next: 3C &rarr;</button>
+            </div>
+            <div id="m3b-feedback" class="feedback-box"></div>
+          </div>
+
+          <!-- 3C -->
+          <div id="m3-panel-c" style="display:none;">
+            <div class="challenge-title">
+              <span>Challenge 3C: Clean-Math Snell's Calculation</span>
+              <span class="pts-badge">7 pts</span>
+            </div>
+            <p class="challenge-desc">
+              A laser beam travels from <strong>Air (n₁ = 1)</strong> at an angle where <strong>sin(θ₁) = 3/5</strong> into <strong>Mystery Glass (n₂ = 2)</strong>.<br><br>
+              Using Snell's Law, what is the exact fraction for <strong>sin(θ₂)</strong>?
+            </p>
+            <div class="choice-grid" id="m3c-choices">
+              <button class="choice-btn" onclick="checkM3C('3/10', this)">A) 3/10</button>
+              <button class="choice-btn" onclick="checkM3C('6/5', this)">B) 6/5</button>
+              <button class="choice-btn" onclick="checkM3C('3/5', this)">C) 3/5</button>
+              <button class="choice-btn" onclick="checkM3C('1/2', this)">D) 1/2</button>
+            </div>
+            <div class="action-row">
+              <button class="btn btn-emerald" onclick="switchMission('mission-4', true)">Go to Mission 4 &rarr;</button>
+            </div>
+            <div id="m3c-feedback" class="feedback-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISSION 4: ESCAPE OR TRAP! (20 PTS)
+         ====================================================================== -->
+    <section id="mission-4" class="mission-section">
+      <div class="mission-banner">
+        <div>
+          <span class="mission-tag">Section 25.4 • Critical Angle &amp; TIR</span>
+          <h2>Mission 4: Escape or Trap!</h2>
+          <p>Discover the Critical Angle (θc) and trigger 100% Total Internal Reflection when n₁ &gt; n₂.</p>
+        </div>
+        <div class="subchallenge-pills">
+          <button class="sub-pill active" id="m4-pill-a" onclick="selectM4Sub('A', true)">4A: PhET Discovery (7 pts)</button>
+          <button class="sub-pill" id="m4-pill-b" onclick="selectM4Sub('B', true)">4B: Hard Rule (6 pts)</button>
+          <button class="sub-pill" id="m4-pill-c" onclick="selectM4Sub('C', true)">4C: Scuba Diver (7 pts)</button>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <div class="card">
+          <div class="canvas-wrapper">
+            <canvas id="canvas-m4"></canvas>
+          </div>
+          <div class="canvas-hud">
+            <span class="readout-chip">θ₁ = <span id="m4-read-t1">15°</span></span>
+            <span class="readout-chip emerald" id="m4-read-t2">θ₂ = 31.2°</span>
+            <span class="readout-chip amber" id="m4-read-mode">Refraction + Partial Reflection</span>
+          </div>
+          <div class="control-group">
+            <div class="control-label">
+              <span id="m4-slider-title">Laser Incident Angle (θ₁)</span>
+              <span id="m4-slider-val" style="color: var(--cyan-dark); font-family: var(--font-mono);">15°</span>
+            </div>
+            <input type="range" id="m4-slider" min="5" max="75" step="0.5" value="15">
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- 4A -->
+          <div id="m4-panel-a">
+            <div class="challenge-title">
+              <span>Challenge 4A: PhET Virtual Lab Discovery</span>
+              <span class="pts-badge">7 pts</span>
+            </div>
+            <p class="challenge-desc">
+              Top medium is <strong>Mystery Glass (n₁ = 2)</strong> and bottom medium is <strong>Air (n₂ = 1)</strong>.<br><br>
+              <strong>Step 1:</strong> Tilt the laser until the refracted ray skims right along the boundary at <strong>θ₂ = 90°</strong>, then click <em>Lock Critical Angle</em>.<br>
+              <strong>Step 2:</strong> Tilt past θc (to 40° or higher) to observe <strong>100% Total Internal Reflection</strong>!
+            </p>
+            <div class="action-row">
+              <button class="btn btn-cyan" id="m4a-step1-btn" onclick="checkM4AStep1()">1. Lock Critical Angle (θc)</button>
+              <button class="btn btn-emerald" id="m4a-step2-btn" onclick="checkM4AStep2()" disabled>2. Confirm 100% TIR (&theta;₁ &gt; &theta;c)</button>
+              <button class="btn btn-outline" onclick="selectM4Sub('B', true)">Next: 4B &rarr;</button>
+            </div>
+            <div id="m4a-feedback" class="feedback-box"></div>
+          </div>
+
+          <!-- 4B -->
+          <div id="m4-panel-b" style="display:none;">
+            <div class="challenge-title">
+              <span>Challenge 4B: The Hard Rule Check</span>
+              <span class="pts-badge">6 pts</span>
+            </div>
+            <p class="challenge-desc">
+              Now the media are reversed! Top is <strong>Air (n₁ = 1)</strong> and bottom is <strong>Mystery Glass (n₂ = 2)</strong>. Try dragging the laser slider all the way up to 75°.<br><br>
+              <strong>Can Total Internal Reflection occur when light travels from Air (n₁ = 1) to Mystery Glass (n₂ = 2)?</strong>
+            </p>
+            <div class="choice-grid single-col" id="m4b-choices">
+              <button class="choice-btn" onclick="checkM4B('A', this)">A) Yes, once θ₁ exceeds 30°.</button>
+              <button class="choice-btn" onclick="checkM4B('B', this)">B) Yes, once θ₁ exceeds 45°.</button>
+              <button class="choice-btn" onclick="checkM4B('C', this)">C) No — TIR ONLY happens when going from higher n to lower n (n₁ &gt; n₂).</button>
+              <button class="choice-btn" onclick="checkM4B('D', this)">D) No — light cannot enter glass at any angle.</button>
+            </div>
+            <div class="action-row">
+              <button class="btn btn-outline" onclick="selectM4Sub('C', true)">Next: 4C &rarr;</button>
+            </div>
+            <div id="m4b-feedback" class="feedback-box"></div>
+          </div>
+
+          <!-- 4C -->
+          <div id="m4-panel-c" style="display:none;">
+            <div class="challenge-title">
+              <span>Challenge 4C: Scuba Diver's Underwater Laser</span>
+              <span class="pts-badge">7 pts</span>
+            </div>
+            <p class="challenge-desc">
+              A scuba diver shines a laser upward inside <strong>Water (n₁ = 4/3)</strong> toward <strong>Air (n₂ = 1)</strong>, where <strong>θc ≈ 48.6°</strong>.<br><br>
+              Adjust the diver's laser angle so it hits the water surface at <strong>θ₁ &gt; θc</strong>, triggering 100% Total Internal Reflection to bounce down and power up the <strong>sunken glowing beacon</strong> on the lake floor!
+            </p>
+            <div class="action-row">
+              <button class="btn btn-cyan" onclick="checkM4C()">Power Up Sunken Beacon</button>
+              <button class="btn btn-emerald" onclick="switchMission('mission-5', true)">Go to Mission 5 &rarr;</button>
+            </div>
+            <div id="m4c-feedback" class="feedback-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISSION 5: FIBER-OPTIC SIGNAL ENGINEER (20 PTS)
+         ====================================================================== -->
+    <section id="mission-5" class="mission-section">
+      <div class="mission-banner">
+        <div>
+          <span class="mission-tag">Capstone Engineering Challenge • Fiber Optics</span>
+          <h2>Mission 5: Fiber-Optic Signal Engineer</h2>
+          <p>Trap laser data pulses inside a bent fiber-optic cable with 100% Signal Integrity using Total Internal Reflection!</p>
+        </div>
+        <div class="subchallenge-pills">
+          <span class="pts-badge" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">Capstone: 20 pts</span>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <div class="card">
+          <div class="canvas-wrapper">
+            <canvas id="canvas-m5"></canvas>
+          </div>
+          <div class="canvas-hud">
+            <span class="readout-chip" id="m5-read-tc">Critical Angle: θc = 30°</span>
+            <span class="readout-chip emerald" id="m5-read-sig">Signal Integrity: 100%</span>
+            <span class="readout-chip amber" id="m5-read-bounces">TIR Bounces: 0</span>
+          </div>
+          <div class="control-group">
+            <div class="control-label">
+              <span>Step 2: Laser Launch Angle (α)</span>
+              <span id="m5-launch-val" style="color: var(--cyan-dark); font-family: var(--font-mono);">+14°</span>
+            </div>
+            <input type="range" id="m5-launch-slider" min="-35" max="35" step="1" value="14">
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="challenge-title">
+            <span>Engineer Your Fiber-Optic Link</span>
+            <span class="pts-badge">20 pts</span>
+          </div>
+          <p class="challenge-desc">
+            Every wall bounce inside the bent cable must satisfy <strong>n_core &gt; n_cladding</strong> and <strong>θᵢ &gt; θc</strong> so zero light leaks into the cladding!
+          </p>
+
+          <div class="control-group" style="margin-top: 0;">
+            <div class="control-label">
+              <span>Step 1A: Select Core Material (n_core)</span>
+              <span id="m5-core-lbl" style="color: var(--cyan-dark); font-family: var(--font-mono);">n_core = 4/3</span>
+            </div>
+            <div class="mat-pills" id="m5-core-pills">
+              <button class="mat-pill" data-val="1" data-str="1" onclick="setM5Core(1, '1', this)">Air (1)</button>
+              <button class="mat-pill active" data-val="1.333333" data-str="4/3" onclick="setM5Core(4/3, '4/3', this)">Water (4/3)</button>
+              <button class="mat-pill" data-val="1.5" data-str="3/2" onclick="setM5Core(3/2, '3/2', this)">Glass (3/2)</button>
+              <button class="mat-pill" data-val="2" data-str="2" onclick="setM5Core(2, '2', this)">Crystal (2)</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Step 1B: Select Cladding Material (n_cladding)</span>
+              <span id="m5-clad-lbl" style="color: var(--amber-dark); font-family: var(--font-mono);">n_cladding = 3/2</span>
+            </div>
+            <div class="mat-pills" id="m5-clad-pills">
+              <button class="mat-pill" data-val="1" data-str="1" onclick="setM5Clad(1, '1', this)">Air (1)</button>
+              <button class="mat-pill" data-val="1.333333" data-str="4/3" onclick="setM5Clad(4/3, '4/3', this)">Water (4/3)</button>
+              <button class="mat-pill active" data-val="1.5" data-str="3/2" onclick="setM5Clad(3/2, '3/2', this)">Glass (3/2)</button>
+              <button class="mat-pill" data-val="2" data-str="2" onclick="setM5Clad(2, '2', this)">Crystal (2)</button>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-emerald" id="m5-transmit-btn" onclick="checkM5Transmit()">Transmit Data Pulse</button>
+            <button class="btn btn-outline" onclick="switchMission('mission-report', true)">View Final Report &rarr;</button>
+          </div>
+          <div id="m5-feedback" class="feedback-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         FINAL LAB ASSESSMENT REPORT CARD
+         ====================================================================== -->
+    <section id="mission-report" class="mission-section">
+      <div class="report-card">
+        <div class="report-header">
+          <div>
+            <span class="mission-tag">Official Virtual Lab Assessment</span>
+            <h2 style="font-size: 1.5rem; margin-top: 0.25rem;">G11 - L1: Optics Mission Lab Report Card</h2>
+            <p style="color: var(--text-secondary); font-size: 0.88rem;">
+              Reflection, Refraction &amp; Total Internal Reflection • Teacher Assem Alatrash
+            </p>
+          </div>
+          <div class="mastery-badge" id="report-mastery-badge">Optics Apprentice</div>
+        </div>
+
+        <div class="report-meta-grid">
+          <div class="meta-box">
+            <div class="meta-label">Student Name</div>
+            <div class="meta-val" id="rep-student-name">Student</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Completion Date</div>
+            <div class="meta-val" id="rep-date">—</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Total Score</div>
+            <div class="meta-val" id="rep-total-score" style="color: var(--emerald);">0 / 100</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Verification Code</div>
+            <div class="meta-val" id="rep-verify-code" style="font-family: var(--font-mono); color: var(--cyan-dark);">OPT-0000</div>
+          </div>
+        </div>
+
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Mission</th>
+              <th>Physics Topic</th>
+              <th>Status</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="report-tbody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+
+        <div class="action-row no-print" style="justify-content: space-between;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+            <button class="btn btn-cyan" onclick="copyReportForTeacher()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              Copy Report for Teacher
+            </button>
+            <button class="btn btn-emerald" onclick="window.print()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="6 9 6 2 18 2 18 9"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+              </svg>
+              Print / Save as PDF
+            </button>
+          </div>
+          <button class="btn btn-danger" onclick="openResetModal()">Reset Lab</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       OPTICS TOOLKIT SLIDE-OVER DRAWER
+       ======================================================================== -->
+  <div id="drawer-backdrop" class="drawer-backdrop" onclick="closeToolkit()"></div>
+  <aside id="toolkit-drawer" class="toolkit-drawer" aria-label="Optics Toolkit">
+    <div class="drawer-header">
+      <div>
+        <h3 style="font-size: 1.08rem; color: var(--amber-dark); font-weight: 800;">Student-Friendly Optics Toolkit</h3>
+        <div style="font-size: 0.76rem; color: var(--text-secondary);">OpenStax College Physics • Ch. 25 (25.2–25.4)</div>
+      </div>
+      <button class="btn btn-outline" style="padding: 0.35rem 0.7rem;" onclick="closeToolkit()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div class="toolkit-item">
+        <h4>1. Law of Reflection</h4>
+        <div class="formula-bar">θᵢ = θᵣ</div>
+        <div class="toolkit-note">
+          <span class="toolkit-warn">Golden Rule Warning:</span> Always measure angles from the <strong>Normal Line (90°)</strong> — never from the mirror surface!
+        </div>
+      </div>
+
+      <div class="toolkit-item">
+        <h4>2. Index of Refraction</h4>
+        <div class="formula-bar">n = c / v &nbsp;&nbsp;and&nbsp;&nbsp; v = c / n</div>
+        <div class="toolkit-note">
+          Speed of light in vacuum/air: <strong>c = 300,000 (km/s)</strong>.<br>
+          n is unitless (<strong>n ≥ 1</strong>). <strong>Higher n = Slower light!</strong>
+        </div>
+      </div>
+
+      <div class="toolkit-item">
+        <h4>3. Snell's Law (Refraction)</h4>
+        <div class="formula-bar">n₁ · sin(θ₁) = n₂ · sin(θ₂)</div>
+        <div class="toolkit-note">
+          • <strong>Fast → Slow (n₁ &lt; n₂):</strong> Slows down &amp; bends <strong>TOWARD</strong> normal.<br>
+          • <strong>Slow → Fast (n₁ &gt; n₂):</strong> Speeds up &amp; bends <strong>AWAY</strong> from normal.
+        </div>
+      </div>
+
+      <div class="toolkit-item">
+        <h4>4. Critical Angle &amp; Total Internal Reflection</h4>
+        <div class="formula-bar">sin(θc) = n₂ / n₁</div>
+        <div class="toolkit-note">
+          <span class="toolkit-warn">Hard Rule:</span> TIR happens <strong>ONLY when n₁ &gt; n₂</strong> (slow → fast).<br>
+          At θ₁ = θc, refracted ray skims the surface (θ₂ = 90°).<br>
+          If <strong>θ₁ &gt; θc</strong>, <strong>100% of the light reflects</strong> back inside!
+        </div>
+      </div>
+
+      <div class="toolkit-item">
+        <h4>5. Magic Angle Values (Clean Math)</h4>
+        <div class="formula-bar">
+          sin(30°) = 1/2 &nbsp;|&nbsp; sin(90°) = 1<br>
+          3-4-5 Triangle: sin(θ) = 3/5 or 4/5<br>
+          n_air = 1
+        </div>
+      </div>
+
+      <div class="toolkit-item">
+        <h4>6. The 3-Line Method (Sample)</h4>
+        <div class="toolkit-note">Speed of light in a crystal with n = 2:</div>
+        <div class="three-line-box" style="margin-top: 0.45rem;">
+          <div><span class="step-lbl">1. Law:</span> v = c / n</div>
+          <div><span class="step-lbl">2. Sub:</span> v = 300,000 / 2</div>
+          <div><span class="step-lbl">3. Ans:</span> v = 150,000 (km/s)</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       JAVASCRIPT: WEB AUDIO SFX ENGINE, PHYSICS ENGINE, CANVAS RENDERERS & STATE
+       ======================================================================== -->
+  <script>
+    'use strict';
+
+    /* ========================================================================
+       OFFLINE INTERACTIVE SOUND EFFECTS ENGINE (WEB AUDIO API)
+       ======================================================================== */
+    const OpticsSFX = (() => {
+      let ctx = null;
+      let enabled = true;
+      let lastTickMs = 0;
+
+      function ensureContext() {
+        if (!enabled) return null;
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return null;
+          if (!ctx) ctx = new AudioCtx();
+          if (ctx.state === 'suspended') {
+            ctx.resume().catch(() => {});
+          }
+          return ctx;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // Utility to play a shaped tone with clean attack/decay (no pops)
+      function playTone(ac, {
+        type = 'sine',
+        freqStart = 440,
+        freqEnd = null,
+        startTime = 0,
+        duration = 0.14,
+        gainPeak = 0.12,
+        expFreq = true
+      }) {
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(Math.max(20, freqStart), startTime);
+        if (freqEnd !== null && freqEnd !== freqStart) {
+          if (expFreq && freqEnd > 0) {
+            osc.frequency.exponentialRampToValueAtTime(Math.max(20, freqEnd), startTime + duration);
+          } else {
+            osc.frequency.linearRampToValueAtTime(Math.max(20, freqEnd), startTime + duration);
+          }
+        }
+        gain.gain.setValueAtTime(0.0001, startTime);
+        gain.gain.linearRampToValueAtTime(gainPeak, startTime + Math.min(0.015, duration * 0.25));
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+        osc.connect(gain);
+        gain.connect(ac.destination);
+        osc.start(startTime);
+        osc.stop(startTime + duration + 0.02);
+      }
+
+      return {
+        isEnabled() {
+          return enabled;
+        },
+
+        toggle() {
+          enabled = !enabled;
+          if (enabled) {
+            this.playClick();
+          }
+          return enabled;
+        },
+
+        // 1. Exciting rising sci-fi chime arpeggio when launching the lab
+        playLaunch() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          const notes = [523.25, 659.25, 783.99, 1046.5, 1318.5];
+          notes.forEach((f, i) => {
+            playTone(ac, {
+              type: 'triangle',
+              freqStart: f,
+              startTime: t + i * 0.068,
+              duration: 0.28,
+              gainPeak: 0.11
+            });
+            playTone(ac, {
+              type: 'sine',
+              freqStart: f * 2,
+              startTime: t + i * 0.068,
+              duration: 0.18,
+              gainPeak: 0.04
+            });
+          });
+        },
+
+        // 2. Snappy high-tech UI click/blip
+        playClick() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 680,
+            freqEnd: 980,
+            startTime: t,
+            duration: 0.055,
+            gainPeak: 0.08
+          });
+          playTone(ac, {
+            type: 'triangle',
+            freqStart: 1200,
+            freqEnd: 780,
+            startTime: t + 0.01,
+            duration: 0.035,
+            gainPeak: 0.035
+          });
+        },
+
+        // 3. Throttled optical detent tick whose pitch tracks slider value (0..1)
+        playSliderTick(normalizedVal = 0.5) {
+          const now = performance.now();
+          if (now - lastTickMs < 55) return;
+          lastTickMs = now;
+          const ac = ensureContext();
+          if (!ac) return;
+          const clamped = Math.max(0, Math.min(1, normalizedVal));
+          const freq = 420 + clamped * 460;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sine',
+            freqStart: freq,
+            freqEnd: freq * 1.12,
+            startTime: t,
+            duration: 0.038,
+            gainPeak: 0.055
+          });
+        },
+
+        // 4. Sci-fi laser zap sweep + harmonic shimmer
+        playLaser() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sawtooth',
+            freqStart: 1450,
+            freqEnd: 260,
+            startTime: t,
+            duration: 0.17,
+            gainPeak: 0.07
+          });
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 2200,
+            freqEnd: 520,
+            startTime: t,
+            duration: 0.15,
+            gainPeak: 0.075
+          });
+          playTone(ac, {
+            type: 'triangle',
+            freqStart: 920,
+            freqEnd: 1380,
+            startTime: t + 0.05,
+            duration: 0.11,
+            gainPeak: 0.045
+          });
+        },
+
+        // 5. Crystalline double-ping when beam locks onto sensor / critical angle / TIR
+        playLockPing() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 1174.66, // D6
+            startTime: t,
+            duration: 0.18,
+            gainPeak: 0.11
+          });
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 1567.98, // G6
+            startTime: t + 0.085,
+            duration: 0.26,
+            gainPeak: 0.12
+          });
+          playTone(ac, {
+            type: 'triangle',
+            freqStart: 2349.32,
+            startTime: t + 0.085,
+            duration: 0.22,
+            gainPeak: 0.04
+          });
+        },
+
+        // 6. Joyful ascending bell-chord chime on correct answer / sub-challenge
+        playSuccess() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          const chord = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+          chord.forEach((f, idx) => {
+            playTone(ac, {
+              type: 'triangle',
+              freqStart: f,
+              startTime: t + idx * 0.075,
+              duration: 0.34,
+              gainPeak: 0.11
+            });
+            playTone(ac, {
+              type: 'sine',
+              freqStart: f * 2,
+              startTime: t + idx * 0.075,
+              duration: 0.22,
+              gainPeak: 0.04
+            });
+          });
+        },
+
+        // 7. Rich triumphant multi-note fanfare for completing a full mission (20/20) or capstone / 100/100
+        playGrandFanfare() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          const seq = [
+            { f: 523.25, at: 0.00, d: 0.16 }, // C5
+            { f: 659.25, at: 0.10, d: 0.16 }, // E5
+            { f: 783.99, at: 0.20, d: 0.16 }, // G5
+            { f: 1046.5, at: 0.31, d: 0.22 }, // C6
+            { f: 987.77, at: 0.47, d: 0.15 }, // B5
+            { f: 1046.5, at: 0.59, d: 0.52 }, // C6
+            { f: 1318.5, at: 0.59, d: 0.52 }, // E6 harmony
+            { f: 1567.98, at: 0.59, d: 0.52 } // G6 harmony
+          ];
+          seq.forEach(n => {
+            playTone(ac, {
+              type: 'triangle',
+              freqStart: n.f,
+              startTime: t + n.at,
+              duration: n.d,
+              gainPeak: 0.11
+            });
+            playTone(ac, {
+              type: 'sine',
+              freqStart: n.f * 0.5,
+              startTime: t + n.at,
+              duration: n.d,
+              gainPeak: 0.05
+            });
+          });
+        },
+
+        // 8. Clear attention-grabbing descending two-tone error / trap / leak alert
+        playError() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sawtooth',
+            freqStart: 310,
+            freqEnd: 245,
+            startTime: t,
+            duration: 0.14,
+            gainPeak: 0.08
+          });
+          playTone(ac, {
+            type: 'sawtooth',
+            freqStart: 225,
+            freqEnd: 165,
+            startTime: t + 0.13,
+            duration: 0.21,
+            gainPeak: 0.085
+          });
+        },
+
+        // 9. Soft futuristic swoosh for Toolkit Drawer open/close
+        playDrawer(opening) {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sine',
+            freqStart: opening ? 280 : 660,
+            freqEnd: opening ? 720 : 240,
+            startTime: t,
+            duration: 0.18,
+            gainPeak: 0.075
+          });
+          playTone(ac, {
+            type: 'triangle',
+            freqStart: opening ? 420 : 880,
+            freqEnd: opening ? 960 : 360,
+            startTime: t + 0.02,
+            duration: 0.16,
+            gainPeak: 0.035
+          });
+        },
+
+        // 10. Energetic pulse whoosh for Mission 2 Light-Speed Race
+        playRaceStart() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 360,
+            freqEnd: 1120,
+            startTime: t,
+            duration: 0.22,
+            gainPeak: 0.085
+          });
+          playTone(ac, {
+            type: 'triangle',
+            freqStart: 620,
+            freqEnd: 1480,
+            startTime: t + 0.05,
+            duration: 0.18,
+            gainPeak: 0.045
+          });
+        },
+
+        // 11a. Crisp confirmation ding for Copy Report
+        playCopy() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 880,
+            startTime: t,
+            duration: 0.12,
+            gainPeak: 0.09
+          });
+          playTone(ac, {
+            type: 'sine',
+            freqStart: 1318.5,
+            startTime: t + 0.07,
+            duration: 0.2,
+            gainPeak: 0.1
+          });
+        },
+
+        // 11b. Downward reset sweep
+        playReset() {
+          const ac = ensureContext();
+          if (!ac) return;
+          const t = ac.currentTime;
+          playTone(ac, {
+            type: 'triangle',
+            freqStart: 780,
+            freqEnd: 190,
+            startTime: t,
+            duration: 0.3,
+            gainPeak: 0.095
+          });
+        }
+      };
+    })();
+
+    /* ========================================================================
+       GLOBAL LAB STATE & PERSISTENCE
+       ======================================================================== */
+    const STORAGE_KEY = 'g11_l1_optics_mission_lab_v1';
+
+    const state = {
+      studentName: 'Student',
+      activeMission: 'mission-1',
+      scores: {
+        m1a: 0, m1b: 0, m1c: 0,
+        m2q1: 0, m2q2: 0, m2q3: 0, m2q4: 0,
+        m3a1: 0, m3a2: 0, m3b: 0, m3c: 0,
+        m4a: 0, m4b: 0, m4c: 0,
+        m5: 0
+      },
+      // Mission 1 UI State
+      m1Sub: 'A',
+      m1aAngle: 25,
+      m1cMirrorAngle: 48,
+      // Mission 2 UI State
+      m2Q: 1,
+      m2MatN: 2,
+      m2MatLabel: '2',
+      m2MatName: 'Mystery Crystal',
+      m2RaceStart: performance.now(),
+      m2NeedleV: 1.5,
+      // Mission 3 UI State
+      m3Sub: 'A',
+      m3aRound: 1,
+      m3aPickSpeed: null,
+      m3aPickBend: null,
+      m3aFired: false,
+      m3bN2: 1.00,
+      // Mission 4 UI State
+      m4Sub: 'A',
+      m4aAngle: 15,
+      m4aStep1Done: false,
+      m4bAngle: 35,
+      m4cAngle: 35,
+      // Mission 5 UI State
+      m5CoreN: 4/3,
+      m5CoreStr: '4/3',
+      m5CladN: 3/2,
+      m5CladStr: '3/2',
+      m5LaunchAngle: 14,
+      m5PulseActive: false,
+      m5PulseTime: 0,
+      // Transition flags so playLockPing() chimes ONCE per target lock event
+      lockFlags: {
+        m1a: false,
+        m1c: false,
+        m3b: false,
+        m4aCrit: false,
+        m4aTIR: false,
+        m4c: false,
+        m5: false
+      }
+    };
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          studentName: state.studentName,
+          scores: state.scores
+        }));
+      } catch (e) { /* Ignore storage errors in sandboxed iframes */ }
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const parsed = JSON.parse(raw);
+        if (parsed.studentName) state.studentName = parsed.studentName;
+        if (parsed.scores) Object.assign(state.scores, parsed.scores);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    /* ========================================================================
+       UTILITIES: MATH, TOAST, FEEDBACK, CANVAS DPI SETUP
+       ======================================================================== */
+    const DEG = Math.PI / 180;
+    const RAD = 180 / Math.PI;
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => el.classList.remove('show'), 2800);
+    }
+
+    function setFeedback(id, type, title, bodyHtml, threeLines = null) {
+      const box = document.getElementById(id);
+      if (!box) return;
+      box.className = `feedback-box show ${type}`;
+      let html = `<div style="font-weight:800; margin-bottom:0.25rem;">${title}</div><div>${bodyHtml}</div>`;
+      if (threeLines) {
+        html += `<div class="three-line-box">
+          <div><span class="step-lbl">1. Law:</span> ${threeLines[0]}</div>
+          <div><span class="step-lbl">2. Sub:</span> ${threeLines[1]}</div>
+          <div><span class="step-lbl">3. Ans:</span> ${threeLines[2]}</div>
+        </div>`;
+      }
+      box.innerHTML = html;
+    }
+
+    function formatIndexFraction(val) {
+      const known = [
+        [1.0, '1'],
+        [6/5, '6/5'],
+        [4/3, '4/3'],
+        [3/2, '3/2'],
+        [8/5, '8/5'],
+        [2.0, '2'],
+        [12/5, '12/5']
+      ];
+      for (const [k, str] of known) {
+        if (Math.abs(val - k) < 0.015) return str;
+      }
+      return val.toFixed(2);
+    }
+
+    // Setup crisp HiDPI canvas mapping to a logical coordinate system (800 x 450)
+    function prepCanvas(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return null;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return null;
+      const dpr = window.devicePixelRatio || 1;
+      const targetW = Math.round(rect.width * dpr);
+      const targetH = Math.round(rect.height * dpr);
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+      }
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(canvas.width / 800, canvas.height / 450);
+      return ctx;
+    }
+
+    // Draw a vibrant daylight-readable glowing laser beam on crisp white background
+    function drawLaser(ctx, x1, y1, x2, y2, color = '#e11d48', width = 3.4, alpha = 1.0) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.lineCap = 'round';
+      // Soft outer colored aura
+      ctx.strokeStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 11;
+      ctx.globalAlpha = alpha * 0.34;
+      ctx.lineWidth = width + 4.5;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      // Solid vivid core beam
+      ctx.shadowBlur = 4;
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      // Crisp inner bright highlight filament
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = '#ffffff';
+      ctx.globalAlpha = alpha * 0.55;
+      ctx.lineWidth = Math.max(1.0, width * 0.3);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Draw an arrowhead along a segment
+    function drawArrowMid(ctx, x1, y1, x2, y2, color = '#e11d48', frac = 0.55) {
+      const mx = x1 + (x2 - x1) * frac;
+      const my = y1 + (y2 - y1) * frac;
+      const ang = Math.atan2(y2 - y1, x2 - x1);
+      const len = 10.5;
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(mx + Math.cos(ang) * len, my + Math.sin(ang) * len);
+      ctx.lineTo(mx + Math.cos(ang + 2.55) * len, my + Math.sin(ang + 2.55) * len);
+      ctx.lineTo(mx + Math.cos(ang - 2.55) * len, my + Math.sin(ang - 2.55) * len);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawProtractor(ctx, cx, cy, r) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.stroke();
+
+      for (let deg = 0; deg < 360; deg += 10) {
+        const a = deg * DEG;
+        const isMajor = deg % 30 === 0;
+        const rIn = isMajor ? r - 11 : r - 6;
+        ctx.strokeStyle = isMajor ? 'rgba(15, 23, 42, 0.36)' : 'rgba(15, 23, 42, 0.16)';
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(a) * rIn, cy + Math.sin(a) * rIn);
+        ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    /* ========================================================================
+       SCOREBOARD, CELEBRATION AUDIO, NAVIGATION & TOOLKIT DRAWER
+       ======================================================================== */
+    function getMissionTotals() {
+      const s = state.scores;
+      const m1 = s.m1a + s.m1b + s.m1c;
+      const m2 = s.m2q1 + s.m2q2 + s.m2q3 + s.m2q4;
+      const m3 = s.m3a1 + s.m3a2 + s.m3b + s.m3c;
+      const m4 = s.m4a + s.m4b + s.m4c;
+      const m5 = s.m5;
+      const total = m1 + m2 + m3 + m4 + m5;
+      return { m1, m2, m3, m4, m5, total };
+    }
+
+    // Awards points and triggers either Grand Fanfare (if completing a 20/20 mission or 100/100) or Success chime
+    function awardScoreWithSFX(scoreKey, pts, missionKey) {
+      const before = getMissionTotals();
+      state.scores[scoreKey] = pts;
+      const after = getMissionTotals();
+      updateHUDAndReport();
+
+      const completedMissionNow = (before[missionKey] < 20 && after[missionKey] === 20);
+      const completedAllNow = (before.total < 100 && after.total === 100);
+      if (completedAllNow || completedMissionNow || missionKey === 'm5') {
+        OpticsSFX.playGrandFanfare();
+      } else {
+        OpticsSFX.playSuccess();
+      }
+    }
+
+    function updateHUDAndReport() {
+      const t = getMissionTotals();
+      document.getElementById('header-score').textContent = `${t.total} / 100`;
+      document.getElementById('header-progress-fill').style.width = `${t.total}%`;
+      document.getElementById('pts-m1').textContent = `${t.m1}/20`;
+      document.getElementById('pts-m2').textContent = `${t.m2}/20`;
+      document.getElementById('pts-m3').textContent = `${t.m3}/20`;
+      document.getElementById('pts-m4').textContent = `${t.m4}/20`;
+      document.getElementById('pts-m5').textContent = `${t.m5}/20`;
+      document.getElementById('pts-total-tab').textContent = `${t.total}%`;
+
+      document.getElementById('tab-m1').classList.toggle('completed', t.m1 === 20);
+      document.getElementById('tab-m2').classList.toggle('completed', t.m2 === 20);
+      document.getElementById('tab-m3').classList.toggle('completed', t.m3 === 20);
+      document.getElementById('tab-m4').classList.toggle('completed', t.m4 === 20);
+      document.getElementById('tab-m5').classList.toggle('completed', t.m5 === 20);
+
+      // Update subchallenge pill done states
+      document.getElementById('m1-pill-a').classList.toggle('done', state.scores.m1a > 0);
+      document.getElementById('m1-pill-b').classList.toggle('done', state.scores.m1b > 0);
+      document.getElementById('m1-pill-c').classList.toggle('done', state.scores.m1c > 0);
+
+      document.getElementById('m2-pill-1').classList.toggle('done', state.scores.m2q1 > 0);
+      document.getElementById('m2-pill-2').classList.toggle('done', state.scores.m2q2 > 0);
+      document.getElementById('m2-pill-3').classList.toggle('done', state.scores.m2q3 > 0);
+      document.getElementById('m2-pill-4').classList.toggle('done', state.scores.m2q4 > 0);
+
+      document.getElementById('m3-pill-a').classList.toggle('done', (state.scores.m3a1 + state.scores.m3a2) === 6);
+      document.getElementById('m3-pill-b').classList.toggle('done', state.scores.m3b > 0);
+      document.getElementById('m3-pill-c').classList.toggle('done', state.scores.m3c > 0);
+
+      document.getElementById('m4-pill-a').classList.toggle('done', state.scores.m4a > 0);
+      document.getElementById('m4-pill-b').classList.toggle('done', state.scores.m4b > 0);
+      document.getElementById('m4-pill-c').classList.toggle('done', state.scores.m4c > 0);
+
+      // Update Report Card
+      const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      document.getElementById('rep-student-name').textContent = state.studentName;
+      document.getElementById('rep-date').textContent = today;
+      document.getElementById('rep-total-score').textContent = `${t.total} / 100`;
+
+      let badge = 'Optics Apprentice';
+      if (t.total >= 90) badge = 'Master of Optics';
+      else if (t.total >= 75) badge = 'Optics Engineer';
+      else if (t.total >= 50) badge = 'Optics Specialist';
+      document.getElementById('report-mastery-badge').textContent = `★ ${badge}`;
+
+      // Deterministic lightweight verification code
+      let hash = 17;
+      const seed = `${state.studentName}|${t.total}|${today}`;
+      for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) % 99991;
+      const code = `OPT-${String(t.total).padStart(3, '0')}-${String(hash).padStart(5, '0').slice(0, 4)}`;
+      document.getElementById('rep-verify-code').textContent = code;
+
+      const rows = [
+        ['Mission 1: Mirror Mastery', 'Law of Reflection & Normal Line (25.2)', t.m1],
+        ['Mission 2: Speedometer & Index', 'Index of Refraction n = c / v (25.3)', t.m2],
+        ['Mission 3: Snell\'s Ray Bender', 'Refraction & Snell\'s Law (25.3)', t.m3],
+        ['Mission 4: Escape or Trap!', 'Critical Angle & TIR (25.4)', t.m4],
+        ['Mission 5: Fiber-Optic Engineer', 'Fiber-Optic Waveguide Capstone (25.4)', t.m5]
+      ];
+      const tbody = document.getElementById('report-tbody');
+      tbody.innerHTML = rows.map(([name, topic, pts]) => {
+        const status = pts === 20 ? '<span style="color:var(--emerald);font-weight:700;">✓ Mastered</span>'
+          : pts > 0 ? '<span style="color:var(--amber-dark);font-weight:700;">In Progress</span>'
+          : '<span style="color:var(--text-muted);">Not Started</span>';
+        return `<tr>
+          <td style="font-weight:700;">${name}</td>
+          <td style="color:var(--text-secondary);">${topic}</td>
+          <td>${status}</td>
+          <td style="font-family:var(--font-mono);font-weight:800;">${pts} / 20</td>
+        </tr>`;
+      }).join('');
+
+      saveState();
+    }
+
+    function switchMission(targetId, playSfx = false) {
+      if (playSfx) {
+        if (targetId === 'mission-2') OpticsSFX.playRaceStart();
+        else OpticsSFX.playClick();
+      }
+      state.activeMission = targetId;
+      document.querySelectorAll('.mission-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(targetId).classList.add('active');
+      document.querySelectorAll('.mission-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.target === targetId);
+      });
+      if (targetId === 'mission-2') {
+        state.m2RaceStart = performance.now();
+      }
+      updateHUDAndReport();
+    }
+
+    document.querySelectorAll('.mission-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchMission(tab.dataset.target, true));
+    });
+
+    // Sound Toggle Button
+    document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+      const isNowOn = OpticsSFX.toggle();
+      const btn = document.getElementById('sound-toggle-btn');
+      btn.classList.toggle('muted', !isNowOn);
+      btn.setAttribute('aria-pressed', String(isNowOn));
+      document.getElementById('sound-icon-on').style.display = isNowOn ? 'inline' : 'none';
+      document.getElementById('sound-icon-off').style.display = isNowOn ? 'none' : 'inline';
+      document.getElementById('sound-toggle-label').textContent = isNowOn ? 'Sound ON' : 'Muted';
+      showToast(isNowOn ? 'Lab Sound Effects Enabled' : 'Lab Sound Effects Muted');
+    });
+
+    function openToolkit() {
+      OpticsSFX.playDrawer(true);
+      document.getElementById('drawer-backdrop').classList.add('open');
+      document.getElementById('toolkit-drawer').classList.add('open');
+    }
+    function closeToolkit() {
+      OpticsSFX.playDrawer(false);
+      document.getElementById('drawer-backdrop').classList.remove('open');
+      document.getElementById('toolkit-drawer').classList.remove('open');
+    }
+    document.getElementById('open-toolkit-btn').addEventListener('click', openToolkit);
+
+    /* ========================================================================
+       MISSION 1: MIRROR MASTERY (CANVAS & CHALLENGES)
+       ======================================================================== */
+    function selectM1Sub(sub, playSfx = false) {
+      if (playSfx) OpticsSFX.playClick();
+      state.m1Sub = sub;
+      ['A', 'B', 'C'].forEach(k => {
+        document.getElementById(`m1-pill-${k.toLowerCase()}`).classList.toggle('active', k === sub);
+        document.getElementById(`m1-panel-${k.toLowerCase()}`).style.display = (k === sub) ? 'block' : 'none';
+      });
+      const sliderBox = document.getElementById('m1-slider-box');
+      const slider = document.getElementById('m1-slider');
+      if (sub === 'A') {
+        sliderBox.style.display = 'block';
+        document.getElementById('m1-slider-title').textContent = 'Laser Incident Angle (θᵢ from Normal)';
+        document.getElementById('m1-slider-hint').textContent = 'Adjust θᵢ so the reflected ray hits the glowing sensor at θᵣ = 42°.';
+        slider.min = 5; slider.max = 75; slider.step = 0.5; slider.value = state.m1aAngle;
+        document.getElementById('m1-slider-val').textContent = `${state.m1aAngle}°`;
+      } else if (sub === 'B') {
+        sliderBox.style.display = 'none';
+      } else {
+        sliderBox.style.display = 'block';
+        document.getElementById('m1-slider-title').textContent = 'Rotate Mirror 2 Tilt Angle';
+        document.getElementById('m1-slider-hint').textContent = 'Rotate Mirror 2 to bounce the laser cleanly through the opening into the Receiver!';
+        slider.min = 10; slider.max = 70; slider.step = 0.5; slider.value = state.m1cMirrorAngle;
+        document.getElementById('m1-slider-val').textContent = `${state.m1cMirrorAngle}°`;
+      }
+    }
+
+    document.getElementById('m1-slider').addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      const min = parseFloat(e.target.min), max = parseFloat(e.target.max);
+      OpticsSFX.playSliderTick((val - min) / (max - min));
+      document.getElementById('m1-slider-val').textContent = `${val}°`;
+
+      if (state.m1Sub === 'A') {
+        state.m1aAngle = val;
+        const aligned = Math.abs(val - 42) <= 2;
+        if (aligned && !state.lockFlags.m1a) OpticsSFX.playLockPing();
+        state.lockFlags.m1a = aligned;
+      }
+      if (state.m1Sub === 'C') {
+        state.m1cMirrorAngle = val;
+        const hit = computeM1CRelay().hitReceiver;
+        if (hit && !state.lockFlags.m1c) OpticsSFX.playLockPing();
+        state.lockFlags.m1c = hit;
+      }
+    });
+
+    function checkM1A() {
+      OpticsSFX.playLaser();
+      const err = Math.abs(state.m1aAngle - 42);
+      if (err <= 2) {
+        setTimeout(() => awardScoreWithSFX('m1a', 7, 'm1'), 130);
+        setFeedback('m1a-feedback', 'success', 'Target Locked! (+7 pts)',
+          `Awesome aim! Because the angle of incidence equals the angle of reflection, aiming at θᵢ = ${state.m1aAngle}° reflects the beam straight into the 42° sensor.`,
+          ['θᵣ = θᵢ', 'θᵣ = 42°', 'θᵢ = 42° (from the Normal Line)']);
+        showToast('Mission 1A Complete! +7 pts');
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m1a-feedback', 'error', 'Missed the Sensor!',
+          `Your reflected beam is currently at θᵣ = ${state.m1aAngle}°. Remember the Law of Reflection (θᵢ = θᵣ): adjust θᵢ closer to 42°!`);
+      }
+    }
+
+    function checkM1B(ans, btnEl) {
+      document.querySelectorAll('#m1b-choices .choice-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+      if (ans === 55) {
+        btnEl.classList.add('correct');
+        awardScoreWithSFX('m1b', 6, 'm1');
+        setFeedback('m1b-feedback', 'success', 'Trap Avoided! (+6 pts)',
+          'Great job remembering the Golden Rule! The 35° angle was measured from the mirror surface, so we subtract from 90° to find the angle from the Normal Line.',
+          ['θᵢ = 90° - θ_surface  and  θᵣ = θᵢ', 'θᵢ = 90° - 35° = 55°', 'θᵣ = 55°']);
+        showToast('Mission 1B Complete! +6 pts');
+      } else {
+        btnEl.classList.add('wrong');
+        OpticsSFX.playError();
+        setFeedback('m1b-feedback', 'error', 'Watch out for the Surface-Angle Trap!',
+          'Golden Rule Reminder: Always measure angles from the dashed Normal Line (90° perpendicular to the mirror), never from the flat mirror surface! Try again.');
+      }
+    }
+
+    // Helper for Mission 1C exact ray-segment intersection
+    function raySegmentHit(ox, oy, dx, dy, x1, y1, x2, y2) {
+      const vx = x2 - x1, vy = y2 - y1;
+      const denom = dx * vy - dy * vx;
+      if (Math.abs(denom) < 1e-6) return null;
+      const t = ((x1 - ox) * vy - (y1 - oy) * vx) / denom;
+      const u = ((x1 - ox) * dy - (y1 - oy) * dx) / denom;
+      if (t > 1e-4 && u >= 0 && u <= 1) {
+        return { t, x: ox + t * dx, y: oy + t * dy };
+      }
+      return null;
+    }
+
+    function computeM1CRelay() {
+      const m2x = 310, m2y = 340;
+      const tilt = state.m1cMirrorAngle * DEG;
+      const nx = Math.sin(tilt), ny = -Math.cos(tilt);
+      const dot = 0 * nx + 1 * ny;
+      const rx = 0 - 2 * dot * nx;
+      const ry = 1 - 2 * dot * ny;
+
+      const segments = [
+        { type: 'barrier', x1: 515, y1: 20, x2: 515, y2: 190 },
+        { type: 'barrier', x1: 515, y1: 290, x2: 515, y2: 430 },
+        { type: 'wall', x1: 0, y1: 0, x2: 800, y2: 0 },
+        { type: 'wall', x1: 800, y1: 0, x2: 800, y2: 450 },
+        { type: 'wall', x1: 800, y1: 450, x2: 0, y2: 450 },
+        { type: 'wall', x1: 0, y1: 450, x2: 0, y2: 0 }
+      ];
+
+      let best = { t: 1000, x: m2x + rx * 600, y: m2y + ry * 600, hit: 'wall' };
+      for (const seg of segments) {
+        const hit = raySegmentHit(m2x, m2y, rx, ry, seg.x1, seg.y1, seg.x2, seg.y2);
+        if (hit && hit.t < best.t) best = { ...hit, hit: seg.type };
+      }
+
+      const recX = 705, recY = 172, recR = 24;
+      const fx = m2x - recX, fy = m2y - recY;
+      const b = 2 * (fx * rx + fy * ry);
+      const c = fx * fx + fy * fy - recR * recR;
+      const disc = b * b - 4 * c;
+      let hitReceiver = false;
+      if (disc >= 0) {
+        const tHit = (-b - Math.sqrt(disc)) / 2;
+        if (tHit > 0 && tHit < best.t) {
+          best = { t: tHit, x: m2x + rx * tHit, y: m2y + ry * tHit, hit: 'receiver' };
+          hitReceiver = true;
+        }
+      }
+      return { m2x, m2y, rx, ry, nx, ny, endX: best.x, endY: best.y, hitType: best.hit, hitReceiver };
+    }
+
+    function checkM1C() {
+      OpticsSFX.playLaser();
+      const res = computeM1CRelay();
+      if (res.hitReceiver) {
+        setTimeout(() => awardScoreWithSFX('m1c', 7, 'm1'), 130);
+        setFeedback('m1c-feedback', 'success', 'Relay Complete! (+7 pts)',
+          `Bullseye! At a Mirror 2 tilt of ${state.m1cMirrorAngle}°, the beam reflects cleanly through the corridor gap and strikes the Receiver!`,
+          ['θᵣ = θᵢ (at both Mirror 1 and Mirror 2)', `Mirror 1: θᵢ = θᵣ = 45°  |  Mirror 2: θᵢ = θᵣ = ${state.m1cMirrorAngle}°`, 'Laser Relay Locked (100% Alignment)']);
+        showToast('Mission 1C Complete! +7 pts');
+      } else if (res.hitType === 'barrier') {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m1c-feedback', 'error', 'Blocked by Barrier!',
+          'Your beam hit the opaque barrier. Adjust Mirror 2 so the ray threads cleanly through the glowing gap toward the Receiver.');
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m1c-feedback', 'error', 'Missed the Receiver!',
+          'The beam passed the barrier gap but missed the Receiver. Fine-tune Mirror 2 by a couple of degrees!');
+      }
+    }
+
+    function renderMission1() {
+      const ctx = prepCanvas('canvas-m1');
+      if (!ctx) return;
+
+      // Crisp white background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 800, 450);
+
+      // Subtle light lab grid
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.055)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= 800; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 450); ctx.stroke(); }
+      for (let y = 0; y <= 450; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(800, y); ctx.stroke(); }
+
+      if (state.m1Sub === 'A' || state.m1Sub === 'B') {
+        const cx = 400, cy = 355;
+        const thetaDeg = (state.m1Sub === 'A') ? state.m1aAngle : 55;
+        const thetaRad = thetaDeg * DEG;
+
+        drawProtractor(ctx, cx, cy, 175);
+
+        // Flat Mirror surface (vivid sky-blue & slate backing)
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(140, cy, 520, 8);
+        ctx.fillStyle = '#e0f2fe';
+        ctx.fillRect(140, cy + 8, 520, 26);
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 1.5;
+        for (let hx = 155; hx < 655; hx += 18) {
+          ctx.beginPath(); ctx.moveTo(hx, cy + 8); ctx.lineTo(hx - 10, cy + 28); ctx.stroke();
+        }
+        ctx.fillStyle = '#334155';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText('FLAT MIRROR', 150, cy + 54);
+
+        // Prominent Dashed Normal Line (90°)
+        ctx.save();
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2.2;
+        ctx.setLineDash([8, 6]);
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, 55); ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = '#0369a1';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText('NORMAL LINE (90°)', cx - 60, 42);
+
+        // Right-angle marker
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.7)';
+        ctx.lineWidth = 1.6;
+        ctx.strokeRect(cx, cy - 16, 16, 16);
+
+        // Incident Ray
+        const rayLen = 285;
+        const sx = cx - Math.sin(thetaRad) * rayLen;
+        const sy = cy - Math.cos(thetaRad) * rayLen;
+        drawLaser(ctx, sx, sy, cx, cy, '#e11d48', 3.6);
+        drawArrowMid(ctx, sx, sy, cx, cy, '#e11d48', 0.5);
+
+        // Laser Emitter body
+        ctx.save();
+        ctx.translate(sx, sy);
+        ctx.rotate(Math.atan2(cy - sy, cx - sx));
+        ctx.fillStyle = '#1e293b';
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 2;
+        ctx.fillRect(-34, -11, 36, 22);
+        ctx.strokeRect(-34, -11, 36, 22);
+        ctx.fillStyle = '#e11d48';
+        ctx.fillRect(-2, -5, 6, 10);
+        ctx.restore();
+
+        // Reflected Ray
+        const ex = cx + Math.sin(thetaRad) * rayLen;
+        const ey = cy - Math.cos(thetaRad) * rayLen;
+        drawLaser(ctx, cx, cy, ex, ey, '#059669', 3.4, state.m1Sub === 'B' && state.scores.m1b === 0 ? 0.52 : 1);
+        drawArrowMid(ctx, cx, cy, ex, ey, '#059669', 0.55);
+
+        if (state.m1Sub === 'A') {
+          ctx.strokeStyle = '#e11d48';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 78, -Math.PI / 2 - thetaRad, -Math.PI / 2);
+          ctx.stroke();
+          ctx.fillStyle = '#be123c';
+          ctx.font = 'bold 14px monospace';
+          ctx.fillText(`θᵢ = ${thetaDeg}°`, cx - 112, cy - 92);
+
+          ctx.strokeStyle = '#059669';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 78, -Math.PI / 2, -Math.PI / 2 + thetaRad);
+          ctx.stroke();
+          ctx.fillStyle = '#047857';
+          ctx.fillText(`θᵣ = ${thetaDeg}°`, cx + 38, cy - 92);
+
+          // Target Sensor at 42°
+          const tRad = 42 * DEG;
+          const tx = cx + Math.sin(tRad) * 240;
+          const ty = cy - Math.cos(tRad) * 240;
+          const hit = Math.abs(thetaDeg - 42) <= 2;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(tx, ty, 18, 0, Math.PI * 2);
+          ctx.fillStyle = hit ? 'rgba(5, 150, 105, 0.22)' : 'rgba(217, 119, 6, 0.16)';
+          ctx.fill();
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = hit ? '#059669' : '#d97706';
+          ctx.shadowColor = hit ? '#10b981' : '#f59e0b';
+          ctx.shadowBlur = 12;
+          ctx.stroke();
+          ctx.restore();
+          ctx.fillStyle = hit ? '#047857' : '#b45309';
+          ctx.font = 'bold 13px sans-serif';
+          ctx.fillText('TARGET (42°)', tx + 24, ty + 4);
+
+          document.getElementById('m1-read-ti').textContent = `${thetaDeg}°`;
+          document.getElementById('m1-read-tr').textContent = `${thetaDeg}°`;
+          document.getElementById('m1-read-status').textContent = hit ? 'SENSOR ALIGNED!' : 'Target Sensor: 42°';
+        } else {
+          // 1B Surface-Angle Trap visual
+          ctx.fillStyle = 'rgba(245, 158, 11, 0.22)';
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.arc(cx, cy, 92, Math.PI, Math.PI + 35 * DEG);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = '#d97706';
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 92, Math.PI, Math.PI + 35 * DEG);
+          ctx.stroke();
+          ctx.fillStyle = '#b45309';
+          ctx.font = 'bold 15px monospace';
+          ctx.fillText('35° (surface)', cx - 216, cy - 22);
+
+          ctx.strokeStyle = '#059669';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 78, -Math.PI / 2, -Math.PI / 2 + 55 * DEG);
+          ctx.stroke();
+          ctx.fillStyle = '#047857';
+          ctx.font = 'bold 16px monospace';
+          ctx.fillText(state.scores.m1b > 0 ? 'θᵣ = 55°' : 'θᵣ = ?', cx + 44, cy - 95);
+
+          document.getElementById('m1-read-ti').textContent = state.scores.m1b > 0 ? '55°' : '?';
+          document.getElementById('m1-read-tr').textContent = state.scores.m1b > 0 ? '55°' : '?';
+          document.getElementById('m1-read-status').textContent = 'Surface Angle = 35°';
+        }
+      } else {
+        // 1C Double-Mirror Relay
+        const res = computeM1CRelay();
+
+        // Dark slate barriers for clear contrast on white
+        ctx.fillStyle = '#334155';
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 2;
+        ctx.fillRect(505, 20, 20, 170);
+        ctx.strokeRect(505, 20, 20, 170);
+        ctx.fillRect(505, 290, 20, 140);
+        ctx.strokeRect(505, 290, 20, 140);
+        ctx.fillStyle = '#334155';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillText('BARRIER', 490, 14);
+
+        // Corridor gap indicator
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.45)';
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath(); ctx.moveTo(515, 192); ctx.lineTo(515, 288); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Laser Emitter -> Mirror 1 (310, 95) -> Mirror 2 (310, 340)
+        drawLaser(ctx, 75, 95, 310, 95, '#e11d48', 3.4);
+        drawArrowMid(ctx, 75, 95, 310, 95, '#e11d48', 0.5);
+        drawLaser(ctx, 310, 95, 310, 340, '#e11d48', 3.4);
+        drawArrowMid(ctx, 310, 95, 310, 340, '#e11d48', 0.5);
+
+        // Reflected beam from Mirror 2
+        drawLaser(ctx, res.m2x, res.m2y, res.endX, res.endY, res.hitReceiver ? '#059669' : '#d97706', 3.4);
+        drawArrowMid(ctx, res.m2x, res.m2y, res.endX, res.endY, res.hitReceiver ? '#059669' : '#d97706', 0.55);
+
+        // Laser Box
+        ctx.fillStyle = '#1e293b';
+        ctx.strokeStyle = '#0f172a';
+        ctx.fillRect(35, 82, 42, 26);
+        ctx.strokeRect(35, 82, 42, 26);
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillText('LASER', 38, 74);
+
+        // Mirror 1 (fixed 45°)
+        ctx.save();
+        ctx.translate(310, 95);
+        ctx.rotate(45 * DEG);
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(-45, -4, 90, 8);
+        ctx.restore();
+        ctx.fillStyle = '#0369a1';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText('Mirror 1 (Fixed 45°)', 335, 72);
+
+        // Mirror 2 (rotatable)
+        ctx.save();
+        ctx.translate(310, 340);
+        ctx.rotate(state.m1cMirrorAngle * DEG);
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(-50, -4, 100, 8);
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.55)';
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -70); ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = '#0369a1';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText(`Mirror 2 (Tilt: ${state.m1cMirrorAngle}°)`, 230, 410);
+
+        // Receiver Target
+        const recX = 705, recY = 172;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(recX, recY, 24, 0, Math.PI * 2);
+        ctx.fillStyle = res.hitReceiver ? 'rgba(5, 150, 105, 0.24)' : 'rgba(2, 132, 199, 0.12)';
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = res.hitReceiver ? '#059669' : '#0284c7';
+        ctx.shadowColor = res.hitReceiver ? '#10b981' : '#38bdf8';
+        ctx.shadowBlur = 14;
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = res.hitReceiver ? '#047857' : '#0f172a';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText('RECEIVER', recX - 30, recY + 42);
+
+        document.getElementById('m1-read-ti').textContent = `${state.m1cMirrorAngle}°`;
+        document.getElementById('m1-read-tr').textContent = `${state.m1cMirrorAngle}°`;
+        document.getElementById('m1-read-status').textContent = res.hitReceiver ? 'RECEIVER HIT!' : 'Adjust Mirror 2';
+      }
+    }
+
+    /* ========================================================================
+       MISSION 2: SPEEDOMETER & INDEX INSPECTOR
+       ======================================================================== */
+    const M2_QUESTIONS = [
+      {
+        id: 'm2q1',
+        title: 'Question 1 of 4: Mystery Crystal Speed',
+        desc: 'A Mystery Crystal has an index of refraction <strong>n = 2</strong>. Using c = 300,000 (km/s), what is the speed of light <strong>v</strong> inside this crystal?',
+        mat: [2, '2', 'Mystery Crystal'],
+        choices: ['150,000 (km/s)', '600,000 (km/s)', '200,000 (km/s)', '100,000 (km/s)'],
+        answer: '150,000 (km/s)',
+        lines: ['v = c / n', 'v = 300,000 / 2', 'v = 150,000 (km/s)']
+      },
+      {
+        id: 'm2q2',
+        title: 'Question 2 of 4: Glass Prism Index',
+        desc: 'Light slows down to <strong>v = 200,000 (km/s)</strong> inside a glass prism. What is its index of refraction <strong>n</strong> as a fraction?',
+        mat: [3/2, '3/2', 'Glass'],
+        choices: ['2/3', '3/2', '2', '5/2'],
+        answer: '3/2',
+        lines: ['n = c / v', 'n = 300,000 / 200,000', 'n = 3/2']
+      },
+      {
+        id: 'm2q3',
+        title: 'Question 3 of 4: Diamond-Like Crystal',
+        desc: 'Light enters a diamond-like crystal with <strong>n = 5/2</strong>. Find the speed of light <strong>v</strong> inside the crystal.',
+        mat: [5/2, '5/2', 'Diamond-Like'],
+        choices: ['120,000 (km/s)', '150,000 (km/s)', '240,000 (km/s)', '750,000 (km/s)'],
+        answer: '120,000 (km/s)',
+        lines: ['v = c / n', 'v = 300,000 / (5/2) = 300,000 · (2/5)', 'v = 120,000 (km/s)']
+      },
+      {
+        id: 'm2q4',
+        title: 'Question 4 of 4: Conceptual Speed Race',
+        desc: 'Compare four materials: <strong>Air (n = 1)</strong>, <strong>Water (n = 4/3)</strong>, <strong>Glass (n = 3/2)</strong>, and <strong>Mystery Crystal (n = 2)</strong>. Which material slows light down the <strong>MOST</strong>?',
+        mat: [2, '2', 'Mystery Crystal'],
+        choices: ['Air (n = 1)', 'Water (n = 4/3)', 'Glass (n = 3/2)', 'Mystery Crystal (n = 2)'],
+        answer: 'Mystery Crystal (n = 2)',
+        lines: ['v = c / n  (Higher n = Slower light)', 'Compare n: 2 > 3/2 > 4/3 > 1', 'Mystery Crystal (n = 2) slows light down the most']
+      }
+    ];
+
+    function setM2Material(nVal, label, name, pillEl, playSfx = false) {
+      if (playSfx) OpticsSFX.playRaceStart();
+      state.m2MatN = nVal;
+      state.m2MatLabel = label;
+      state.m2MatName = name;
+      state.m2RaceStart = performance.now();
+      document.getElementById('m2-mat-n-label').textContent = `n = ${label}`;
+      const vKm = Math.round(300000 / nVal).toLocaleString();
+      document.getElementById('m2-sim-v').textContent = `${name}: v = ${vKm} (km/s)`;
+      if (pillEl) {
+        document.querySelectorAll('#m2-mat-pills .mat-pill').forEach(p => p.classList.remove('active'));
+        pillEl.classList.add('active');
+      }
+    }
+
+    function replayM2Race(playSfx = false) {
+      if (playSfx) OpticsSFX.playRaceStart();
+      state.m2RaceStart = performance.now();
+    }
+
+    function selectM2Q(num, playSfx = false) {
+      if (playSfx) OpticsSFX.playClick();
+      state.m2Q = num;
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`m2-pill-${i}`).classList.toggle('active', i === num);
+      }
+      const q = M2_QUESTIONS[num - 1];
+      document.getElementById('m2-q-title').textContent = q.title;
+      document.getElementById('m2-q-desc').innerHTML = q.desc;
+
+      const box = document.getElementById('m2-choices');
+      box.innerHTML = '';
+      q.choices.forEach((ch, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = `${String.fromCharCode(65 + idx)}) ${ch}`;
+        if (state.scores[q.id] > 0 && ch === q.answer) btn.classList.add('correct');
+        btn.onclick = () => checkM2Answer(q, ch, btn);
+        box.appendChild(btn);
+      });
+
+      document.getElementById('m2-prev-btn').disabled = (num === 1);
+      document.getElementById('m2-next-btn').style.display = (num < 4) ? 'inline-flex' : 'none';
+      document.getElementById('m2-go-m3-btn').style.display = (num === 4) ? 'inline-flex' : 'none';
+
+      const fb = document.getElementById('m2-feedback');
+      if (state.scores[q.id] > 0) {
+        setFeedback('m2-feedback', 'success', 'Solved! (+5 pts)', 'Here is the 3-Line Method solution:', q.lines);
+      } else {
+        fb.classList.remove('show');
+      }
+    }
+
+    function stepM2(delta) {
+      const next = Math.max(1, Math.min(4, state.m2Q + delta));
+      selectM2Q(next, true);
+    }
+
+    function checkM2Answer(q, chosen, btnEl) {
+      document.querySelectorAll('#m2-choices .choice-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+      if (chosen === q.answer) {
+        btnEl.classList.add('correct');
+        setM2Material(q.mat[0], q.mat[1], q.mat[2], null, false);
+        document.querySelectorAll('#m2-mat-pills .mat-pill').forEach(p => {
+          p.classList.toggle('active', p.dataset.label === q.mat[1]);
+        });
+        awardScoreWithSFX(q.id, 5, 'm2');
+        setFeedback('m2-feedback', 'success', 'Correct! (+5 pts)', 'Check the 3-Line Method solution below:', q.lines);
+        showToast(`Mission 2 Q${state.m2Q} Solved! +5 pts`);
+      } else {
+        btnEl.classList.add('wrong');
+        OpticsSFX.playError();
+        setFeedback('m2-feedback', 'error', 'Not Quite!',
+          'Remember: n = c / v and v = c / n, where c = 300,000 (km/s). Higher n always means slower light! Try again.');
+      }
+    }
+
+    function renderMission2(now) {
+      const ctx = prepCanvas('canvas-m2');
+      if (!ctx) return;
+
+      // Crisp white background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 800, 450);
+
+      // Left Panel: Light-Speed Race (x: 24..469)
+      ctx.fillStyle = '#f8fafc';
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1.5;
+      ctx.fillRect(24, 28, 445, 394);
+      ctx.strokeRect(24, 28, 445, 394);
+
+      ctx.fillStyle = '#0369a1';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.fillText('LIGHT-SPEED RACE TRACK', 42, 56);
+
+      // Lane 1: Vacuum / Air
+      const trackX = 46, trackW = 400;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(trackX, 95, trackW, 95);
+      ctx.strokeStyle = '#bae6fd';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(trackX, 95, trackW, 95);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 13px sans-serif';
+      ctx.fillText('LANE 1: VACUUM / AIR (n = 1)', trackX + 12, 118);
+      ctx.fillStyle = '#0284c7';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText('c = 300,000 (km/s)', trackX + 245, 118);
+
+      // Lane 2: Selected Medium
+      ctx.fillStyle = '#e0f2fe';
+      ctx.fillRect(trackX, 235, trackW, 95);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(trackX, 235, trackW, 95);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 13px sans-serif';
+      ctx.fillText(`LANE 2: ${state.m2MatName.toUpperCase()} (n = ${state.m2MatLabel})`, trackX + 12, 258);
+      ctx.fillStyle = '#b45309';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText(`v = ${Math.round(300000 / state.m2MatN).toLocaleString()} (km/s)`, trackX + 235, 258);
+
+      // Finish line
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath(); ctx.moveTo(trackX + trackW - 22, 95); ctx.lineTo(trackX + trackW - 22, 330); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Animate light pulses
+      const elapsed = ((now - state.m2RaceStart) / 1000) % 3.6;
+      const durC = 1.4;
+      const fracC = Math.min(1, elapsed / durC);
+      const fracV = Math.min(1, elapsed / (durC * state.m2MatN));
+
+      const px1 = trackX + 18 + fracC * (trackW - 40);
+      const px2 = trackX + 18 + fracV * (trackW - 40);
+
+      // Draw Pulse 1 (Cyan)
+      drawLaser(ctx, Math.max(trackX + 14, px1 - 48), 154, px1, 154, '#0284c7', 6);
+      // Draw Pulse 2 (Amber)
+      drawLaser(ctx, Math.max(trackX + 14, px2 - 48), 294, px2, 294, '#d97706', 6);
+
+      ctx.fillStyle = '#475569';
+      ctx.font = '12px sans-serif';
+      ctx.fillText('Notice: Higher n makes the light pulse travel visibly slower!', 46, 376);
+
+      // Right Panel: Modern Bright White-Faced Speedometer Dial (center 635, 235)
+      const gx = 635, gy = 235, gr = 128;
+      ctx.save();
+      // Dial bezel
+      ctx.beginPath();
+      ctx.arc(gx, gy, gr + 12, 0, Math.PI * 2);
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fill();
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = '#94a3b8';
+      ctx.stroke();
+
+      // White dial face
+      ctx.beginPath();
+      ctx.arc(gx, gy, gr, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.stroke();
+
+      // Speedometer scale from 0 to 4 (×100,000 km/s)
+      const startAng = 140 * DEG;
+      const sweep = 260 * DEG;
+      for (let i = 0; i <= 40; i++) {
+        const val = i / 10;
+        const a = startAng + (val / 4) * sweep;
+        const isMaj = i % 10 === 0;
+        const rIn = isMaj ? gr - 20 : gr - 11;
+        ctx.strokeStyle = (val === 3) ? '#0284c7' : (isMaj ? '#0f172a' : '#94a3b8');
+        ctx.lineWidth = isMaj ? 2.6 : 1.2;
+        ctx.beginPath();
+        ctx.moveTo(gx + Math.cos(a) * rIn, gy + Math.sin(a) * rIn);
+        ctx.lineTo(gx + Math.cos(a) * (gr - 4), gy + Math.sin(a) * (gr - 4));
+        ctx.stroke();
+
+        if (isMaj) {
+          ctx.fillStyle = (val === 3) ? '#0284c7' : '#0f172a';
+          ctx.font = 'bold 16px monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(String(val), gx + Math.cos(a) * (gr - 36), gy + Math.sin(a) * (gr - 36));
+        }
+      }
+
+      // Labels on dial
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('SPEED OF LIGHT', gx, gy - 42);
+      ctx.fillStyle = '#0284c7';
+      ctx.font = 'bold 11px monospace';
+      ctx.fillText('×100,000 (km/s)', gx, gy + 58);
+
+      // Smoothly ease needle toward 3 / n
+      const targetNeedle = 3 / state.m2MatN;
+      state.m2NeedleV += (targetNeedle - state.m2NeedleV) * 0.12;
+
+      // Reference cyan needle at c = 3
+      const angC = startAng + (3 / 4) * sweep;
+      ctx.strokeStyle = 'rgba(2, 132, 199, 0.35)';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(gx, gy);
+      ctx.lineTo(gx + Math.cos(angC) * (gr - 26), gy + Math.sin(angC) * (gr - 26));
+      ctx.stroke();
+
+      // Active amber needle at v
+      const angV = startAng + (state.m2NeedleV / 4) * sweep;
+      ctx.strokeStyle = '#d97706';
+      ctx.shadowColor = 'rgba(217, 119, 6, 0.45)';
+      ctx.shadowBlur = 8;
+      ctx.lineWidth = 4.2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(gx - Math.cos(angV) * 18, gy - Math.sin(angV) * 18);
+      ctx.lineTo(gx + Math.cos(angV) * (gr - 24), gy + Math.sin(angV) * (gr - 24));
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Center cap
+      ctx.beginPath();
+      ctx.arc(gx, gy, 10, 0, Math.PI * 2);
+      ctx.fillStyle = '#0f172a';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(gx, gy, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /* ========================================================================
+       MISSION 3: SNELL'S RAY BENDER
+       ======================================================================== */
+    function selectM3Sub(sub, playSfx = false) {
+      if (playSfx) OpticsSFX.playClick();
+      state.m3Sub = sub;
+      ['A', 'B', 'C'].forEach(k => {
+        document.getElementById(`m3-pill-${k.toLowerCase()}`).classList.toggle('active', k === sub);
+        document.getElementById(`m3-panel-${k.toLowerCase()}`).style.display = (k === sub) ? 'block' : 'none';
+      });
+      document.getElementById('m3-slider-box').style.display = (sub === 'B') ? 'block' : 'none';
+    }
+
+    function pickM3A(group, val, btnEl) {
+      OpticsSFX.playClick();
+      if (group === 'speed') {
+        state.m3aPickSpeed = val;
+        document.querySelectorAll('#m3a-speed-choices .choice-btn').forEach(b => b.classList.remove('selected'));
+      } else {
+        state.m3aPickBend = val;
+        document.querySelectorAll('#m3a-bend-choices .choice-btn').forEach(b => b.classList.remove('selected'));
+      }
+      btnEl.classList.add('selected');
+    }
+
+    function checkM3A() {
+      if (!state.m3aPickSpeed || !state.m3aPickBend) {
+        OpticsSFX.playError();
+        setFeedback('m3a-feedback', 'info', 'Make Both Predictions First',
+          'Select both how the speed changes AND which way the ray bends, then fire the laser!');
+        return;
+      }
+      OpticsSFX.playLaser();
+      state.m3aFired = true;
+      const isR1 = state.m3aRound === 1;
+      const okSpeed = isR1 ? (state.m3aPickSpeed === 'slow') : (state.m3aPickSpeed === 'fast');
+      const okBend = isR1 ? (state.m3aPickBend === 'toward') : (state.m3aPickBend === 'away');
+
+      if (okSpeed && okBend) {
+        if (isR1) {
+          setTimeout(() => awardScoreWithSFX('m3a1', 3, 'm3'), 130);
+          document.getElementById('m3a-next-round-btn').style.display = 'inline-flex';
+          setFeedback('m3a-feedback', 'success', 'Round 1 Correct! (+3 pts)',
+            'Fast to Slow (Air n₁ = 1 → Glass n₂ = 3/2): Light slows down and bends TOWARD the normal (θ₂ &lt; θ₁).');
+        } else {
+          setTimeout(() => awardScoreWithSFX('m3a2', 3, 'm3'), 130);
+          setFeedback('m3a-feedback', 'success', 'Round 2 Correct! (+3 pts)',
+            'Slow to Fast (Glass n₁ = 3/2 → Air n₂ = 1): Light speeds up and bends AWAY from the normal (θ₂ &gt; θ₁).');
+        }
+        showToast(`Mission 3A Round ${state.m3aRound} Complete! +3 pts`);
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m3a-feedback', 'error', 'Look at the Refracted Ray on Canvas!',
+          isR1
+            ? 'When going from Air (n₁ = 1) to Glass (n₂ = 3/2), n increases so light SLOWS DOWN and bends TOWARD the normal.'
+            : 'When going from Glass (n₁ = 3/2) to Air (n₂ = 1), n decreases so light SPEEDS UP and bends AWAY from the normal.');
+      }
+    }
+
+    function nextM3ARound() {
+      OpticsSFX.playClick();
+      state.m3aRound = 2;
+      state.m3aPickSpeed = null;
+      state.m3aPickBend = null;
+      state.m3aFired = false;
+      document.querySelectorAll('#m3a-speed-choices .choice-btn, #m3a-bend-choices .choice-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('m3a-round-title').textContent = 'Challenge 3A — Round 2 of 2';
+      document.getElementById('m3a-desc').innerHTML = 'Now light travels from <strong>Glass (n₁ = 3/2)</strong> into <strong>Air (n₂ = 1)</strong> at θ₁ = 30°. Predict how the ray behaves!';
+      document.getElementById('m3a-next-round-btn').style.display = 'none';
+      document.getElementById('m3a-feedback').classList.remove('show');
+    }
+
+    document.getElementById('m3-n2-slider').addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      state.m3bN2 = val;
+      OpticsSFX.playSliderTick((val - 1.0) / (2.4 - 1.0));
+      document.getElementById('m3-n2-val').textContent = `n₂ = ${formatIndexFraction(state.m3bN2)}`;
+
+      const locked = Math.abs(val - 1.6) <= 0.05;
+      if (locked && !state.lockFlags.m3b) OpticsSFX.playLockPing();
+      state.lockFlags.m3b = locked;
+    });
+
+    function checkM3B() {
+      OpticsSFX.playLaser();
+      if (Math.abs(state.m3bN2 - 1.6) <= 0.05) {
+        state.m3bN2 = 1.6;
+        document.getElementById('m3-n2-slider').value = '1.60';
+        document.getElementById('m3-n2-val').textContent = 'n₂ = 8/5';
+        setTimeout(() => awardScoreWithSFX('m3b', 7, 'm3'), 130);
+        setFeedback('m3b-feedback', 'success', 'Underwater Target Locked! (+7 pts)',
+          'Spot on! Here is the exact 3-Line Snell\'s Law proof:',
+          ['n₁ · sin(θ₁) = n₂ · sin(θ₂)', '1 · (4/5) = n₂ · (1/2)', 'n₂ = 8/5']);
+        showToast('Mission 3B Complete! +7 pts');
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m3b-feedback', 'error', 'Beam Missed the Sensor!',
+          `Current n₂ = ${formatIndexFraction(state.m3bN2)}. Adjust n₂ until the refracted beam points straight into the glowing sensor at θ₂ = 30°!`);
+      }
+    }
+
+    function checkM3C(ans, btnEl) {
+      document.querySelectorAll('#m3c-choices .choice-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+      if (ans === '3/10') {
+        btnEl.classList.add('correct');
+        awardScoreWithSFX('m3c', 7, 'm3');
+        setFeedback('m3c-feedback', 'success', 'Clean-Math Mastery! (+7 pts)',
+          'Excellent work using fractions and the 3-Line Method:',
+          ['n₁ · sin(θ₁) = n₂ · sin(θ₂)', '1 · (3/5) = 2 · sin(θ₂)', 'sin(θ₂) = 3/10']);
+        showToast('Mission 3C Complete! +7 pts');
+      } else {
+        btnEl.classList.add('wrong');
+        OpticsSFX.playError();
+        setFeedback('m3c-feedback', 'error', 'Check Your Algebra!',
+          'Substitute n₁ = 1, sin(θ₁) = 3/5, and n₂ = 2 into n₁ · sin(θ₁) = n₂ · sin(θ₂), then divide both sides by 2.');
+      }
+    }
+
+    function renderMission3() {
+      const ctx = prepCanvas('canvas-m3');
+      if (!ctx) return;
+
+      let n1 = 1, n2 = 1.5, n1Lbl = '1', n2Lbl = '3/2', topName = 'AIR', botName = 'GLASS', t1Deg = 45, showRefracted = true;
+      if (state.m3Sub === 'A') {
+        if (state.m3aRound === 1) {
+          n1 = 1; n2 = 1.5; n1Lbl = '1'; n2Lbl = '3/2'; topName = 'AIR'; botName = 'GLASS'; t1Deg = 45;
+        } else {
+          n1 = 1.5; n2 = 1; n1Lbl = '3/2'; n2Lbl = '1'; topName = 'GLASS'; botName = 'AIR'; t1Deg = 30;
+        }
+        showRefracted = state.m3aFired;
+      } else if (state.m3Sub === 'B') {
+        n1 = 1; n2 = state.m3bN2; n1Lbl = '1'; n2Lbl = formatIndexFraction(n2);
+        topName = 'AIR'; botName = 'UNKNOWN LIQUID'; t1Deg = 53.13;
+      } else {
+        n1 = 1; n2 = 2; n1Lbl = '1'; n2Lbl = '2'; topName = 'AIR'; botName = 'MYSTERY GLASS'; t1Deg = 36.87;
+      }
+
+      const cx = 400, cy = 225;
+      // Crisp white for Air, translucent sky-blue for denser Glass/Liquid
+      ctx.fillStyle = n1 > 1 ? 'rgba(14, 165, 233, 0.20)' : '#ffffff';
+      ctx.fillRect(0, 0, 800, cy);
+      ctx.fillStyle = n2 > 1 ? `rgba(14, 165, 233, ${Math.min(0.34, 0.12 + (n2 - 1) * 0.16)})` : '#ffffff';
+      ctx.fillRect(0, cy, 800, 450 - cy);
+
+      // Boundary line
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(800, cy); ctx.stroke();
+
+      // Medium labels
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.fillText(`${topName} (n₁ = ${n1Lbl})`, 22, 34);
+      ctx.fillText(`${botName} (n₂ = ${n2Lbl})`, 22, 426);
+
+      // Protractor & Normal Line
+      drawProtractor(ctx, cx, cy, 165);
+      ctx.save();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([7, 6]);
+      ctx.beginPath(); ctx.moveTo(cx, 25); ctx.lineTo(cx, 425); ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle = '#0369a1';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('NORMAL', cx + 8, 40);
+
+      // Incident Ray
+      const t1Rad = t1Deg * DEG;
+      const sx = cx - Math.sin(t1Rad) * 230;
+      const sy = cy - Math.cos(t1Rad) * 230;
+      drawLaser(ctx, sx, sy, cx, cy, '#e11d48', 3.6);
+      drawArrowMid(ctx, sx, sy, cx, cy, '#e11d48', 0.52);
+
+      // Faint partial reflection
+      const rx = cx + Math.sin(t1Rad) * 210;
+      const ry = cy - Math.cos(t1Rad) * 210;
+      drawLaser(ctx, cx, cy, rx, ry, '#e11d48', 1.8, 0.25);
+
+      // Snell's Law Refracted Ray
+      const sinT2 = (n1 / n2) * Math.sin(t1Rad);
+      let t2DegText = '?';
+      if (showRefracted && sinT2 <= 1) {
+        const t2Rad = Math.asin(sinT2);
+        const t2Deg = t2Rad * RAD;
+        t2DegText = `${t2Deg.toFixed(1)}°`;
+        const ex = cx + Math.sin(t2Rad) * 230;
+        const ey = cy + Math.cos(t2Rad) * 230;
+        drawLaser(ctx, cx, cy, ex, ey, '#059669', 3.6);
+        drawArrowMid(ctx, cx, cy, ex, ey, '#059669', 0.55);
+
+        ctx.strokeStyle = '#059669';
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 68, Math.PI / 2 - t2Rad, Math.PI / 2);
+        ctx.stroke();
+      }
+
+      // Target sensor in 3B at θ₂ = 30°
+      if (state.m3Sub === 'B') {
+        const targRad = 30 * DEG;
+        const tx = cx + Math.sin(targRad) * 185;
+        const ty = cy + Math.cos(targRad) * 185;
+        const locked = Math.abs(state.m3bN2 - 1.6) <= 0.05;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(tx, ty, 17, 0, Math.PI * 2);
+        ctx.fillStyle = locked ? 'rgba(5, 150, 105, 0.24)' : 'rgba(217, 119, 6, 0.18)';
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = locked ? '#059669' : '#d97706';
+        ctx.shadowColor = locked ? '#10b981' : '#f59e0b';
+        ctx.shadowBlur = 12;
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = locked ? '#047857' : '#b45309';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText('SENSOR (θ₂ = 30°)', tx + 24, ty + 4);
+      }
+
+      document.getElementById('m3-read-n1').textContent = n1Lbl;
+      document.getElementById('m3-read-t1').textContent = `${Math.round(t1Deg)}°`;
+      document.getElementById('m3-read-n2').textContent = n2Lbl;
+      document.getElementById('m3-read-t2').textContent = t2DegText;
+    }
+
+    /* ========================================================================
+       MISSION 4: ESCAPE OR TRAP! (CRITICAL ANGLE & TIR)
+       ======================================================================== */
+    function selectM4Sub(sub, playSfx = false) {
+      if (playSfx) OpticsSFX.playClick();
+      state.m4Sub = sub;
+      ['A', 'B', 'C'].forEach(k => {
+        document.getElementById(`m4-pill-${k.toLowerCase()}`).classList.toggle('active', k === sub);
+        document.getElementById(`m4-panel-${k.toLowerCase()}`).style.display = (k === sub) ? 'block' : 'none';
+      });
+      const slider = document.getElementById('m4-slider');
+      if (sub === 'A') {
+        slider.min = 5; slider.max = 75; slider.value = state.m4aAngle;
+        document.getElementById('m4-slider-title').textContent = 'Laser Angle in Mystery Glass (θ₁)';
+        document.getElementById('m4-slider-val').textContent = `${state.m4aAngle}°`;
+      } else if (sub === 'B') {
+        slider.min = 5; slider.max = 75; slider.value = state.m4bAngle;
+        document.getElementById('m4-slider-title').textContent = 'Laser Angle in Air (θ₁)';
+        document.getElementById('m4-slider-val').textContent = `${state.m4bAngle}°`;
+      } else {
+        slider.min = 15; slider.max = 72; slider.value = state.m4cAngle;
+        document.getElementById('m4-slider-title').textContent = 'Diver\'s Underwater Laser Angle (θ₁ from Normal)';
+        document.getElementById('m4-slider-val').textContent = `${state.m4cAngle}°`;
+      }
+    }
+
+    document.getElementById('m4-slider').addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      const min = parseFloat(e.target.min), max = parseFloat(e.target.max);
+      OpticsSFX.playSliderTick((val - min) / (max - min));
+      document.getElementById('m4-slider-val').textContent = `${val}°`;
+
+      if (state.m4Sub === 'A') {
+        state.m4aAngle = val;
+        const atCrit = Math.abs(val - 30) <= 1.5;
+        const inTIR = val >= 38;
+        if (atCrit && !state.lockFlags.m4aCrit) OpticsSFX.playLockPing();
+        if (inTIR && !state.lockFlags.m4aTIR) OpticsSFX.playLockPing();
+        state.lockFlags.m4aCrit = atCrit;
+        state.lockFlags.m4aTIR = inTIR;
+      } else if (state.m4Sub === 'B') {
+        state.m4bAngle = val;
+      } else {
+        state.m4cAngle = val;
+        const hit = computeM4C().beaconHit;
+        if (hit && !state.lockFlags.m4c) OpticsSFX.playLockPing();
+        state.lockFlags.m4c = hit;
+      }
+    });
+
+    function checkM4AStep1() {
+      OpticsSFX.playLaser();
+      if (Math.abs(state.m4aAngle - 30) <= 1.5) {
+        state.m4aStep1Done = true;
+        document.getElementById('m4a-step2-btn').disabled = false;
+        setTimeout(() => OpticsSFX.playLockPing(), 130);
+        setFeedback('m4a-feedback', 'info', 'Step 1 Locked! θc = 30°',
+          'At θ₁ = 30°, the refracted ray skims the boundary at θ₂ = 90°! Now tilt the laser PAST 30° (to 40° or greater) and click Step 2 to confirm 100% TIR!');
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m4a-feedback', 'error', 'Not at the Critical Angle Yet!',
+          `Current θ₁ = ${state.m4aAngle}°. Watch for the exact angle where the refracted ray hits θ₂ = 90° right along the boundary (hint: sin(θc) = 1/2).`);
+      }
+    }
+
+    function checkM4AStep2() {
+      OpticsSFX.playLaser();
+      if (state.m4aAngle >= 38) {
+        setTimeout(() => awardScoreWithSFX('m4a', 7, 'm4'), 130);
+        setFeedback('m4a-feedback', 'success', 'PhET Discovery Complete! (+7 pts)',
+          'At angles greater than θc = 30°, the refracted ray completely vanishes and 100% of the light reflects back inside Mystery Glass!',
+          ['sin(θc) = n₂ / n₁', 'sin(θc) = 1 / 2', 'θc = 30° (TIR occurs for all θ₁ > 30°)']);
+        showToast('Mission 4A Complete! +7 pts');
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m4a-feedback', 'error', 'Tilt Further Past θc!',
+          `Current θ₁ = ${state.m4aAngle}°. Tilt the laser to 40° or greater to clearly observe 100% Total Internal Reflection.`);
+      }
+    }
+
+    function checkM4B(ans, btnEl) {
+      document.querySelectorAll('#m4b-choices .choice-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+      if (ans === 'C') {
+        btnEl.classList.add('correct');
+        awardScoreWithSFX('m4b', 6, 'm4');
+        setFeedback('m4b-feedback', 'success', 'Hard Rule Mastered! (+6 pts)',
+          'Correct! When going from Air (n₁ = 1) to Glass (n₂ = 2), the ray bends TOWARD the normal, so θ₂ can never reach 90°. TIR requires n₁ > n₂!');
+        showToast('Mission 4B Complete! +6 pts');
+      } else {
+        btnEl.classList.add('wrong');
+        OpticsSFX.playError();
+        setFeedback('m4b-feedback', 'error', 'Test the Laser Slider!',
+          'Even at θ₁ = 75°, notice the ray STILL enters the glass and bends toward the normal. Check the Hard Rule in your Optics Toolkit!');
+      }
+    }
+
+    function computeM4C() {
+      const ox = 160, oy = 240, surfY = 110, floorY = 365;
+      const t1Rad = state.m4cAngle * DEG;
+      const hitX = ox + (oy - surfY) * Math.tan(t1Rad);
+      const n1 = 4 / 3, n2 = 1;
+      const sinT2 = (n1 / n2) * Math.sin(t1Rad);
+      const isTIR = sinT2 >= 1;
+      const floorX = hitX + (floorY - surfY) * Math.tan(t1Rad);
+      const beaconHit = isTIR && Math.abs(floorX - 690) <= 34;
+      return { ox, oy, surfY, floorY, hitX, floorX, sinT2, isTIR, beaconHit };
+    }
+
+    function checkM4C() {
+      OpticsSFX.playLaser();
+      const res = computeM4C();
+      if (res.beaconHit) {
+        setTimeout(() => awardScoreWithSFX('m4c', 7, 'm4'), 130);
+        setFeedback('m4c-feedback', 'success', 'Sunken Beacon Powered! (+7 pts)',
+          `Brilliant underwater optics! At θ₁ = ${state.m4cAngle}° (> θc ≈ 48.6°), 100% of the laser bounces off the water-air boundary and hits the sunken beacon!`,
+          ['sin(θc) = n₂ / n₁', 'sin(θc) = 1 / (4/3) = 3/4', `θc ≈ 48.6° → θ₁ = ${state.m4cAngle}° triggers 100% TIR`]);
+        showToast('Mission 4C Complete! +7 pts');
+      } else if (!res.isTIR) {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m4c-feedback', 'error', 'Light Escaped Into the Air!',
+          `Your angle (${state.m4cAngle}°) is below the critical angle (θc ≈ 48.6°), so most of the laser escaped into the air. Increase θ₁ past 48.6°!`);
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m4c-feedback', 'error', 'TIR Triggered, But Missed the Beacon!',
+          'You achieved 100% Total Internal Reflection! Now fine-tune the diver\'s laser angle so the reflected beam lands right on the sunken beacon.');
+      }
+    }
+
+    function renderMission4(now) {
+      const ctx = prepCanvas('canvas-m4');
+      if (!ctx) return;
+
+      if (state.m4Sub === 'A' || state.m4Sub === 'B') {
+        const isA = state.m4Sub === 'A';
+        const n1 = isA ? 2 : 1;
+        const n2 = isA ? 1 : 2;
+        const t1Deg = isA ? state.m4aAngle : state.m4bAngle;
+        const t1Rad = t1Deg * DEG;
+        const cx = 400, cy = 225;
+
+        // Crisp white for Air, soft translucent sky-blue for Mystery Glass
+        ctx.fillStyle = isA ? 'rgba(14, 165, 233, 0.22)' : '#ffffff';
+        ctx.fillRect(0, 0, 800, cy);
+        ctx.fillStyle = isA ? '#ffffff' : 'rgba(14, 165, 233, 0.22)';
+        ctx.fillRect(0, cy, 800, 450 - cy);
+
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2.2;
+        ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(800, cy); ctx.stroke();
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 14px sans-serif';
+        ctx.fillText(isA ? 'MYSTERY GLASS (n₁ = 2)' : 'AIR (n₁ = 1)', 22, 34);
+        ctx.fillText(isA ? 'AIR (n₂ = 1)' : 'MYSTERY GLASS (n₂ = 2)', 22, 426);
+
+        drawProtractor(ctx, cx, cy, 165);
+        ctx.save();
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([7, 6]);
+        ctx.beginPath(); ctx.moveTo(cx, 25); ctx.lineTo(cx, 425); ctx.stroke();
+        ctx.restore();
+
+        // Incident ray
+        const sx = cx - Math.sin(t1Rad) * 230;
+        const sy = cy - Math.cos(t1Rad) * 230;
+        drawLaser(ctx, sx, sy, cx, cy, '#e11d48', 3.6);
+        drawArrowMid(ctx, sx, sy, cx, cy, '#e11d48', 0.5);
+
+        const sinT2 = (n1 / n2) * Math.sin(t1Rad);
+        const rx = cx + Math.sin(t1Rad) * 230;
+        const ry = cy - Math.cos(t1Rad) * 230;
+
+        if (sinT2 > 1.0001) {
+          drawLaser(ctx, cx, cy, rx, ry, '#e11d48', 3.9, 1.0);
+          drawArrowMid(ctx, cx, cy, rx, ry, '#e11d48', 0.55);
+          ctx.fillStyle = '#b45309';
+          ctx.font = 'bold 15px sans-serif';
+          ctx.fillText('100% TOTAL INTERNAL REFLECTION!', cx + 115, 68);
+          document.getElementById('m4-read-t2').textContent = 'No Refracted Ray';
+          document.getElementById('m4-read-mode').textContent = '100% TOTAL INTERNAL REFLECTION!';
+        } else if (Math.abs(sinT2 - 1) <= 0.025) {
+          drawLaser(ctx, cx, cy, 760, cy, '#d97706', 3.6, 0.96);
+          drawLaser(ctx, cx, cy, rx, ry, '#e11d48', 2.8, 0.68);
+          ctx.fillStyle = '#b45309';
+          ctx.font = 'bold 14px sans-serif';
+          ctx.fillText('CRITICAL ANGLE (θ₂ = 90°)', cx + 135, cy - 12);
+          document.getElementById('m4-read-t2').textContent = 'θ₂ = 90° (Skimming!)';
+          document.getElementById('m4-read-mode').textContent = 'CRITICAL ANGLE REACHED!';
+        } else {
+          const t2Rad = Math.asin(sinT2);
+          const ex = cx + Math.sin(t2Rad) * 230;
+          const ey = cy + Math.cos(t2Rad) * 230;
+          drawLaser(ctx, cx, cy, ex, ey, '#059669', 3.5, 0.95);
+          drawArrowMid(ctx, cx, cy, ex, ey, '#059669', 0.55);
+          drawLaser(ctx, cx, cy, rx, ry, '#e11d48', 2.0, 0.28);
+          document.getElementById('m4-read-t2').textContent = `θ₂ = ${(t2Rad * RAD).toFixed(1)}°`;
+          document.getElementById('m4-read-mode').textContent = 'Refraction + Partial Reflection';
+        }
+        document.getElementById('m4-read-t1').textContent = `${t1Deg}°`;
+      } else {
+        // 4C: Bright Daylight Scuba Diver Underwater Scene
+        const res = computeM4C();
+        // Crisp white/light air above surface
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, 800, res.surfY);
+        // Clear bright aqua water body
+        const grad = ctx.createLinearGradient(0, res.surfY, 0, 450);
+        grad.addColorStop(0, '#bae6fd');
+        grad.addColorStop(1, '#7dd3fc');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, res.surfY, 800, 450 - res.surfY);
+
+        // Light sandy/slate lake floor
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillRect(0, res.floorY, 800, 450 - res.floorY);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(0, res.floorY); ctx.lineTo(800, res.floorY); ctx.stroke();
+
+        // Animated water surface wave
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let x = 0; x <= 800; x += 16) {
+          const wy = res.surfY + Math.sin(x * 0.03 + now * 0.003) * 2.5;
+          if (x === 0) ctx.moveTo(x, wy); else ctx.lineTo(x, wy);
+        }
+        ctx.stroke();
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText('AIR (n₂ = 1)', 20, 32);
+        ctx.fillStyle = '#0c4a6e';
+        ctx.fillText('WATER (n₁ = 4/3)', 20, 140);
+
+        // Normal line at surface hit point
+        if (res.hitX < 780) {
+          ctx.save();
+          ctx.strokeStyle = '#0369a1';
+          ctx.lineWidth = 1.8;
+          ctx.setLineDash([6, 5]);
+          ctx.beginPath(); ctx.moveTo(res.hitX, 25); ctx.lineTo(res.hitX, 240); ctx.stroke();
+          ctx.restore();
+        }
+
+        // Stylized Scuba Diver (crisp dark navy silhouette for high readability)
+        ctx.save();
+        ctx.translate(105, 260);
+        ctx.fillStyle = '#f59e0b';
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1.4;
+        ctx.fillRect(-35, -24, 34, 12);
+        ctx.strokeRect(-35, -24, 34, 12);
+        ctx.fillStyle = '#1e293b';
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.ellipse(-10, -2, 34, 13, -0.15, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(28, -12, 12, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillRect(32, -17, 9, 7);
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(15, 2); ctx.lineTo(52, -18); ctx.stroke();
+        ctx.restore();
+
+        // Sunken Beacon on lake floor at (690, 355)
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(690, 355, 24, 0, Math.PI * 2);
+        ctx.fillStyle = res.beaconHit ? 'rgba(5, 150, 105, 0.30)' : 'rgba(217, 119, 6, 0.22)';
+        ctx.fill();
+        ctx.lineWidth = 3.2;
+        ctx.strokeStyle = res.beaconHit ? '#059669' : '#d97706';
+        ctx.shadowColor = res.beaconHit ? '#10b981' : '#f59e0b';
+        ctx.shadowBlur = res.beaconHit ? 18 : 10;
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = res.beaconHit ? '#047857' : '#b45309';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText('SUNKEN BEACON', 640, 404);
+
+        // Incident laser from diver to surface
+        drawLaser(ctx, res.ox, res.oy, res.hitX, res.surfY, '#e11d48', 3.6);
+        drawArrowMid(ctx, res.ox, res.oy, res.hitX, res.surfY, '#e11d48', 0.55);
+
+        if (res.isTIR) {
+          drawLaser(ctx, res.hitX, res.surfY, res.floorX, res.floorY, res.beaconHit ? '#059669' : '#e11d48', 3.8);
+          drawArrowMid(ctx, res.hitX, res.surfY, res.floorX, res.floorY, res.beaconHit ? '#059669' : '#e11d48', 0.5);
+          document.getElementById('m4-read-t2').textContent = '100% Trapped!';
+          document.getElementById('m4-read-mode').textContent = res.beaconHit ? 'BEACON POWERED!' : '100% TIR (Aim at Beacon)';
+        } else {
+          const t2Rad = Math.asin(res.sinT2);
+          const airX = res.hitX + 120 * Math.tan(t2Rad);
+          drawLaser(ctx, res.hitX, res.surfY, airX, 0, '#d97706', 3.2, 0.95);
+          drawLaser(ctx, res.hitX, res.surfY, res.floorX, res.floorY, '#e11d48', 1.8, 0.26);
+          document.getElementById('m4-read-t2').textContent = `θ₂ = ${(t2Rad * RAD).toFixed(1)}° (Escapes!)`;
+          document.getElementById('m4-read-mode').textContent = 'Light Escaping (θ₁ < 48.6°)';
+        }
+        document.getElementById('m4-read-t1').textContent = `${state.m4cAngle}°`;
+      }
+    }
+
+    /* ========================================================================
+       MISSION 5: FIBER-OPTIC SIGNAL ENGINEER (EXACT WAVEGUIDE RAY TRACER)
+       ======================================================================== */
+    function checkM5LockPing() {
+      const res = traceFiberOptic();
+      const locked = (res.signal === 100 && res.reachedReceiver);
+      if (locked && !state.lockFlags.m5) OpticsSFX.playLockPing();
+      state.lockFlags.m5 = locked;
+    }
+
+    function setM5Core(val, str, pillEl) {
+      OpticsSFX.playClick();
+      state.m5CoreN = val;
+      state.m5CoreStr = str;
+      document.getElementById('m5-core-lbl').textContent = `n_core = ${str}`;
+      document.querySelectorAll('#m5-core-pills .mat-pill').forEach(p => p.classList.remove('active'));
+      pillEl.classList.add('active');
+      checkM5LockPing();
+    }
+
+    function setM5Clad(val, str, pillEl) {
+      OpticsSFX.playClick();
+      state.m5CladN = val;
+      state.m5CladStr = str;
+      document.getElementById('m5-clad-lbl').textContent = `n_cladding = ${str}`;
+      document.querySelectorAll('#m5-clad-pills .mat-pill').forEach(p => p.classList.remove('active'));
+      pillEl.classList.add('active');
+      checkM5LockPing();
+    }
+
+    document.getElementById('m5-launch-slider').addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      state.m5LaunchAngle = val;
+      OpticsSFX.playSliderTick((val + 35) / 70);
+      const sign = state.m5LaunchAngle > 0 ? '+' : '';
+      document.getElementById('m5-launch-val').textContent = `${sign}${state.m5LaunchAngle}°`;
+      checkM5LockPing();
+    });
+
+    // Exact 3-segment mitered bent fiber waveguide walls
+    const FIBER_TOP = [
+      [75, 92], [288, 92], [528, 212], [725, 212]
+    ];
+    const FIBER_BOT = [
+      [75, 162], [271, 162], [511, 282], [725, 282]
+    ];
+
+    function traceFiberOptic() {
+      const walls = [];
+      for (let i = 0; i < FIBER_TOP.length - 1; i++) {
+        walls.push({ x1: FIBER_TOP[i][0], y1: FIBER_TOP[i][1], x2: FIBER_TOP[i+1][0], y2: FIBER_TOP[i+1][1], side: 'top' });
+      }
+      for (let i = 0; i < FIBER_BOT.length - 1; i++) {
+        walls.push({ x1: FIBER_BOT[i][0], y1: FIBER_BOT[i][1], x2: FIBER_BOT[i+1][0], y2: FIBER_BOT[i+1][1], side: 'bot' });
+      }
+      const receiverWall = { x1: 725, y1: 212, x2: 725, y2: 282, side: 'receiver' };
+      const backWall = { x1: 75, y1: 92, x2: 75, y2: 162, side: 'back' };
+
+      const canTIR = state.m5CoreN > state.m5CladN;
+      const thetaC = canTIR ? Math.asin(state.m5CladN / state.m5CoreN) : null;
+
+      let ox = 76, oy = 127;
+      let dx = Math.cos(state.m5LaunchAngle * DEG);
+      let dy = Math.sin(state.m5LaunchAngle * DEG);
+
+      const path = [{ x: ox, y: oy }];
+      const leaks = [];
+      let signal = 100;
+      let tirBounces = 0;
+      let reachedReceiver = false;
+
+      for (let step = 0; step < 18; step++) {
+        let best = null;
+        for (const w of [...walls, receiverWall, backWall]) {
+          const hit = raySegmentHit(ox, oy, dx, dy, w.x1, w.y1, w.x2, w.y2);
+          if (hit && (!best || hit.t < best.t)) {
+            best = { ...hit, wall: w };
+          }
+        }
+        if (!best) break;
+        path.push({ x: best.x, y: best.y });
+
+        if (best.wall.side === 'receiver') {
+          reachedReceiver = true;
+          break;
+        }
+        if (best.wall.side === 'back') {
+          signal = 0;
+          break;
+        }
+
+        const wx = best.wall.x2 - best.wall.x1;
+        const wy = best.wall.y2 - best.wall.y1;
+        const wLen = Math.hypot(wx, wy);
+        let nx = -wy / wLen, ny = wx / wLen;
+        if (dx * nx + dy * ny > 0) { nx = -nx; ny = -ny; }
+
+        const cosThetaI = Math.min(1, Math.max(0, -(dx * nx + dy * ny)));
+        const thetaI = Math.acos(cosThetaI);
+
+        if (canTIR && thetaI > thetaC) {
+          tirBounces++;
+          const dot = dx * nx + dy * ny;
+          dx = dx - 2 * dot * nx;
+          dy = dy - 2 * dot * ny;
+          ox = best.x + nx * 0.5;
+          oy = best.y + ny * 0.5;
+        } else {
+          signal = canTIR ? Math.max(0, signal - 45) : 0;
+          const outNx = -nx, outNy = -ny;
+          leaks.push({
+            x1: best.x, y1: best.y,
+            x2: best.x + (dx * 0.6 + outNx * 0.8) * 58,
+            y2: best.y + (dy * 0.6 + outNy * 0.8) * 58
+          });
+          if (signal <= 0) break;
+          const dot = dx * nx + dy * ny;
+          dx = dx - 2 * dot * nx;
+          dy = dy - 2 * dot * ny;
+          ox = best.x + nx * 0.5;
+          oy = best.y + ny * 0.5;
+        }
+      }
+
+      if (!reachedReceiver) signal = 0;
+      return { path, leaks, signal, tirBounces, reachedReceiver, canTIR, thetaC };
+    }
+
+    function checkM5Transmit() {
+      OpticsSFX.playLaser();
+      const res = traceFiberOptic();
+      if (res.signal === 100 && res.reachedReceiver) {
+        state.m5PulseActive = true;
+        state.m5PulseTime = performance.now();
+        setTimeout(() => awardScoreWithSFX('m5', 20, 'm5'), 130);
+        const tcDeg = (res.thetaC * RAD).toFixed(1);
+        setFeedback('m5-feedback', 'success', '100% Fiber-Optic Data Link Established! (+20 pts)',
+          `Outstanding engineering! Your laser bounced ${res.tirBounces} time(s) around the bend with ZERO leakage into the cladding!`,
+          ['sin(θc) = n_cladding / n_core', `sin(θc) = (${state.m5CladStr}) / (${state.m5CoreStr})`, `θc ≈ ${tcDeg}° → All bounces had θᵢ > θc (100% TIR!)`]);
+        showToast('Mission 5 Complete! +20 pts — Check your Report Card!');
+      } else if (!res.canTIR) {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m5-feedback', 'error', 'Core & Cladding Rule Violated!',
+          `Right now n_core (${state.m5CoreStr}) ≤ n_cladding (${state.m5CladStr}). Total Internal Reflection is impossible! Choose a Core with a HIGHER index than the Cladding.`);
+      } else {
+        setTimeout(() => OpticsSFX.playError(), 140);
+        setFeedback('m5-feedback', 'error', `Signal Integrity is ${res.signal}% (Leak Detected!)`,
+          'Part of your beam struck a bend at θᵢ < θc and leaked out in red! Try increasing the index difference (higher n_core, lower n_cladding) or adjusting the Launch Angle.');
+      }
+    }
+
+    function renderMission5(now) {
+      const ctx = prepCanvas('canvas-m5');
+      if (!ctx) return;
+
+      // Crisp white background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 800, 450);
+
+      // Subtle engineering grid
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.045)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= 800; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 450); ctx.stroke(); }
+      for (let y = 0; y <= 450; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(800, y); ctx.stroke(); }
+
+      const res = traceFiberOptic();
+
+      // Draw outer cladding jacket
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(FIBER_TOP[0][0], FIBER_TOP[0][1] - 28);
+      for (let i = 1; i < FIBER_TOP.length; i++) ctx.lineTo(FIBER_TOP[i][0], FIBER_TOP[i][1] - 28);
+      for (let i = FIBER_BOT.length - 1; i >= 0; i--) ctx.lineTo(FIBER_BOT[i][0], FIBER_BOT[i][1] + 28);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.22)';
+      ctx.fill();
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw inner optical core
+      ctx.beginPath();
+      ctx.moveTo(FIBER_TOP[0][0], FIBER_TOP[0][1]);
+      for (let i = 1; i < FIBER_TOP.length; i++) ctx.lineTo(FIBER_TOP[i][0], FIBER_TOP[i][1]);
+      for (let i = FIBER_BOT.length - 1; i >= 0; i--) ctx.lineTo(FIBER_BOT[i][0], FIBER_BOT[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(14, 165, 233, 0.18)';
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.restore();
+
+      // Labels
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText(`CLADDING (n = ${state.m5CladStr})`, 115, 52);
+      ctx.fillStyle = '#0369a1';
+      ctx.fillText(`OPTICAL CORE (n = ${state.m5CoreStr})`, 115, 206);
+
+      // Transmitter Box (Left)
+      ctx.fillStyle = '#0f172a';
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2.5;
+      ctx.fillRect(16, 92, 58, 70);
+      ctx.strokeRect(16, 92, 58, 70);
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('TX', 36, 131);
+
+      // Receiver Box (Right)
+      ctx.fillStyle = '#0f172a';
+      ctx.strokeStyle = res.signal === 100 ? '#059669' : '#64748b';
+      ctx.lineWidth = 2.5;
+      ctx.fillRect(725, 212, 58, 70);
+      ctx.strokeRect(725, 212, 58, 70);
+      ctx.fillStyle = res.signal === 100 ? '#34d399' : '#cbd5e1';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('RX', 745, 251);
+
+      // Draw ray path inside fiber
+      const beamCol = res.signal === 100 ? '#059669' : (res.signal > 0 ? '#d97706' : '#e11d48');
+      for (let i = 0; i < res.path.length - 1; i++) {
+        drawLaser(ctx, res.path[i].x, res.path[i].y, res.path[i+1].x, res.path[i+1].y, beamCol, 3.4);
+      }
+
+      // Draw leak warning beams
+      for (const lk of res.leaks) {
+        drawLaser(ctx, lk.x1, lk.y1, lk.x2, lk.y2, '#e11d48', 3.0, 0.95);
+        ctx.fillStyle = '#be123c';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillText('LEAK!', lk.x2 - 14, lk.y2 - 6);
+      }
+
+      // Animate glowing data pulses zipping through the fiber when 100% signal!
+      if (res.signal === 100 && res.path.length > 1) {
+        let totalLen = 0;
+        const segLens = [];
+        for (let i = 0; i < res.path.length - 1; i++) {
+          const l = Math.hypot(res.path[i+1].x - res.path[i].x, res.path[i+1].y - res.path[i].y);
+          segLens.push(l);
+          totalLen += l;
+        }
+        const numPulses = state.m5PulseActive ? 5 : 2;
+        for (let p = 0; p < numPulses; p++) {
+          const prog = (((now * 0.00045) + p / numPulses) % 1) * totalLen;
+          let acc = 0;
+          for (let i = 0; i < segLens.length; i++) {
+            if (prog <= acc + segLens[i]) {
+              const f = (prog - acc) / segLens[i];
+              const px = res.path[i].x + (res.path[i+1].x - res.path[i].x) * f;
+              const py = res.path[i].y + (res.path[i+1].y - res.path[i].y) * f;
+              ctx.save();
+              ctx.beginPath();
+              ctx.arc(px, py, 6.5, 0, Math.PI * 2);
+              ctx.fillStyle = '#0284c7';
+              ctx.shadowColor = '#0284c7';
+              ctx.shadowBlur = 14;
+              ctx.fill();
+              ctx.beginPath();
+              ctx.arc(px, py, 3, 0, Math.PI * 2);
+              ctx.fillStyle = '#ffffff';
+              ctx.fill();
+              ctx.restore();
+              break;
+            }
+            acc += segLens[i];
+          }
+        }
+      }
+
+      // Update HUD readouts
+      document.getElementById('m5-read-tc').textContent = res.canTIR
+        ? `Critical Angle: θc ≈ ${(res.thetaC * RAD).toFixed(1)}°`
+        : 'Critical Angle: NONE (n_core ≤ n_clad)';
+      const sigEl = document.getElementById('m5-read-sig');
+      sigEl.textContent = `Signal Integrity: ${res.signal}%`;
+      sigEl.className = `readout-chip ${res.signal === 100 ? 'emerald' : 'rose'}`;
+      document.getElementById('m5-read-bounces').textContent = `TIR Bounces: ${res.tirBounces}`;
+    }
+
+    /* ========================================================================
+       REPORT CARD ACTIONS (COPY TO CLIPBOARD & RESET MODAL)
+       ======================================================================== */
+    function copyReportForTeacher() {
+      const t = getMissionTotals();
+      const dateStr = document.getElementById('rep-date').textContent;
+      const badge = document.getElementById('report-mastery-badge').textContent;
+      const code = document.getElementById('rep-verify-code').textContent;
+
+      const text = [
+        '=================================================',
+        'G11 - L1: OPTICS MISSION LAB — ASSESSMENT REPORT',
+        'Teacher: Assem Alatrash | OpenStax Ch. 25 (25.2-25.4)',
+        '=================================================',
+        `Student Name : ${state.studentName}`,
+        `Date         : ${dateStr}`,
+        `Total Score  : ${t.total} / 100 (${badge})`,
+        `Verify Code  : ${code}`,
+        '-------------------------------------------------',
+        `Mission 1 (Mirror Mastery)       : ${t.m1} / 20`,
+        `Mission 2 (Speedometer & n)      : ${t.m2} / 20`,
+        `Mission 3 (Snell's Ray Bender)   : ${t.m3} / 20`,
+        `Mission 4 (Escape or Trap! TIR)  : ${t.m4} / 20`,
+        `Mission 5 (Fiber-Optic Engineer) : ${t.m5} / 20`,
+        '================================================='
+      ].join('\n');
+
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        OpticsSFX.playCopy();
+        showToast('Report copied! Paste it into your class submission.');
+      } catch (e) {
+        OpticsSFX.playError();
+        showToast('Could not copy automatically. Use Print / Save as PDF.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function openResetModal() {
+      OpticsSFX.playClick();
+      document.getElementById('reset-modal').classList.remove('hidden');
+    }
+    document.getElementById('cancel-reset-btn').addEventListener('click', () => {
+      OpticsSFX.playClick();
+      document.getElementById('reset-modal').classList.add('hidden');
+    });
+    document.getElementById('confirm-reset-btn').addEventListener('click', () => {
+      OpticsSFX.playReset();
+      Object.keys(state.scores).forEach(k => state.scores[k] = 0);
+      Object.keys(state.lockFlags).forEach(k => state.lockFlags[k] = false);
+      state.m4aStep1Done = false;
+      state.m3aRound = 1;
+      state.m3aFired = false;
+      state.m5PulseActive = false;
+      document.getElementById('m4a-step2-btn').disabled = true;
+      document.querySelectorAll('.feedback-box').forEach(f => f.classList.remove('show'));
+      document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('correct', 'wrong', 'selected'));
+      selectM1Sub('A', false);
+      selectM2Q(1, false);
+      selectM3Sub('A', false);
+      selectM4Sub('A', false);
+      updateHUDAndReport();
+      document.getElementById('reset-modal').classList.add('hidden');
+      switchMission('mission-1', false);
+      showToast('Lab progress has been reset!');
+    });
+
+    /* ========================================================================
+       WELCOME FLOW, HEADER NAME SYNC & MAIN ANIMATION LOOP
+       ======================================================================== */
+    function initWelcome() {
+      const hadSaved = loadState();
+      const headerInput = document.getElementById('header-student-name');
+      const welcomeInput = document.getElementById('welcome-name-input');
+      headerInput.value = state.studentName;
+      if (hadSaved && state.studentName && state.studentName !== 'Student') {
+        welcomeInput.value = state.studentName;
+      }
+
+      function launchLab() {
+        OpticsSFX.playLaunch();
+        const entered = welcomeInput.value.trim();
+        state.studentName = entered || 'Student';
+        headerInput.value = state.studentName;
+        document.getElementById('welcome-modal').classList.add('hidden');
+        updateHUDAndReport();
+        showToast(`Welcome to the Optics Lab, ${state.studentName}!`);
+      }
+
+      document.getElementById('start-lab-btn').addEventListener('click', launchLab);
+      welcomeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') launchLab();
+      });
+      headerInput.addEventListener('input', (e) => {
+        state.studentName = e.target.value.trim() || 'Student';
+        updateHUDAndReport();
+      });
+    }
+
+    function animateLoop(now) {
+      if (state.activeMission === 'mission-1') renderMission1();
+      else if (state.activeMission === 'mission-2') renderMission2(now);
+      else if (state.activeMission === 'mission-3') renderMission3();
+      else if (state.activeMission === 'mission-4') renderMission4(now);
+      else if (state.activeMission === 'mission-5') renderMission5(now);
+      requestAnimationFrame(animateLoop);
+    }
+
+    window.onload = function () {
+      initWelcome();
+      selectM1Sub('A', false);
+      selectM2Q(1, false);
+      selectM3Sub('A', false);
+      selectM4Sub('A', false);
+      updateHUDAndReport();
+      requestAnimationFrame(animateLoop);
+    };
+  </script>
+</body>
+</html>
